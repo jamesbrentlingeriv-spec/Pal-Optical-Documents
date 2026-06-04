@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "public": ".",
-  "buildCommand": "npm run build",
-  "outputDirectory": ".",
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
     {
-      "src": "^/(?!.*\\.(js|css|json|png|jpg|gif|svg|ico|pdf|webmanifest)$).*$",
-      "dest": "/index.html"
+      "src": "^/.*$",
+      "dest": "server.js"
     }
   ]
 }

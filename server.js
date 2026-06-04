@@ -33,10 +33,22 @@ app.get("*", (req, res) => {
   }
 });
 
-const server = app.listen(PORT, () => {
-  console.log(`\n==================================================`);
-  console.log(`Pal Optical Forms Web App is running!`);
-  console.log(`Open your browser at: http://localhost:${PORT}`);
-  console.log(`Press Ctrl + C to stop the server.`);
-  console.log(`==================================================\n`);
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error("Error:", err);
+  res.status(500).send("Internal Server Error");
 });
+
+// Start server only in development/standalone mode (not when imported)
+if (require.main === module) {
+  const server = app.listen(PORT, () => {
+    console.log(`\n==================================================`);
+    console.log(`Pal Optical Forms Web App is running!`);
+    console.log(`Open your browser at: http://localhost:${PORT}`);
+    console.log(`Press Ctrl + C to stop the server.`);
+    console.log(`==================================================\n`);
+  });
+}
+
+// Export app for Vercel/serverless compatibility
+module.exports = app;
