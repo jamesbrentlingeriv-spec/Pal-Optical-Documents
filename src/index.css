@@ -1,14 +1,12 @@
-@import "tailwindcss";
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap");
 @import "./styles/main.css";
 @import "./styles/forms.css";
 @import "./styles/replicas.css";
 @import "./styles/print.css" print;
 
-@theme {
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Signature drawing inversion in dark mode */
 body.dark-mode canvas, body.dark-mode .signature-canvas-wrapper canvas {

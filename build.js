@@ -12,6 +12,7 @@ console.log("📦 Building frontend with Vite...");
 let result = spawnSync("npx", ["vite", "build"], {
   cwd: __dirname,
   stdio: "inherit",
+  shell: true,
 });
 if (result.status !== 0) {
   console.error("❌ Frontend build failed");
@@ -35,11 +36,13 @@ result = spawnSync(
     "node",
     "--skipLibCheck",
     "--strict",
+    "--esModuleInterop",
     "--declaration",
   ],
   {
     cwd: __dirname,
     stdio: "inherit",
+    shell: true,
   },
 );
 if (result.status !== 0) {

@@ -369,8 +369,6 @@
    DRS. KLECKER & ROBBINS FEE SLIP REPLICA
    ========================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap");
-
 .fee-slip-container {
   position: relative;
   font-family: "Inter", sans-serif;
@@ -854,12 +852,6 @@
   margin-bottom: 2px !important;
 }
 
-/* Print rules for superbill container */
-@media print {
-  @page {
-    margin: 0.3cm !important;
-    size: letter portrait !important;
-  }
 /* Print rules for superbill container */
 @media print {
   @page {
