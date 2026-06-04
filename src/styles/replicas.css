@@ -1,0 +1,1075 @@
+/* Pal Optical Forms Web App - Form Replica Stylesheet */
+
+/* ==========================================
+   CMS-1500 HEALTH INSURANCE CLAIM FORM REPLICA
+   ========================================== */
+
+.cms1500-container {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 3px solid #bf3f43; /* Standard CMS Red/Pink Border */
+  background-color: #fff;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  color: #000;
+}
+
+.cms1500-header {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  border-bottom: 2px solid #bf3f43;
+  background-color: #fff;
+}
+
+.cms1500-title-block {
+  padding: 10px;
+  border-right: 2px solid #bf3f43;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cms1500-title-block h3 {
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #bf3f43;
+  margin-bottom: 2px;
+}
+
+.cms1500-title-block p {
+  font-size: 0.65rem;
+  font-weight: bold;
+  color: #555;
+  line-height: 1.2;
+}
+
+.cms1500-carrier-block {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #bf3f43;
+}
+
+/* Red Grid System */
+.cms-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  border-bottom: 1px solid #bf3f43;
+}
+
+.cms-grid:last-of-type {
+  border-bottom: none;
+}
+
+.cms-cell {
+  border-right: 1px solid #bf3f43;
+  padding: 4px 6px;
+  position: relative;
+  min-height: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cms-cell:last-child, .cms-cell.no-right-border {
+  border-right: none;
+}
+
+/* Cell Box Numbering */
+.cms-num {
+  font-size: 0.55rem;
+  font-weight: 900;
+  color: #bf3f43;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.cms-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: #333;
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+
+/* Inputs in CMS form blend into red boxes */
+.cms-input {
+  width: 100%;
+  border: none !important;
+  background: transparent !important;
+  color: #000;
+  font-size: 0.85rem;
+  font-weight: bold;
+  padding: 2px 0;
+  outline: none;
+  font-family: Courier, monospace; /* Classic claim typewriter font look! */
+  text-transform: uppercase;
+}
+
+.cms-input:focus {
+  background-color: #fef0f0 !important;
+}
+
+/* Service Lines Grid Table */
+.cms-service-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-bottom: 2px solid #bf3f43;
+}
+
+.cms-service-table th {
+  background-color: #fff;
+  border: 1px solid #bf3f43;
+  color: #bf3f43;
+  font-size: 0.55rem;
+  font-weight: 900;
+  padding: 4px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.cms-service-table td {
+  border: 1px solid #bf3f43;
+  padding: 2px;
+  height: 28px;
+  background-color: #fff;
+}
+
+.cms-service-table td input {
+  font-family: Courier, monospace;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  width: 100%;
+  height: 24px;
+  outline: none;
+  text-transform: uppercase;
+}
+
+.cms-service-table td input:focus {
+  background-color: #fef0f0;
+}
+
+/* CMS checkbox styles */
+.cms-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.cms-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.58rem;
+  font-weight: 800;
+  cursor: pointer;
+  color: #111;
+}
+
+.cms-checkbox-label input[type="radio"],
+.cms-checkbox-label input[type="checkbox"] {
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  accent-color: #bf3f43;
+}
+
+
+/* ==========================================
+   EAGLE SAFETY EYEWEAR ORDER FORM REPLICA
+   ========================================== */
+
+.safety-container {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 2px solid #000;
+  background-color: #fff;
+  padding: 0;
+  color: #000;
+}
+
+.safety-header {
+  border-bottom: 2px solid #000;
+  padding: 12px;
+  text-align: center;
+  background-color: #f8fafc;
+}
+
+.safety-header h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.safety-header p {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.safety-acct-bar {
+  background-color: #000;
+  color: #fff;
+  padding: 6px 12px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Boxed Grid Layout */
+.so-block-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  border-bottom: 2px solid #000;
+}
+
+.so-block-grid.no-bottom-border {
+  border-bottom: none;
+}
+
+.so-cell {
+  border-right: 1px solid #000;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  min-height: 52px;
+}
+
+.so-cell:last-child, .so-cell.no-right-border {
+  border-right: none;
+}
+
+.so-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 4px;
+}
+
+.so-input {
+  width: 100%;
+  border: none !important;
+  background: transparent !important;
+  color: #000;
+  font-size: 0.85rem;
+  font-weight: 700;
+  outline: none;
+  padding: 2px 0;
+}
+
+.so-input:focus {
+  background-color: #f1f5f9 !important;
+}
+
+.so-textarea {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: #000;
+  font-size: 0.85rem;
+  font-weight: 700;
+  outline: none;
+  resize: none;
+  height: 60px;
+}
+
+/* Eagle prescription table adjustments */
+.so-rx-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.so-rx-table th {
+  background-color: #000;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 6px;
+  text-align: center;
+  border: 1px solid #000;
+}
+
+.so-rx-table td {
+  border: 1px solid #000;
+  padding: 4px;
+  background-color: #fff;
+}
+
+.so-rx-table .eye-hdr {
+  font-weight: 800;
+  font-size: 0.75rem;
+  background-color: #f1f5f9;
+  text-align: left;
+  padding-left: 8px;
+}
+
+.so-rx-table input {
+  width: 100%;
+  border: none;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+/* Print optimizations for CMS / Safety replicas */
+@media print {
+  .cms1500-container {
+    border: 3px solid #bf3f43 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  .cms-cell {
+    border-right: 1px solid #bf3f43 !important;
+  }
+  
+  .cms-service-table th {
+    border: 1px solid #bf3f43 !important;
+    background-color: #fff !important;
+  }
+  
+  .cms-service-table td {
+    border: 1px solid #bf3f43 !important;
+  }
+  
+  .safety-container {
+    border: 2px solid #000 !important;
+  }
+  
+  .so-cell {
+    border-right: 1px solid #000 !important;
+  }
+  
+  .so-rx-table th {
+    background-color: #000 !important;
+    color: #fff !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  .so-rx-table td {
+    border: 1px solid #000 !important;
+  }
+}
+
+/* ==========================================
+   DRS. KLECKER & ROBBINS FEE SLIP REPLICA
+   ========================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap");
+
+.fee-slip-container {
+  position: relative;
+  font-family: "Inter", sans-serif;
+  margin-inline: auto;
+  margin-block: 0;
+  border: 1px solid #d4d4d4;
+  background-color: #fff;
+  max-width: 1000px;
+  width: 100%;
+  min-height: 1056px;
+  padding: 2rem; /* 32px */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  flex-direction: column;
+  display: flex;
+  color: #000;
+  box-sizing: border-box;
+}
+
+.fee-slip-container input:not([type=checkbox]):not([type=radio]){
+  font-size: 6.5pt;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: "Inter", sans-serif;
+}
+
+.fee-slip-container input:focus {
+  outline: none !important;
+}
+
+.fee-slip-container .focus\:outline-none:focus {
+  outline: none !important;
+}
+
+.fee-slip-container .header-input input {
+  font-size: 16pt;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.fee-slip-container .summary-input input {
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.fee-slip-container .summary-input input::placeholder {
+  color: #d4d4d4;
+}
+
+.fee-slip-container .section-title {
+  margin-bottom: 0.125rem;
+  border-bottom: 2px solid #000;
+  font-size: 0.75rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 2px 0;
+  background-color: #f5f5f5;
+  border-left: 4px solid #000;
+  border-right: 4px solid #000;
+}
+
+.fee-slip-container .sub-section-title {
+  margin-bottom: 0;
+  font-weight: 700;
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.fee-slip-container .label-text {
+  line-height: 1.25;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.fee-slip-container .code-text {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 7px;
+}
+
+.fee-slip-container .form-input-line {
+  border-bottom: 1px solid #000 !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  padding-inline: 0.25rem !important;
+  font-size: 0.875rem !important;
+  line-height: 1.25 !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  height: auto !important;
+}
+
+.fee-slip-container .form-input-line:focus {
+  outline: none !important;
+}
+
+.fee-slip-container .checkbox-custom {
+  height: 12px !important;
+  width: 12px !important;
+  cursor: pointer;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  border: 1px solid #000 !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  background-color: #fff !important;
+  box-shadow: none !important;
+}
+
+.fee-slip-container .checkbox-custom:checked {
+  border-color: #000 !important;
+  background-color: #000 !important;
+}
+
+.fee-slip-container .radio-custom {
+  height: 12px !important;
+  width: 12px !important;
+  cursor: pointer;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  border: 1px solid #000 !important;
+  border-radius: 50% !important;
+  margin: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  background-color: #fff !important;
+  box-shadow: none !important;
+}
+
+.fee-slip-container .radio-custom:checked {
+  border-color: #000 !important;
+  background-color: #000 !important;
+}
+
+/* Scoped utility classes for layout grid and margins */
+.fee-slip-container .grid-cols-12 {
+  display: grid !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+}
+
+.fee-slip-container .grid-cols-4 {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+.fee-slip-container .grid-cols-1 {
+  display: grid !important;
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+}
+
+.fee-slip-container .col-span-4 {
+  grid-column: span 4 / span 4 !important;
+}
+
+.fee-slip-container .flex {
+  display: flex !important;
+}
+
+.fee-slip-container .flex-col {
+  flex-direction: column !important;
+}
+
+.fee-slip-container .flex-1 {
+  flex: 1 1 0% !important;
+}
+
+.fee-slip-container .shrink-0 {
+  flex-shrink: 0 !important;
+}
+
+.fee-slip-container .items-center {
+  align-items: center !important;
+}
+
+.fee-slip-container .items-end {
+  align-items: flex-end !important;
+}
+
+.fee-slip-container .items-start {
+  align-items: flex-start !important;
+}
+
+.fee-slip-container .justify-between {
+  justify-content: space-between !important;
+}
+
+.fee-slip-container .gap-0\.5 {
+  gap: 2px !important;
+}
+
+.fee-slip-container .gap-1 {
+  gap: 4px !important;
+}
+
+.fee-slip-container .gap-2 {
+  gap: 8px !important;
+}
+
+.fee-slip-container .gap-8 {
+  gap: 32px !important;
+}
+
+.fee-slip-container .gap-x-1 {
+  column-gap: 4px !important;
+}
+
+.fee-slip-container .gap-x-12 {
+  column-gap: 48px !important;
+}
+
+.fee-slip-container .border-r-2 {
+  border-right: 2px solid #e5e5e5 !important;
+}
+
+.fee-slip-container .border-b {
+  border-bottom: 1px solid #000 !important;
+}
+
+.fee-slip-container .border-b-2 {
+  border-bottom: 2px solid #000 !important;
+}
+
+.fee-slip-container .border-t-2 {
+  border-top: 2px solid #000 !important;
+}
+
+.fee-slip-container .border-t-4 {
+  border-top: 4px solid #000 !important;
+}
+
+.fee-slip-container .border-black {
+  border-color: #000 !important;
+}
+
+.fee-slip-container .border-neutral-200 {
+  border-color: #e5e5e5 !important;
+}
+
+.fee-slip-container .bg-black {
+  background-color: #000 !important;
+}
+
+.fee-slip-container .bg-neutral-100 {
+  background-color: #f5f5f5 !important;
+}
+
+.fee-slip-container .bg-neutral-200 {
+  background-color: #e5e5e5 !important;
+}
+
+.fee-slip-container .bg-transparent {
+  background-color: transparent !important;
+}
+
+.fee-slip-container .mb-1 {
+  margin-bottom: 4px !important;
+}
+
+.fee-slip-container .mb-4 {
+  margin-bottom: 16px !important;
+}
+
+.fee-slip-container .mt-1 {
+  margin-top: 4px !important;
+}
+
+.fee-slip-container .mt-2 {
+  margin-top: 8px !important;
+}
+
+.fee-slip-container .mt-4 {
+  margin-top: 16px !important;
+}
+
+.fee-slip-container .mt-auto {
+  margin-top: auto !important;
+}
+
+.fee-slip-container .pr-2 {
+  padding-right: 8px !important;
+}
+
+.fee-slip-container .pl-2 {
+  padding-left: 8px !important;
+}
+
+.fee-slip-container .pl-3 {
+  padding-left: 12px !important;
+}
+
+.fee-slip-container .pl-4 {
+  padding-left: 16px !important;
+}
+
+.fee-slip-container .pl-5 {
+  padding-left: 20px !important;
+}
+
+.fee-slip-container .py-0 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.fee-slip-container .py-0\.5 {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+
+.fee-slip-container .py-2 {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.fee-slip-container .pb-1 {
+  padding-bottom: 4px !important;
+}
+
+.fee-slip-container .w-48 {
+  width: 12rem !important;
+}
+
+.fee-slip-container .w-12 {
+  width: 3rem !important;
+}
+
+.fee-slip-container .w-full {
+  width: 100% !important;
+}
+
+.fee-slip-container .text-sm {
+  font-size: 0.875rem !important;
+}
+
+.fee-slip-container .text-xs {
+  font-size: 0.75rem !important;
+}
+
+.fee-slip-container .text-\[7px\] {
+  font-size: 7px !important;
+}
+
+.fee-slip-container .text-\[8px\] {
+  font-size: 8px !important;
+}
+
+.fee-slip-container .text-\[9px\] {
+  font-size: 9px !important;
+}
+
+.fee-slip-container .text-\[10pt\] {
+  font-size: 10pt !important;
+}
+
+.fee-slip-container .text-\[16pt\] {
+  font-size: 16pt !important;
+}
+
+.fee-slip-container .text-\[16px\] {
+  font-size: 16px !important;
+}
+
+.fee-slip-container .text-\[20pt\] {
+  font-size: 20pt !important;
+}
+
+.fee-slip-container .text-\[32pt\] {
+  font-size: 32pt !important;
+}
+
+.fee-slip-container .text-lg {
+  font-size: 1.125rem !important;
+}
+
+.fee-slip-container .leading-none {
+  line-height: 1 !important;
+}
+
+.fee-slip-container .leading-tight {
+  line-height: 1.25 !important;
+}
+
+.fee-slip-container .font-black {
+  font-weight: 900 !important;
+}
+
+.fee-slip-container .font-bold {
+  font-weight: 700 !important;
+}
+
+.fee-slip-container .tracking-tighter {
+  letter-spacing: -0.05em !important;
+}
+
+.fee-slip-container .whitespace-nowrap {
+  white-space: nowrap !important;
+}
+
+.fee-slip-container .uppercase {
+  text-transform: uppercase !important;
+}
+
+.fee-slip-container .italic {
+  font-style: italic !important;
+}
+
+.fee-slip-container .underline {
+  text-decoration: underline !important;
+}
+
+.fee-slip-container .text-left {
+  text-align: left !important;
+}
+
+.fee-slip-container .text-right {
+  text-align: right !important;
+}
+
+.fee-slip-container .text-center {
+  text-align: center !important;
+}
+
+.fee-slip-container .truncate {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.fee-slip-container .relative {
+  position: relative !important;
+}
+
+.fee-slip-container .absolute {
+  position: absolute !important;
+}
+
+.fee-slip-container .left-1\/2 {
+  left: 50% !important;
+}
+
+.fee-slip-container .-translate-x-1\/2 {
+  transform: translateX(-50%) !important;
+}
+
+.fee-slip-container .bottom-full {
+  bottom: 100% !important;
+}
+
+.fee-slip-container .mb-12 {
+  margin-bottom: 48px !important;
+}
+
+.fee-slip-container .border-4 {
+  border-width: 4px !important;
+}
+
+.fee-slip-container .px-12 {
+  padding-left: 48px !important;
+  padding-right: 48px !important;
+}
+
+.fee-slip-container .min-h-\[50px\] {
+  min-height: 50px !important;
+}
+
+.fee-slip-container .scale-75 {
+  transform: scale(0.75) !important;
+}
+
+.fee-slip-container .space-y-0\.5 > *:not(:last-child) {
+  margin-bottom: 2px !important;
+}
+
+/* Print rules for superbill container */
+@media print {
+  @page {
+    margin: 0.3cm !important;
+    size: letter portrait !important;
+  }
+/* Print rules for superbill container */
+@media print {
+  @page {
+    margin: 0.3cm !important;
+    size: letter portrait !important;
+  }
+  html, body {
+    background: #fff !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  body.active-form-fee-slip * {
+    visibility: hidden !important;
+  }
+  body.active-form-fee-slip .fee-slip-container, body.active-form-fee-slip .fee-slip-container * {
+    visibility: visible !important;
+  }
+  .fee-slip-container {
+    zoom: 1.0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    box-shadow: none !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0.2cm !important;
+    display: flex !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+  .fee-slip-container .section-title {
+    margin-top: 1px !important;
+    margin-bottom: 1px !important;
+    font-size: 8px !important;
+    padding: 0 !important;
+  }
+  .fee-slip-container .label-text {
+    font-size: 6.8px !important;
+    line-height: 0.95 !important;
+  }
+  .fee-slip-container .code-text {
+    font-size: 5.5px !important;
+  }
+  .fee-slip-container .form-input-line {
+    height: 9px !important;
+    font-size: 7px !important;
+  }
+  .fee-slip-container .gap-1 {
+    gap: 0.5px !important;
+  }
+  .fee-slip-container .gap-2 {
+    gap: 2px !important;
+  }
+  .fee-slip-container .mb-4 {
+    margin-bottom: 4px !important;
+  }
+  .fee-slip-container .mt-4 {
+    margin-top: 2px !important;
+  }
+  .fee-slip-container .checkbox-custom,
+  .fee-slip-container .radio-custom {
+    transform: scale(0.65) !important;
+    margin: -3px !important;
+  }
+  .fee-slip-container .summary-input {
+    margin-top: auto !important;
+    padding-top: 2px !important;
+    gap: 1px !important;
+    border: none !important;
+  }
+  .fee-slip-container .summary-input * {
+    border: none !important;
+    border-color: transparent !important;
+    text-decoration: none !important;
+  }
+  .fee-slip-container .summary-input input {
+    font-size: 10pt !important;
+    height: 14px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .fee-slip-container .summary-input span {
+    font-size: 9px !important;
+    line-height: 1.0 !important;
+  }
+  .fee-slip-container .checkbox-custom:checked {
+    background-color: #000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .fee-slip-container .radio-custom:checked {
+    background-color: #000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/* Scoped screen styles for CMS-1500 Interactive form fields */
+.cms1500-text-input {
+  border: none !important;
+  background-color: rgba(0, 100, 255, 0.04) !important;
+  font-family: Courier, monospace !important;
+  font-weight: bold !important;
+  color: #000 !important;
+  outline: none !important;
+  padding: 0 2px !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  border-radius: 0 !important;
+  text-transform: uppercase !important;
+  transition: background-color 0.15s ease !important;
+}
+
+.cms1500-text-input:hover {
+  background-color: rgba(0, 100, 255, 0.08) !important;
+}
+
+.cms1500-text-input:focus {
+  background-color: rgba(0, 100, 255, 0.15) !important;
+  box-shadow: 0 0 2px rgba(2, 132, 199, 0.6) !important;
+}
+
+.cms1500-checkbox {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  border: none !important;
+  background-color: rgba(0, 100, 255, 0.04) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  border-radius: 0 !important;
+  transition: background-color 0.15s ease !important;
+}
+
+.cms1500-checkbox:hover {
+  background-color: rgba(0, 100, 255, 0.08) !important;
+}
+
+.cms1500-checkbox:checked::before {
+  content: 'X' !important;
+  font-family: Arial, sans-serif !important;
+  font-weight: 900 !important;
+  color: #000 !important;
+  font-size: 11px !important;
+  line-height: 1.0 !important;
+}
+
+/* Scoped screen styles for Eagle Safety Eyewear form fields */
+.safety-text-input {
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  background-color: #ffffff !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: 600 !important;
+  color: #000 !important;
+  outline: none !important;
+  padding: 0 4px !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  border-radius: 2px !important;
+  text-transform: uppercase !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.safety-text-input:hover {
+  border-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.safety-text-input:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2) !important;
+}
+
+.safety-checkbox {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  background-color: #ffffff !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  border-radius: 2px !important;
+  transition: border-color 0.15s ease !important;
+}
+
+.safety-checkbox:hover {
+  border-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.safety-checkbox:checked::before {
+  content: 'X' !important;
+  font-family: Arial, sans-serif !important;
+  font-weight: 900 !important;
+  color: #000 !important;
+  font-size: 11px !important;
+  line-height: 1.0 !important;
+}

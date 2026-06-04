@@ -1,0 +1,350 @@
+/* Pal Optical Forms Web App - Print Specific Stylesheet */
+
+@media print {
+  /* Hide all interactive UI panels */
+  aside.sidebar,
+  header.actions-header,
+  .signature-controls,
+  .signature-placeholder,
+  .btn,
+  .theme-toggle-btn,
+  .toggle-group,
+  .print-tip-banner,
+  .print\:hidden {
+    display: none !important;
+  }
+  
+  /* Reset container sizes to fill the printable area */
+  html, body, .app-container, .main-panel, .form-viewport {
+    background-color: #fff !important;
+    color: #000 !important;
+    height: 100% !important;
+    width: 100% !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+  
+  /* Adjust form card for standard Letter Page size */
+  .form-card {
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0.25in !important; /* Professional print margins */
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    background-color: #fff !important;
+    color: #000 !important;
+    page-break-after: always;
+  }
+  
+  /* Ensure page breaks don't chop sections */
+  .form-section {
+    page-break-inside: avoid;
+  }
+  
+  /* Strip inputs down to simple flat lines or printable blocks */
+  .form-control {
+    border: none !important;
+    border-bottom: 1px solid #000 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: #000 !important;
+    padding: 2px 4px !important;
+    box-shadow: none !important;
+    height: 24px !important;
+    font-size: 0.95rem !important;
+  }
+  
+  textarea.form-control {
+    border: 1px solid #000 !important;
+    height: 60px !important;
+  }
+  
+  /* Adjust print representation of checkboxes & radio inputs */
+  input[type="checkbox"], input[type="radio"] {
+    border: 1px solid #000 !important;
+    background-color: #fff !important;
+    color: #000 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  /* Force table formatting to be high contrast for printers */
+  .prescription-table th {
+    background-color: #f1f5f9 !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  .prescription-table td {
+    border: 1px solid #000 !important;
+    color: #000 !important;
+  }
+  
+  .eye-row-header {
+    background-color: #f8fafc !important;
+    border: 1px solid #000 !important;
+  }
+  
+  /* Clear signature line styling */
+  .signature-canvas-wrapper {
+    border: none !important;
+    border-bottom: 1px solid #000 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    height: 100px !important;
+  }
+  
+  .signature-canvas-wrapper canvas {
+    border: none !important;
+  }
+  
+  .total-summary-card {
+    background-color: transparent !important;
+    border: 1px solid #000 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  /* Adjust header styles to save ink and look professional */
+  .form-header-block {
+    border-bottom: 2px solid #000 !important;
+  }
+  
+  .form-section-title {
+    color: #000 !important;
+    border-bottom: 1px solid #000 !important;
+  }
+  
+  /* Print Blank Mode Overrides */
+  .print-blank-active .form-control,
+  .print-blank-active .cms-input,
+  .print-blank-active .form-input-line,
+  .print-blank-active input,
+  .print-blank-active textarea {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important; /* Safari support */
+  }
+  
+  .print-blank-active input[type="checkbox"],
+  .print-blank-active input[type="radio"],
+  .print-blank-active .checkbox-custom,
+  .print-blank-active .radio-custom {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: transparent !important;
+  }
+  
+  .print-blank-active .checkbox-custom:checked,
+  .print-blank-active .radio-custom:checked,
+  .print-blank-active input[type="checkbox"]:checked,
+  .print-blank-active input[type="radio"]:checked {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: transparent !important;
+  }
+
+  /* Scoped print styles for CMS-1500: Print ONLY the typed text overlaid on cms1500print.png background */
+  body.active-form-cms1500 .form-viewport {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #fff !important;
+    height: 100% !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    display: block !important;
+  }
+  
+  body.active-form-cms1500 .cms1500-interactive-container {
+    width: 8.5in !important;
+    height: 11in !important;
+    max-width: 8.5in !important;
+    max-height: 11in !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    background-image: url('/cms1500print.png') !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  body.active-form-cms1500 canvas {
+    display: none !important; /* Hide the background red PDF canvas */
+  }
+  
+  body.active-form-cms1500 .cms1500-text-input,
+  body.active-form-cms1500 .cms1500-checkbox {
+    position: absolute !important;
+    left: var(--print-left) !important;
+    top: var(--print-top) !important;
+    width: var(--print-width) !important;
+    height: var(--print-height) !important;
+    font-size: var(--print-font-size) !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #000 !important;
+    box-sizing: border-box !important;
+    font-family: Courier, monospace !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+  }
+  
+  body.active-form-cms1500 .cms1500-checkbox {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  body.active-form-cms1500 .cms1500-checkbox:checked::before {
+    content: 'X' !important;
+    font-family: Arial, sans-serif !important;
+    font-weight: 900 !important;
+    color: #000 !important;
+    font-size: calc(var(--print-font-size) * 1.1) !important;
+    line-height: 1.0 !important;
+  }
+
+  /* Scoped print styles for Eagle Safety Eyewear: Print text values on top of the rendered PDF canvas */
+  body.active-form-safety-order .form-viewport {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #fff !important;
+    height: auto !important;
+    width: 100% !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+  
+  body.active-form-safety-order .safety-interactive-container {
+    width: 8.5in !important;
+    height: 11in !important;
+    max-width: 8.5in !important;
+    max-height: 11in !important;
+    position: relative !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    background: #fff !important;
+  }
+  
+  body.active-form-safety-order canvas {
+    display: block !important; /* Keep the canvas template visible! */
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  body.active-form-safety-order .safety-text-input,
+  body.active-form-safety-order .safety-checkbox {
+    position: absolute !important;
+    left: var(--print-left) !important;
+    top: var(--print-top) !important;
+    width: var(--print-width) !important;
+    height: var(--print-height) !important;
+    font-size: var(--print-font-size) !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #000 !important;
+    box-sizing: border-box !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+  }
+  
+  body.active-form-safety-order .safety-checkbox {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  body.active-form-safety-order .safety-checkbox:checked::before {
+    content: 'X' !important;
+    font-family: Arial, sans-serif !important;
+    font-weight: 900 !important;
+    color: #000 !important;
+    font-size: calc(var(--print-font-size) * 1.1) !important;
+    line-height: 1.0 !important;
+  }
+}
+
+@page {
+  size: letter;
+  margin: 0 !important; /* Globally set page margin to 0 to enable absolute letter canvas printing */
+}
+
+@media print {
+  /* Scoped print overrides for active-form-fee-slip to prevent multi-page overflow and downsizing */
+  body.active-form-fee-slip,
+  body.active-form-fee-slip .app-container,
+  body.active-form-fee-slip .main-panel,
+  body.active-form-fee-slip .form-viewport {
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Scoped print overrides for new waivers to ensure single-page fits */
+  body.active-form-child-no-poly .form-card,
+  body.active-form-expired-rx .form-card,
+  body.active-form-frame-no-child .form-card,
+  body.active-form-patients-own-frame .form-card,
+  body.active-form-semi-rimless .form-card,
+  body.active-form-single-vision .form-card {
+    padding: 0.2in !important;
+    margin: 0 !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+  
+  body.active-form-child-no-poly .form-section,
+  body.active-form-expired-rx .form-section,
+  body.active-form-frame-no-child .form-section,
+  body.active-form-patients-own-frame .form-section,
+  body.active-form-semi-rimless .form-section,
+  body.active-form-single-vision .form-section {
+    margin-bottom: 12px !important;
+  }
+  
+  body.active-form-child-no-poly p,
+  body.active-form-expired-rx p,
+  body.active-form-frame-no-child p,
+  body.active-form-patients-own-frame p,
+  body.active-form-semi-rimless p,
+  body.active-form-single-vision p {
+    font-size: 8.5pt !important;
+    line-height: 1.35 !important;
+    margin-bottom: 6px !important;
+  }
+  
+  body.active-form-child-no-poly label,
+  body.active-form-expired-rx label,
+  body.active-form-frame-no-child label,
+  body.active-form-patients-own-frame label,
+  body.active-form-semi-rimless label,
+  body.active-form-single-vision label {
+    font-size: 8pt !important;
+  }
+}

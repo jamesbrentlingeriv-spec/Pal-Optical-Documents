@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "./out-tsc",
+    "allowImportingTsExtensions": false
+  },
+  "exclude": [
+    "node_modules",
+    "public",
+    "dist"
+  ]
+}

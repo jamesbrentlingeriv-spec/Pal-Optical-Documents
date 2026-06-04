@@ -1,0 +1,105 @@
+Created At: 2026-06-04T16:09:48Z
+Completed At: 2026-06-04T16:09:49Z
+File Path: `file:///c:/Users/paloptical/Documents/Pal%20Optical%20Documents/src/App.tsx`
+Total Lines: 336
+Total Bytes: 12743
+Showing lines 1 to 336
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: import React, { useState, useEffect } from 'react';
+2: import { 
+3:   User, 
+4:   FileText, 
+5:   DollarSign, 
+6:   Shield, 
+7:   Activity, 
+8:   Sun, 
+9:   Moon, 
+10:   Printer, 
+11:   RotateCcw,
+12:   LogOut
+13: } from 'lucide-react';
+14: import { FormWrapper } from './components/FormWrapper';
+15: import { ReactFeeSlipForm } from './forms/ReactFeeSlipForm';
+16: import { Login } from './components/Login';
+17: 
+18: // Legacy Forms
+19: import { PatientInfoForm } from './forms/PatientInfoForm.js';
+20: import { DrSideNewPatientForm } from './forms/DrSideNewPatientForm.js';
+21: import { PriorAuthForm } from './forms/PriorAuthForm.js';
+22: import { PriceQuoteForm } from './forms/PriceQuoteForm.js';
+23: import { SafetyOrderForm } from './forms/SafetyOrderForm.js';
+24: import { CMS1500Form } from './forms/CMS1500Form.js';
+25: import { ChildNoPolyForm } from './forms/ChildNoPolyForm.js';
+26: import { ExpiredRxForm } from './forms/ExpiredRxForm.js';
+27: import { FrameNoChildForm } from './forms/FrameNoChildForm.js';
+28: import { PatientsOwnFrameForm } from './forms/PatientsOwnFrameForm.js';
+29: import { SemiRimlessWaiverForm } from './forms/SemiRimlessWaiverForm.js';
+30: import { SingleVisionConsentForm } from './forms/SingleVisionConsentForm.js';
+31: 
+32: // Legacy Form Class Registry
+33: const FORM_CLASSES: Record<string, any> = {
+34:   'patient-info': PatientInfoForm,
+35:   'dr-side-patient': DrSideNewPatientForm,
+36:   'prior-auth': PriorAuthForm,
+37:   'price-quote': PriceQuoteForm,
+38:   'safety-order': SafetyOrderForm,
+39:   'cms1500': CMS1500Form,
+40:   'child-n
+<truncated 10760 bytes>
+ ''}`}
+282:               >
+283:                 Print Blank Form
+284:               </div>
+285:             </div>
+286:             
+287:             {/* Reset Button */}
+288:             <button 
+289:               type="button" 
+290:               onClick={handleReset}
+291:               className="btn btn-secondary px-4 py-2 text-xs font-black"
+292:               title="Reset all fields to blank"
+293:             >
+294:               <RotateCcw size={14} />
+295:               Reset Form
+296:             </button>
+297:             
+298:             {/* Print Button */}
+299:             <button 
+300:               type="button" 
+301:               onClick={handlePrint}
+302:               className="btn btn-primary px-4 py-2 text-xs font-black"
+303:             >
+304:               <Printer size={14} />
+305:               Print Form
+306:             </button>
+307:           </div>
+308:         </header>
+309: 
+310:         {/* Form Rendering Viewport */}
+311:         <section 
+312:           id="form-render-target" 
+313:           className={`form-viewport flex-1 overflow-y-auto p-8 bg-[var(--bg-primary)] ${activeMode === 'print-blank' ? 'print-blank-active print-mode' : ''}`}
+314:         >
+315:           {activeFormId === 'fee-slip' ? (
+316:             <ReactFeeSlipForm 
+317:               initialState={formData['fee-slip'] || {}} 
+318:               onStateChange={(state) => handleStateChange('fee-slip', state)}
+319:               resetTrigger={resetTrigger}
+320:             />
+321:           ) : (
+322:             <FormWrapper 
+323:               FormClass={FORM_CLASSES[activeFormId]} 
+324:               initialState={formData[activeFormId] || {}} 
+325:               onStateChange={(state) => handleStateChange(activeFormId, state)}
+326:               resetTrigger={resetTrigger}
+327:             />
+328:           )}
+329:         </section>
+330:       </main>
+331:     </div>
+332:   );
+333: };
+334: 
+335: export default App;
+336: 
+The above content shows the entire, complete file contents of the requested file.

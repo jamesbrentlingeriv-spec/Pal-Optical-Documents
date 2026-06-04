@@ -1,0 +1,57 @@
+Created At: 2026-06-04T16:35:10Z
+Completed At: 2026-06-04T16:35:11Z
+File Path: `file:///c:/Users/paloptical/Documents/Pal%20Optical%20Documents/src/App.tsx`
+Total Lines: 329
+Total Bytes: 12446
+Showing lines 1 to 49
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: import React, { useState, useEffect } from 'react';
+2: import { 
+3:   User, 
+4:   FileText, 
+5:   DollarSign, 
+6:   Shield, 
+7:   Activity, 
+8:   Sun, 
+9:   Moon, 
+10:   Printer, 
+11:   RotateCcw
+12: } from 'lucide-react';
+13: import { FormWrapper } from './components/FormWrapper';
+14: import { ReactFeeSlipForm } from './forms/ReactFeeSlipForm';
+15: 
+16: // Legacy Forms
+17: import { PatientInfoForm } from './forms/PatientInfoForm.js';
+18: import { DrSideNewPatientForm } from './forms/DrSideNewPatientForm.js';
+19: import { PriorAuthForm } from './forms/PriorAuthForm.js';
+20: import { PriceQuoteForm } from './forms/PriceQuoteForm.js';
+21: import { SafetyOrderForm } from './forms/SafetyOrderForm.js';
+22: import { CMS1500Form } from './forms/CMS1500Form.js';
+23: import { ChildNoPolyForm } from './forms/ChildNoPolyForm.js';
+24: import { ExpiredRxForm } from './forms/ExpiredRxForm.js';
+25: import { FrameNoChildForm } from './forms/FrameNoChildForm.js';
+26: import { PatientsOwnFrameForm } from './forms/PatientsOwnFrameForm.js';
+27: import { SemiRimlessWaiverForm } from './forms/SemiRimlessWaiverForm.js';
+28: import { SingleVisionConsentForm } from './forms/SingleVisionConsentForm.js';
+29: 
+30: // Legacy Form Class Registry
+31: const FORM_CLASSES: Record<string, any> = {
+32:   'patient-info': PatientInfoForm,
+33:   'dr-side-patient': DrSideNewPatientForm,
+34:   'prior-auth': PriorAuthForm,
+35:   'price-quote': PriceQuoteForm,
+36:   'safety-order': SafetyOrderForm,
+37:   'cms1500': CMS1500Form,
+38:   'child-no-poly': ChildNoPolyForm,
+39:   'expired-rx': ExpiredRxForm,
+40:   'frame-no-child': FrameNoChildForm,
+41:   'patients-own-frame': PatientsOwnFrameForm,
+42:   'semi-rimless': SemiRimlessWaiverForm,
+43:   'single-vision': SingleVisionConsentForm,
+44: };
+45: 
+46: interface MenuItem {
+47:   id: string;
+48:   label: string;
+49:   icon: 'user' | 'file-text' | 'dollar-sign' | 'shield' | 'activity';
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

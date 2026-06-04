@@ -1,0 +1,315 @@
+/* Pal Optical Forms Web App - Form Stylesheet */
+
+/* Paper Card Layout (mimics a physical form) */
+.form-card {
+  width: 100%;
+  max-width: 100%;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  padding: 48px;
+  min-height: 1056px; /* Approx Letter height ratio */
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin-bottom: 40px;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.form-header-block {
+  text-align: center;
+  margin-bottom: 32px;
+  border-bottom: 2px solid var(--primary-light);
+  padding-bottom: 20px;
+}
+
+.form-header-block h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.form-header-block p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.form-section {
+  margin-bottom: 32px;
+}
+
+.form-section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Flex Grid System for Inputs */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.col-12 { grid-column: span 12; }
+.col-8  { grid-column: span 8; }
+.col-6  { grid-column: span 6; }
+.col-4  { grid-column: span 4; }
+.col-3  { grid-column: span 3; }
+.col-2  { grid-column: span 2; }
+.col-1  { grid-column: span 1; }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.925rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.form-control:focus {
+  border-color: var(--input-focus);
+  background-color: var(--bg-secondary);
+  box-shadow: 0 0 0 3px rgb(56 189 248 / 0.15);
+}
+
+.form-control::placeholder {
+  color: var(--text-light);
+}
+
+/* Custom Checkbox and Radio lists */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.checkbox-label, .radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"],
+.radio-label input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+/* Custom Prescription Grid tables */
+.prescription-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 20px 0;
+  font-size: 0.875rem;
+}
+
+.prescription-table th {
+  background-color: var(--primary-light);
+  color: var(--text-primary);
+  font-weight: 700;
+  text-align: center;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.prescription-table td {
+  padding: 6px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.prescription-table .eye-row-header {
+  font-weight: 700;
+  text-align: left;
+  background-color: var(--bg-primary);
+  font-size: 0.8rem;
+  width: 110px;
+}
+
+.prescription-table input.form-control {
+  padding: 6px 8px;
+  text-align: center;
+  font-size: 0.875rem;
+  border-radius: 4px;
+}
+
+/* Quote Total Summary panel */
+.total-summary-card {
+  background-color: var(--primary-light);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 16px;
+}
+
+.total-summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+}
+
+.total-summary-row:last-of-type {
+  border-bottom: none;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  padding-top: 12px;
+}
+
+/* Touch Signature Pad Component */
+.signature-component {
+  border: 1px dashed var(--border-color);
+  background-color: var(--bg-primary);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.signature-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.signature-canvas-wrapper canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.signature-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.signature-placeholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-light);
+  font-size: 0.8rem;
+  pointer-events: none;
+  font-weight: 500;
+}
+
+/* Forms printable preview overrides when switching to fill mode */
+.form-viewport.print-mode {
+  background-color: #fff;
+  padding: 0;
+  overflow-y: visible;
+}
+
+.form-viewport.print-mode .form-card {
+  box-shadow: none;
+  border: none;
+  padding: 0;
+  background-color: #fff;
+  color: #000;
+  width: 100%;
+  max-width: 100%;
+  min-height: auto;
+}
+
+/* Blank form render states */
+.form-viewport.print-mode .form-control {
+  border: none;
+  border-bottom: 1px solid #000;
+  border-radius: 0;
+  background: transparent;
+  padding: 2px 4px;
+  color: #000;
+  height: 24px;
+}
+
+.form-viewport.print-mode textarea.form-control {
+  border: 1px solid #000;
+  height: 60px;
+}
+
+.form-viewport.print-mode input::placeholder {
+  color: transparent !important;
+}
+
+.form-viewport.print-mode .signature-canvas-wrapper {
+  border: none;
+  border-bottom: 1px solid #000;
+  border-radius: 0;
+}
+
+.form-viewport.print-mode .signature-controls,
+.form-viewport.print-mode .signature-placeholder {
+  display: none !important;
+}
+
+.form-viewport.print-mode .total-summary-card {
+  background-color: transparent;
+  border: 1px solid #000;
+}
+
+/* Print Blank Mode Overrides */
+.form-viewport.print-blank-active .form-control {
+  color: transparent !important;
+}
+
+.form-viewport.print-blank-active canvas {
+  display: none !important;
+}
+

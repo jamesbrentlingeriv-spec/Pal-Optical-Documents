@@ -1,0 +1,87 @@
+{
+  "pageWidth": 612,
+  "pageHeight": 792,
+  "fields": [
+    {
+      "name": "Text_1",
+      "originalName": "Text_1",
+      "type": "PDFTextField",
+      "x": 143.06,
+      "y": 7.19,
+      "width": 189.57,
+      "height": 25.23
+    },
+    {
+      "name": "Date_1",
+      "originalName": "Date_1",
+      "type": "PDFTextField",
+      "x": 470.13,
+      "y": 4.96,
+      "width": 134.65,
+      "height": 25.23
+    },
+    {
+      "name": "Number_1",
+      "originalName": "Number_1",
+      "type": "PDFTextField",
+      "x": 528.98,
+      "y": 572.98,
+      "width": 75.79,
+      "height": 25.23
+    },
+    {
+      "name": "Number_2",
+      "originalName": "Number_2",
+      "type": "PDFTextField",
+      "x": 534.03,
+      "y": 613.75,
+      "width": 75.79,
+      "height": 25.23
+    },
+    {
+      "name": "Number_3",
+      "originalName": "Number_3",
+      "type": "PDFTextField",
+      "x": 534.15,
+      "y": 645.8,
+      "width": 75.79,
+      "height": 25.23
+    },
+    {
+      "name": "Number_4",
+      "originalName": "Number_4",
+      "type": "PDFTextField",
+      "x": 534.15,
+      "y": 683.36,
+      "width": 75.79,
+      "height": 25.23
+    },
+    {
+      "name": "Text_4",
+      "originalName": "Text_4",
+      "type": "PDFTextField",
+      "x": 296.38,
+      "y": 713.02,
+      "width": 88.19,
+      "height": 25.23
+    },
+    {
+      "name": "Text_2",
+      "originalName": "Text_2",
+      "type": "PDFTextField",
+      "x": 539.31,
+      "y": 716.86,
+      "width": 65.47,
+      "height": 25.23
+    },
+    {
+      "name": "Text_3",
+      "originalName": "Text_3",
+      "type": "PDFTextField",
+      "x": 528.98,
+      "y": 746.16,
+      "width": 75.79,
+      "height": 25.23
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pal Optical - Professional Shop Forms</title>
+    <meta name="description" content="Digitally fill, sign, and print forms for Pal Optical Shop in Lexington, KY." />
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/src/styles/main.css" />
+    <link rel="stylesheet" href="/src/styles/forms.css" />
+    <link rel="stylesheet" href="/src/styles/print.css" media="print" />
+  </head>
+  <body>
+    <div id="app" class="app-container">
+      <!-- Sidebar Navigation -->
+      <aside id="sidebar-target" class="sidebar"></aside>
+      
+      <!-- Main Display Panel -->
+      <main class="main-panel">
+        <!-- Actions Toolbar -->
+        <header id="form-actions-target" class="actions-header"></header>
+        
+        <!-- Form Rendering Area -->
+        <section id="form-render-target" class="form-viewport"></section>
+      </main>
+    </div>
+    
+    <!-- Application Entry Point -->
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>
