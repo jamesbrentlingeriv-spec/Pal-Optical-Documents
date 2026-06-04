@@ -1,7 +1,13 @@
 {
   "version": 2,
-  "public": true,
+  "cleanUrls": true,
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/tailwindcss-browser.js", "destination": "/public/tailwindcss-browser.js" },
+    { "source": "/default_signature.png", "destination": "/public/default_signature.png" },
+    { "source": "/safety_order_form.pdf", "destination": "/public/safety_order_form.pdf" },
+    { "source": "/cms1500-form.pdf", "destination": "/public/cms1500-form.pdf" },
+    { "source": "/cms1500print.png", "destination": "/public/cms1500print.png" },
+    { "source": "/quote.pdf", "destination": "/public/quote.pdf" },
+    { "source": "/Printable%20Patient%20Form.pdf", "destination": "/public/Printable%20Patient%20Form.pdf" }
   ]
 }
