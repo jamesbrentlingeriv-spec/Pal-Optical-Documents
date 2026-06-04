@@ -21,11 +21,8 @@
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#0284c7" />
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="/src/styles/main.css" />
-  <link rel="stylesheet" href="/src/styles/forms.css" />
-  <link rel="stylesheet" href="/src/styles/replicas.css" />
-  <link rel="stylesheet" href="/src/styles/print.css" media="print" />
+  <!-- Vite entry point with Tailwind CSS -->
+  <link rel="stylesheet" href="/src/index.css" />
 </head>
 
 <body>
@@ -46,8 +43,8 @@
   <!-- PDF.js library for high-fidelity PDF rendering -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
 
-  <!-- Application Entry Point -->
-  <script type="module" src="/src/app.js"></script>
+  <!-- Application Entry Point with Vite -->
+  <script type="module" src="/src/app.ts"></script>
 
   <!-- PWA Service Worker Registration -->
   <script>
