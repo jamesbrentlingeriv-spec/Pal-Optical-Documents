@@ -6,11 +6,10 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node build.js",
     "preview": "vite preview",
     "server:dev": "node --loader ts-node/esm server.ts",
-    "server:prod": "NODE_ENV=production node dist/server.js",
-    "start": "npm run build && npm run server:prod",
+    "start": "npm run build && node dist/server.js",
     "type-check": "tsc --noEmit"
   },
   "engines": {

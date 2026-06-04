@@ -1,15 +1,19 @@
 import { defineConfig } from "vite";
-import { resolve } from "path";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   root: ".",
   publicDir: "public",
   build: {
     outDir: "dist",
-    emptyOutDir: true,
+    emptyOutDir: false,
     sourcemap: true,
     rollupOptions: {
-      input: resolve(__dirname, "index.html"),
+      input: path.resolve(__dirname, "index.html"),
       output: {
         entryFileNames: "[name].[hash].js",
         chunkFileNames: "[name].[hash].js",

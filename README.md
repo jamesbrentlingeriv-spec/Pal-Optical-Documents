@@ -59,6 +59,35 @@ npm run server:prod
 
 The app will run on `http://localhost:3000` by default.
 
+## Deploying to Vercel
+
+This project is optimized for Vercel deployment. To deploy:
+
+1. **Push to GitHub**:
+
+   ```bash
+   git add .
+   git commit -m "Ready for Vercel deployment"
+   git push
+   ```
+
+2. **Import to Vercel**:
+   - Go to [vercel.com](https://vercel.com)
+   - Click "Add New..." → "Project"
+   - Select your GitHub repository
+   - Vercel will automatically detect the Node.js framework
+   - Click "Deploy"
+
+3. **Automatic Deployments**:
+   - Every push to `main` branch will automatically redeploy
+   - The build script will handle frontend + backend compilation
+
+**Build Configuration:**
+
+- Build Command: `npm run build` (runs Vite + TypeScript compilation)
+- Output Directory: `dist/`
+- Install Command: `npm install`
+
 ## Type Checking
 
 Check for TypeScript errors without building:
@@ -71,20 +100,31 @@ npm run type-check
 
 ```
 .
+├── public/                    # Static assets served from root
+│   ├── manifest.json         # PWA manifest
+│   ├── favicon.ico           # Browser favicon
+│   ├── favicon-16x16.png     # 16px favicon
+│   ├── favicon-32x32.png     # 32px favicon
+│   ├── apple-touch-icon.png  # iOS icon (180x180)
+│   ├── android-chrome-192x192.png  # Android icon (192x192)
+│   ├── android-chrome-512x512.png  # Android splash (512x512)
+│   ├── icon.svg              # Scalable SVG icon
+│   └── README.md             # Public folder documentation
 ├── src/
 │   ├── index.css              # Entry CSS with Tailwind directives
 │   ├── app.ts                 # Main application (to be converted to TS)
 │   ├── styles/                # Additional CSS modules
 │   ├── components/            # React-like component classes
 │   └── forms/                 # Form definitions (JSON + JS)
-├── public/                    # Static assets (favicons, PDFs)
 ├── dist/                      # Build output (generated)
 ├── index.html                 # HTML entry point
 ├── vite.config.ts            # Vite configuration
 ├── tsconfig.json             # TypeScript configuration
 ├── tailwind.config.js        # Tailwind CSS configuration
 ├── postcss.config.js         # PostCSS configuration
-└── server.ts                 # Express server
+├── server.ts                 # Express server
+├── build.js                  # Custom build script
+└── *.pdf, *.png              # Form PDFs and images (root level)
 ```
 
 ## Next Steps

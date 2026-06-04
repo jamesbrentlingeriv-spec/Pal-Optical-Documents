@@ -1,0 +1,13 @@
+node_modules
+.git
+src
+*.md
+.env.example
+vite.config.ts
+tsconfig.json
+tsconfig.node.json
+postcss.config.js
+tailwind.config.js
+index.html
+build.js
+build.sh

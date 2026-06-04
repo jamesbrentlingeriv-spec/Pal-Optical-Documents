@@ -9,17 +9,22 @@ const __dirname = path.dirname(__filename);
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware for static files
-app.use(express.static("public"));
+// Middleware for static files - serve from dist when in production
+const publicDir =
+  process.env.NODE_ENV === "production"
+    ? __dirname
+    : path.join(__dirname, "..");
 
-// In production, serve the Vite build output
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "dist")));
-}
+app.use(
+  express.static(publicDir, {
+    maxAge: process.env.NODE_ENV === "production" ? "1h" : "0",
+    etag: false,
+  }),
+);
 
 // SPA routing - redirect non-file requests to index.html
 app.get("*", (req: Request, res: Response) => {
-  const filePath = path.join(__dirname, req.path);
+  const filePath = path.join(publicDir, req.path);
   const ext = path.extname(filePath);
 
   // If it looks like a file request, try to serve it
@@ -29,19 +34,21 @@ app.get("*", (req: Request, res: Response) => {
         return res.sendFile(filePath);
       }
       // File not found, serve index.html for SPA routing
-      const indexPath =
-        process.env.NODE_ENV === "production"
-          ? path.join(__dirname, "dist", "index.html")
-          : path.join(__dirname, "index.html");
-      res.sendFile(indexPath);
+      const indexPath = path.join(publicDir, "index.html");
+      res.sendFile(indexPath, (error) => {
+        if (error) {
+          res.status(404).send("404 - Page not found");
+        }
+      });
     });
   } else {
     // No extension, serve index.html for SPA routing
-    const indexPath =
-      process.env.NODE_ENV === "production"
-        ? path.join(__dirname, "dist", "index.html")
-        : path.join(__dirname, "index.html");
-    res.sendFile(indexPath);
+    const indexPath = path.join(publicDir, "index.html");
+    res.sendFile(indexPath, (error) => {
+      if (error) {
+        res.status(404).send("404 - Page not found");
+      }
+    });
   }
 });
 
@@ -51,19 +58,21 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).send("Internal Server Error");
 });
 
-// Start server only in development/standalone mode
-if (
-  require.main === module ||
-  import.meta.url === `file://${process.argv[1]}`
-) {
+// Start server in standalone mode (not when imported as a module)
+const isStandalone =
+  import.meta.url === `file://${process.argv[1]}` ||
+  process.argv[1]?.endsWith("server.js");
+
+if (isStandalone) {
   const server = app.listen(PORT, () => {
     console.log(`\n==================================================`);
     console.log(`Pal Optical Forms Web App is running!`);
+    console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
     console.log(`Open your browser at: http://localhost:${PORT}`);
     console.log(`Press Ctrl + C to stop the server.`);
     console.log(`==================================================\n`);
   });
 }
 
-// Export app for production deployment
+// Export app for Vercel serverless and production deployment
 export default app;
