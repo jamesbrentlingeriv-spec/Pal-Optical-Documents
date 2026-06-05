@@ -344,82 +344,91 @@
     font-size: 8pt !important;
   }
 
-  /* Scoped print overrides for DrSideNewPatient form — condense to fit 1 page front+back */
+  /* Scoped print overrides for DrSideNewPatient form — aggressively condense to fit 2 pages */
   body.active-form-dr-side-patient .form-card {
-    padding: 0.15in !important;
+    padding: 0.1in !important;
     margin: 0 !important;
     min-height: auto !important;
     page-break-after: auto !important;
   }
 
   body.active-form-dr-side-patient .form-section {
-    margin-bottom: 8px !important;
+    margin-bottom: 4px !important;
     page-break-inside: avoid;
   }
 
   body.active-form-dr-side-patient .form-header-block {
-    margin-bottom: 12px !important;
-    padding-bottom: 8px !important;
+    margin-bottom: 6px !important;
+    padding-bottom: 4px !important;
   }
 
   body.active-form-dr-side-patient .form-header-block h2 {
-    font-size: 1.1rem !important;
+    font-size: 0.85rem !important;
   }
 
   body.active-form-dr-side-patient .form-header-block p {
-    font-size: 0.65rem !important;
+    font-size: 0.5rem !important;
   }
 
   body.active-form-dr-side-patient .form-section-title {
-    font-size: 0.7rem !important;
-    margin-bottom: 4px !important;
+    font-size: 0.55rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  body.active-form-dr-side-patient .form-section-title svg {
+    width: 10px !important;
+    height: 10px !important;
   }
 
   body.active-form-dr-side-patient .form-grid {
-    gap: 6px !important;
+    gap: 3px !important;
   }
 
   body.active-form-dr-side-patient .form-group {
-    margin-bottom: 4px !important;
+    margin-bottom: 2px !important;
   }
 
   body.active-form-dr-side-patient label {
-    font-size: 7pt !important;
-    margin-bottom: 1px !important;
+    font-size: 5.5pt !important;
+    margin-bottom: 0px !important;
   }
 
   body.active-form-dr-side-patient .form-control {
-    height: 20px !important;
-    font-size: 0.75rem !important;
-    padding: 1px 3px !important;
+    height: 16px !important;
+    font-size: 0.6rem !important;
+    padding: 0px 2px !important;
   }
 
   body.active-form-dr-side-patient textarea.form-control {
-    height: 35px !important;
+    height: 25px !important;
   }
 
   body.active-form-dr-side-patient p,
   body.active-form-dr-side-patient .dilation-text,
   body.active-form-dr-side-patient .checkbox-grid label {
-    font-size: 7pt !important;
-    line-height: 1.3 !important;
-    margin-bottom: 3px !important;
+    font-size: 5.5pt !important;
+    line-height: 1.2 !important;
+    margin-bottom: 2px !important;
+  }
+
+  body.active-form-dr-side-patient strong {
+    font-size: 5.5pt !important;
   }
 
   body.active-form-dr-side-patient .checkbox-grid {
-    gap: 2px 8px !important;
+    gap: 1px 4px !important;
   }
 
   body.active-form-dr-side-patient .checkbox-label {
-    font-size: 7pt !important;
+    font-size: 5.5pt !important;
   }
 
   body.active-form-dr-side-patient .radio-label {
-    font-size: 7.5pt !important;
+    font-size: 6pt !important;
   }
 
   body.active-form-dr-side-patient .signature-canvas-wrapper {
-    height: 60px !important;
+    height: 45px !important;
   }
 
   /* Force page breaks for logical front/back split */
