@@ -173,11 +173,7 @@
     margin: 0 !important;
     padding: 0 !important;
     box-sizing: border-box !important;
-    background-image: url('/cms1500print.png') !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
+    background: #fff !important;
   }
   
   body.active-form-cms1500 canvas {
