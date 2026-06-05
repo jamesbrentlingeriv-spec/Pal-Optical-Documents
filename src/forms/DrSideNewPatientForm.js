@@ -367,6 +367,9 @@ export class DrSideNewPatientForm {
                 <span>Negative</span>
                 <span>If Yes, Check Family Members affected</span>
               </div>
+              <div style="font-size: 0.55rem; color: var(--text-light); margin-bottom: 6px; line-height: 1.4; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;">
+                <strong>Family Member Key:</strong> MGF = Maternal Grandfather &bull; MGM = Maternal Grandmother &bull; PGF = Paternal Grandfather &bull; PGM = Paternal Grandmother &bull; Bro = Brother &bull; Sis = Sister
+              </div>
               ${familyGridHTML}
             </div>
           </div>
