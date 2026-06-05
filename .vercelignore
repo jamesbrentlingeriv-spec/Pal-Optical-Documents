@@ -2,5 +2,4 @@ node_modules
 .git
 *.md
 .env.example
-tsconfig.node.json
 build.sh
