@@ -314,7 +314,7 @@ export class DrSideNewPatientForm {
                 <input type="radio" name="ds-dilation" value="Agree" ${this.state.dilationPref === 'Agree' ? 'checked' : ''}> I AGREE to be Dilated (Recommended)
               </label>
               <div style="padding-left: 24px; font-size: 0.75rem; color: var(--text-light); margin-top: -4px; margin-bottom: 4px;">
-                I understand I may be light-sensitive and have blurry near vision for 2-4 hours.
+                I understand I may be light-sensitive and have blurry near vision for 2-4 hours. I understand that my distance vision and ability to drive will generally not be blurred, though sunglasses are recommended for glare.
               </div>
               <label class="radio-label" style="font-weight: 700;">
                 <input type="radio" name="ds-dilation" value="Decline" ${this.state.dilationPref === 'Decline' ? 'checked' : ''}> I PREFER NOT to be Dilated
