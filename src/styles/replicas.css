@@ -1073,3 +1073,233 @@
   font-size: 11px !important;
   line-height: 1.0 !important;
 }
+
+/* ==========================================
+   PUPILLARY DISTANCE (PD) RECORD REPLICA
+   ========================================== */
+
+.pd-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pd-slip {
+  background-color: #fff;
+  border: 1px solid #cbd5e1;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pd-header-block {
+  text-align: center;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 12px;
+  margin-bottom: 10px;
+}
+
+.pd-header-block h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.pd-header-block .store-info {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.pd-header-block .store-phone {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 2px;
+}
+
+.pd-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pd-section-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary);
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pd-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+
+.pd-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pd-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.pd-control {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #f8fafc;
+  color: #0f172a;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.pd-control:focus {
+  border-color: var(--input-focus);
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+.pd-input-with-unit {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pd-input-with-unit .pd-control {
+  padding-right: 40px;
+}
+
+.pd-input-with-unit .pd-unit {
+  position: absolute;
+  right: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+.pd-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 8px 0;
+}
+
+.pd-divider::before,
+.pd-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.pd-divider span {
+  padding: 0 10px;
+}
+
+.pd-signature-row {
+  align-items: center;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 16px;
+  margin-top: 10px;
+}
+
+.pd-sig-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
+}
+
+.pd-sig-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.pd-sig-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.pd-cut-line {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 15px 0;
+  user-select: none;
+}
+
+.pd-cut-line::before,
+.pd-cut-line::after {
+  content: '';
+  flex: 1;
+  border-bottom: 2px dashed #cbd5e1;
+}
+
+.pd-cut-line span {
+  padding: 0 15px;
+}
+
+/* Print Overrides for PD Form */
+@media print {
+  .pd-slip {
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 20px !important;
+    page-break-inside: avoid !important;
+  }
+  
+  .pd-control {
+    border: none !important;
+    border-bottom: 1px solid #000 !important;
+    border-radius: 0 !important;
+    background-color: transparent !important;
+    padding: 2px !important;
+    font-size: 10pt !important;
+  }
+  
+  .pd-cut-line::before,
+  .pd-cut-line::after {
+    border-bottom: 2px dashed #000 !important;
+  }
+  
+  .pd-divider::before,
+  .pd-divider::after {
+    border-bottom: 1px solid #000 !important;
+  }
+}

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pal-optical-v2';
+const CACHE_NAME = 'pal-optical-v3';
 const ASSETS = [
   '/',
   '/index.html',
@@ -17,6 +17,7 @@ const ASSETS = [
   '/safety_order_form.pdf',
   '/quote.pdf',
   '/Printable%20Patient%20Form.pdf',
+  '/PD%20FORM.pdf',
   '/default_signature.png',
   '/src/forms/CMS1500Form.js',
   '/src/forms/ChildNoPolyForm.js',
@@ -24,6 +25,7 @@ const ASSETS = [
   '/src/forms/ExpiredRxForm.js',
   '/src/forms/FeeSlipForm.js',
   '/src/forms/FrameNoChildForm.js',
+  '/src/forms/PDForm.js',
   '/src/forms/PatientInfoForm.js',
   '/src/forms/PatientsOwnFrameForm.js',
   '/src/forms/PriceQuoteForm.js',

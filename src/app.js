@@ -10,6 +10,7 @@ import { SafetyOrderForm } from './forms/SafetyOrderForm.js';
 import { CMS1500Form } from './forms/CMS1500Form.js';
 import { FeeSlipForm } from './forms/FeeSlipForm.js';
 import { DrSideNewPatientForm } from './forms/DrSideNewPatientForm.js';
+import { PDForm } from './forms/PDForm.js';
 
 // Waivers
 import { ChildNoPolyForm } from './forms/ChildNoPolyForm.js';
@@ -63,6 +64,7 @@ class App {
       case 'prior-auth': return 'Medicaid / Avesis Prior Auth';
       case 'price-quote': return 'Eyewear Price Quote';
       case 'safety-order': return 'Eagle Safety Order Form';
+      case 'pd-record': return 'Pupillary Distance (PD) Record';
       case 'cms1500': return 'CMS-1500 Claim Worksheet';
       case 'fee-slip': return 'Office Fee Slip / Superbill';
       case 'child-no-poly': return 'Refusal of Polycarbonate';
@@ -129,6 +131,9 @@ class App {
         break;
       case 'safety-order':
         this.currentFormInstance = new SafetyOrderForm(renderTarget, formState, callback);
+        break;
+      case 'pd-record':
+        this.currentFormInstance = new PDForm(renderTarget, formState, callback);
         break;
       case 'cms1500':
         this.currentFormInstance = new CMS1500Form(renderTarget, formState, callback);

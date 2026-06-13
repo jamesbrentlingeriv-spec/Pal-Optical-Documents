@@ -19,7 +19,8 @@ export class Sidebar {
         items: [
           { id: 'prior-auth', label: 'Medicaid / Avesis Prior Auth', icon: 'file-text' },
           { id: 'price-quote', label: 'Eyewear Price Quote', icon: 'dollar-sign' },
-          { id: 'safety-order', label: 'Eagle Safety Order Form', icon: 'shield' }
+          { id: 'safety-order', label: 'Eagle Safety Order Form', icon: 'shield' },
+          { id: 'pd-record', label: 'Pupillary Distance (PD) Record', icon: 'file-text' }
         ]
       },
       {
