@@ -58,6 +58,7 @@ const pdfFiles = [
   "safety_order_form.pdf",
   "fee slip.pdf",
   "Printable Patient Form.pdf",
+  "PD FORM.pdf",
 ];
 
 pdfFiles.forEach((file) => {
