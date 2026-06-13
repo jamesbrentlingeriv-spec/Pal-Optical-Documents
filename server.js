@@ -1,55 +1,54 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+const express = require("express");
+const fs = require("fs");
+const path = require("path");
 
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-const MIME_TYPES = {
-  '.html': 'text/html',
-  '.css': 'text/css',
-  '.js': 'text/javascript',
-  '.json': 'application/json',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.gif': 'image/gif',
-  '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon',
-  '.pdf': 'application/pdf'
-};
+// Serve static files from the root directory
+app.use(
+  express.static(".", {
+    maxAge: "1d",
+    etag: false,
+  }),
+);
 
-const server = http.createServer((req, res) => {
-  // Translate URL path to file system path
-  let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url.split('?')[0]);
-  
-  // Get file extension
-  const ext = path.extname(filePath).toLowerCase();
-  
-  // Set default content type
-  let contentType = MIME_TYPES[ext] || 'application/octet-stream';
-  
-  fs.readFile(filePath, (err, content) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        // Page/file not found
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.end('404 File Not Found', 'utf-8');
-      } else {
-        // Some server error
-        res.writeHead(500);
-        res.end(`Server Error: ${err.code}`);
+// SPA routing - redirect non-file requests to index.html
+app.get("*", (req, res) => {
+  const filePath = path.join(__dirname, req.path);
+  const ext = path.extname(filePath);
+
+  // If it looks like a file request, try to serve it
+  if (ext) {
+    fs.stat(filePath, (err) => {
+      if (!err) {
+        return res.sendFile(filePath);
       }
-    } else {
-      // Success
-      res.writeHead(200, { 'Content-Type': contentType });
-      res.end(content, 'utf-8');
-    }
-  });
+      // File not found, serve index.html
+      res.sendFile(path.join(__dirname, "index.html"));
+    });
+  } else {
+    // No extension, serve index.html for SPA routing
+    res.sendFile(path.join(__dirname, "index.html"));
+  }
 });
 
-server.listen(PORT, () => {
-  console.log(`\n==================================================`);
-  console.log(`Pal Optical Forms Web App is running!`);
-  console.log(`Open your browser at: http://localhost:${PORT}`);
-  console.log(`Press Ctrl + C to stop the server.`);
-  console.log(`==================================================\n`);
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error("Error:", err);
+  res.status(500).send("Internal Server Error");
 });
+
+// Start server only in development/standalone mode (not when imported)
+if (require.main === module) {
+  const server = app.listen(PORT, () => {
+    console.log(`\n==================================================`);
+    console.log(`Pal Optical Forms Web App is running!`);
+    console.log(`Open your browser at: http://localhost:${PORT}`);
+    console.log(`Press Ctrl + C to stop the server.`);
+    console.log(`==================================================\n`);
+  });
+}
+
+// Export app for Vercel/serverless compatibility
+module.exports = app;

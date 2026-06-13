@@ -29,6 +29,65 @@ class App {
     this.sidebar = null;
     this.formActions = null;
     this.currentFormInstance = null;
+
+    this.initAuth();
+  }
+
+  initAuth() {
+    // Check if already authenticated this session
+    if (sessionStorage.getItem('pal-auth') === 'true') {
+      this.showApp();
+      return;
+    }
+
+    const overlay = document.getElementById('login-overlay');
+    const usernameInput = document.getElementById('login-username');
+    const passwordInput = document.getElementById('login-password');
+    const loginBtn = document.getElementById('login-btn');
+    const errorEl = document.getElementById('login-error');
+    const loginForm = document.getElementById('login-form');
+
+    const tryLogin = () => {
+      const username = usernameInput.value.trim().toLowerCase();
+      const password = passwordInput.value.trim().replace(/\s+/g, '').toLowerCase();
+
+      if (username === 'pal' && password === 'paloptical') {
+        sessionStorage.setItem('pal-auth', 'true');
+        overlay.style.display = 'none';
+        this.showApp();
+      } else {
+        errorEl.textContent = 'Invalid username or password. Please try again.';
+        errorEl.style.animation = 'none';
+        void errorEl.offsetWidth; // trigger reflow
+        errorEl.style.animation = 'loginShake 0.4s ease';
+        passwordInput.value = '';
+        passwordInput.focus();
+      }
+    };
+
+    loginBtn.addEventListener('click', tryLogin);
+
+    passwordInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        tryLogin();
+      }
+    });
+
+    usernameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        passwordInput.focus();
+      }
+    });
+
+    // Focus username on load
+    usernameInput.focus();
+  }
+
+  showApp() {
+    const appContainer = document.getElementById('app');
+    appContainer.style.display = '';
     
     this.loadState();
     this.initDOM();

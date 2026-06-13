@@ -12,7 +12,6 @@ const ASSETS = [
   '/src/styles/forms.css',
   '/src/styles/replicas.css',
   '/src/styles/print.css',
-  '/tailwindcss-browser.js',
   '/cms1500-form.pdf',
   '/safety_order_form.pdf',
   '/quote.pdf',

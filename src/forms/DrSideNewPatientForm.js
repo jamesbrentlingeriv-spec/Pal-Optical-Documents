@@ -105,41 +105,37 @@ export class DrSideNewPatientForm {
             </div>
             
             <div class="form-grid">
-              <div class="form-group col-5">
+              <div class="form-group col-12">
                 <label for="ds-last-name">Last Name</label>
                 <input type="text" class="form-control" id="ds-last-name" placeholder="Doe" value="${this.state.lastName}">
               </div>
-              <div class="form-group col-5">
+              <div class="form-group col-12">
                 <label for="ds-first-name">First Name</label>
                 <input type="text" class="form-control" id="ds-first-name" placeholder="John" value="${this.state.firstName}">
               </div>
-              <div class="form-group col-2">
-                <label for="ds-mi">M.I.</label>
+              <div class="form-group col-12">
+                <label for="ds-mi">M.I. (Middle Initial)</label>
                 <input type="text" class="form-control" id="ds-mi" placeholder="H" value="${this.state.mi}">
               </div>
               
-              <div class="form-group col-6">
+              <div class="form-group col-12">
                 <label for="ds-address">Street Address</label>
                 <input type="text" class="form-control" id="ds-address" placeholder="Street Address" value="${this.state.address}">
               </div>
-              <div class="form-group col-3">
+              <div class="form-group col-12">
                 <label for="ds-city">City</label>
                 <input type="text" class="form-control" id="ds-city" placeholder="City" value="${this.state.city}">
               </div>
-              <div class="form-group col-1.5">
-                <label for="ds-state">State</label>
-                <input type="text" class="form-control" id="ds-state" placeholder="KY" value="${this.state.stateVal}">
-              </div>
-              <div class="form-group col-1.5">
-                <label for="ds-zip">Zip Code</label>
-                <input type="text" class="form-control" id="ds-zip" placeholder="Zip" value="${this.state.zip}">
+              <div class="form-group col-12">
+                <label>Kentucky / Zip Code / Phone Number</label>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                  <input type="text" class="form-control" id="ds-state" placeholder="KY" value="${this.state.stateVal}" style="flex: 1; min-width: 80px;">
+                  <input type="text" class="form-control" id="ds-zip" placeholder="Zip Code" value="${this.state.zip}" style="flex: 2; min-width: 120px;">
+                  <input type="tel" class="form-control" id="ds-phone" placeholder="Phone Number" value="${this.state.phone}" style="flex: 3; min-width: 160px;">
+                </div>
               </div>
               
-              <div class="form-group col-6">
-                <label for="ds-phone">Phone Number</label>
-                <input type="tel" class="form-control" id="ds-phone" placeholder="Phone" value="${this.state.phone}">
-              </div>
-              <div class="form-group col-6">
+              <div class="form-group col-12">
                 <label for="ds-email">Email Address</label>
                 <input type="email" class="form-control" id="ds-email" placeholder="Email" value="${this.state.email}">
               </div>
@@ -318,7 +314,7 @@ export class DrSideNewPatientForm {
                 <input type="radio" name="ds-dilation" value="Agree" ${this.state.dilationPref === 'Agree' ? 'checked' : ''}> I AGREE to be Dilated (Recommended)
               </label>
               <div style="padding-left: 24px; font-size: 0.75rem; color: var(--text-light); margin-top: -4px; margin-bottom: 4px;">
-                I understand I may be light-sensitive and have blurry near vision for 2-4 hours.
+                I understand I may be light-sensitive and have blurry near vision for 2-4 hours. I understand that my distance vision and ability to drive will generally not be blurred, though sunglasses are recommended for glare.
               </div>
               <label class="radio-label" style="font-weight: 700;">
                 <input type="radio" name="ds-dilation" value="Decline" ${this.state.dilationPref === 'Decline' ? 'checked' : ''}> I PREFER NOT to be Dilated
@@ -370,6 +366,9 @@ export class DrSideNewPatientForm {
                 <span>Condition</span>
                 <span>Negative</span>
                 <span>If Yes, Check Family Members affected</span>
+              </div>
+              <div style="font-size: 0.55rem; color: var(--text-light); margin-bottom: 6px; line-height: 1.4; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;">
+                <strong>Family Member Key:</strong> MGF = Maternal Grandfather &bull; MGM = Maternal Grandmother &bull; PGF = Paternal Grandfather &bull; PGM = Paternal Grandmother &bull; Bro = Brother &bull; Sis = Sister
               </div>
               ${familyGridHTML}
             </div>
