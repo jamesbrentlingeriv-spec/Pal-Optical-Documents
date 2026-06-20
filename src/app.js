@@ -52,7 +52,7 @@ class App {
       const username = usernameInput.value.trim().toLowerCase();
       const password = passwordInput.value.trim().replace(/\s+/g, '').toLowerCase();
 
-      if (username === 'pal' && password === 'paloptical') {
+      if (username === 'pal' && password === 'pal') {
         sessionStorage.setItem('pal-auth', 'true');
         overlay.style.display = 'none';
         this.showApp();
