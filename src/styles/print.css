@@ -311,6 +311,10 @@
     box-sizing: border-box !important;
   }
 
+  body.active-form-fee-slip .fee-slip-container .h-full {
+    height: 100% !important;
+  }
+
   body.active-form-fee-slip .fee-slip-container input:not([type=checkbox]):not([type=radio]) {
     font-size: 8pt !important;
   }

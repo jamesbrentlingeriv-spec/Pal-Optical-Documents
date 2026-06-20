@@ -541,6 +541,10 @@
   display: flex !important;
 }
 
+.fee-slip-container .h-full {
+  height: 100% !important;
+}
+
 .fee-slip-container .flex-col {
   flex-direction: column !important;
 }

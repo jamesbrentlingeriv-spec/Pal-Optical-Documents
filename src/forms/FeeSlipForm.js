@@ -312,6 +312,8 @@ export class FeeSlipForm {
                   ${this.renderDiagnosis("Pseudotumor Cerebri", "optic_tumor")}
                 </div>
               </div>
+              <!-- Bottom border spacer to align column baselines -->
+              <div class="mt-auto pt-4 border-t-2 border-black min-h-[50px]"></div>
             </div>
             
             <!-- COLUMN 3 -->
