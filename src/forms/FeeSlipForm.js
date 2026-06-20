@@ -85,11 +85,11 @@ export class FeeSlipForm {
           <div class="flex items-end gap-x-12 mb-4 border-b-2 border-black pb-1">
             <div class="flex-1 flex items-end gap-2 header-input">
               <span class="font-black text-sm tracking-tighter uppercase shrink-0">Patients Name:</span>
-              <input type="text" id="fs-patient-name" class="flex-1 border-b border-black uppercase py-0 focus:outline-none text-[16pt]" value="${this.state.patientName || ''}">
+              <input type="text" id="fs-patient-name" class="flex-1 border-b border-black uppercase py-0 focus:outline-none text-[11pt]" value="${this.state.patientName || ''}">
             </div>
             <div class="flex items-end gap-2 header-input">
               <span class="font-black text-sm tracking-tighter uppercase shrink-0">Date:</span>
-              <input type="date" id="fs-date" class="w-48 border-b border-black py-0 focus:outline-none text-[16pt]" value="${this.state.dateOfService || ''}">
+              <input type="date" id="fs-date" class="w-48 border-b border-black py-0 focus:outline-none text-[11pt]" value="${this.state.dateOfService || ''}">
             </div>
           </div>
           
@@ -446,37 +446,37 @@ export class FeeSlipForm {
               <!-- Ledger Summary Box -->
               <div class="mt-auto pt-4 flex flex-col gap-1 border-t-4 border-black summary-input">
                 <div class="flex items-end justify-between gap-1">
-                  <span class="font-black text-[16px] uppercase underline leading-tight shrink-0">ROUTINE / MEDICAL:</span>
-                  <input type="text" id="fs-routine-medical" class="flex-1 min-w-0 border-b border-black focus:outline-none text-[20pt] font-black" value="${this.state.routineMedical || ''}">
+                  <span class="font-black text-[11px] uppercase underline leading-tight shrink-0">ROUTINE / MEDICAL:</span>
+                  <input type="text" id="fs-routine-medical" class="flex-1 min-w-0 border-b border-black focus:outline-none text-[11pt] font-black" value="${this.state.routineMedical || ''}">
                 </div>
                 <div class="flex items-end justify-between gap-1">
-                  <span class="font-black text-[16px] uppercase underline leading-tight shrink-0">CONTACTS / OTHER :</span>
-                  <input type="text" id="fs-contacts-other" class="flex-1 min-w-0 border-b border-black focus:outline-none text-[20pt] font-black" value="${this.state.contactsOther || ''}">
+                  <span class="font-black text-[11px] uppercase underline leading-tight shrink-0">CONTACTS / OTHER :</span>
+                  <input type="text" id="fs-contacts-other" class="flex-1 min-w-0 border-b border-black focus:outline-none text-[11pt] font-black" value="${this.state.contactsOther || ''}">
                 </div>
                 
                 <div class="flex items-end justify-between gap-1 mt-2">
-                  <span class="font-black text-[16px] uppercase leading-none shrink-0">TOTAL :</span>
+                  <span class="font-black text-[11px] uppercase leading-none shrink-0">TOTAL :</span>
                   <div class="flex items-end gap-1 flex-1 border-b border-black">
-                    <span class="text-lg font-bold">$</span>
-                    <input type="number" step="0.01" id="fs-total" class="flex-1 min-w-0 text-left focus:outline-none bg-transparent font-black text-[20pt]" value="${this.state.total || ''}">
+                    <span class="text-sm font-bold">$</span>
+                    <input type="number" step="0.01" id="fs-total" class="flex-1 min-w-0 text-left focus:outline-none bg-transparent font-black text-[11pt]" value="${this.state.total || ''}">
                   </div>
                 </div>
                 
                 <div class="flex items-end justify-between gap-1 mt-2">
-                  <span class="font-black text-[16px] uppercase leading-none shrink-0">RECIEVED:</span>
+                  <span class="font-black text-[11px] uppercase leading-none shrink-0">RECIEVED:</span>
                   <div class="flex items-end gap-1 flex-1 border-b border-black">
-                    <span class="text-lg font-bold">$</span>
-                    <input type="number" step="0.01" id="fs-received" class="flex-1 min-w-0 text-left focus:outline-none bg-transparent font-black text-[20pt]" value="${this.state.received || ''}">
+                    <span class="text-sm font-bold">$</span>
+                    <input type="number" step="0.01" id="fs-received" class="flex-1 min-w-0 text-left focus:outline-none bg-transparent font-black text-[11pt]" value="${this.state.received || ''}">
                   </div>
                 </div>
                 
                 <div class="flex items-end justify-between gap-1">
-                  <span class="font-black text-[16px] uppercase leading-tight shrink-0">PAYMENT TYPE :</span>
-                  <input type="text" id="fs-payment-type" class="flex-1 min-w-0 border-b border-black focus:outline-none placeholder:text-neutral-300 uppercase font-black text-[20pt]" placeholder="CASH/VISA" value="${this.state.paymentType || ''}">
+                  <span class="font-black text-[11px] uppercase leading-tight shrink-0">PAYMENT TYPE :</span>
+                  <input type="text" id="fs-payment-type" class="flex-1 min-w-0 border-b border-black focus:outline-none placeholder:text-neutral-300 uppercase font-black text-[11pt]" placeholder="CASH/VISA" value="${this.state.paymentType || ''}">
                 </div>
                 <div class="flex items-end justify-between gap-1">
-                  <span class="font-black text-[16px] uppercase leading-tight shrink-0">INS USED:</span>
-                  <input type="text" id="fs-ins-used" class="flex-1 min-w-0 border-b border-black focus:outline-none uppercase font-black text-[20pt]" value="${this.state.insUsed || ''}">
+                  <span class="font-black text-[11px] uppercase leading-tight shrink-0">INS USED:</span>
+                  <input type="text" id="fs-ins-used" class="flex-1 min-w-0 border-b border-black focus:outline-none uppercase font-black text-[11pt]" value="${this.state.insUsed || ''}">
                 </div>
               </div>
               

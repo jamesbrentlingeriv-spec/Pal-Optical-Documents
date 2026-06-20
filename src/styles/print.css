@@ -302,6 +302,44 @@
     overflow: hidden !important;
   }
 
+  body.active-form-fee-slip .fee-slip-container {
+    padding: 0.15in !important;
+    border: none !important;
+    box-shadow: none !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container input:not([type=checkbox]):not([type=radio]) {
+    font-size: 8pt !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .header-input input {
+    font-size: 11pt !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .summary-input input {
+    font-size: 11pt !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .label-text {
+    font-size: 7.5px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .code-text {
+    font-size: 6.5px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .section-title {
+    font-size: 0.65rem !important;
+    padding: 1px 0 !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .flex-1.grid.grid-cols-12 {
+    gap-x: 2px !important;
+  }
+
   /* Scoped print overrides for new waivers to ensure single-page fits */
   body.active-form-child-no-poly .form-card,
   body.active-form-expired-rx .form-card,
