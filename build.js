@@ -72,7 +72,7 @@ pdfFiles.forEach((file) => {
 
 // Step 4: Copy image files from root to dist
 console.log("\n🖼️  Copying image files...");
-const imageFiles = ["cms1500print.png", "default_signature.png"];
+const imageFiles = ["cms1500print.png", "default_signature.png", "jamessig.jpg", "CARRIBYAN SIG.jpg"];
 
 imageFiles.forEach((file) => {
   const src = path.join(__dirname, file);

@@ -19,6 +19,7 @@ import { FrameNoChildForm } from './forms/FrameNoChildForm.js';
 import { PatientsOwnFrameForm } from './forms/PatientsOwnFrameForm.js';
 import { SemiRimlessWaiverForm } from './forms/SemiRimlessWaiverForm.js';
 import { SingleVisionConsentForm } from './forms/SingleVisionConsentForm.js';
+import { SchoolExcuseForm } from './forms/SchoolExcuseForm.js';
 
 class App {
   constructor() {
@@ -132,6 +133,8 @@ class App {
       case 'patients-own-frame': return "Notice: Patient's Own Frame";
       case 'semi-rimless': return 'Semi-Rimless in Plastic';
       case 'single-vision': return 'Single Vision Consent';
+      case 'school-excuse-james': return 'School Excuse (James)';
+      case 'school-excuse-carribyan': return 'School Excuse (Carribyan)';
       default: return 'Pal Optical Form';
     }
   }
@@ -217,6 +220,12 @@ class App {
         break;
       case 'single-vision':
         this.currentFormInstance = new SingleVisionConsentForm(renderTarget, formState, callback);
+        break;
+      case 'school-excuse-james':
+        this.currentFormInstance = new SchoolExcuseForm(renderTarget, formState, callback, 'james');
+        break;
+      case 'school-excuse-carribyan':
+        this.currentFormInstance = new SchoolExcuseForm(renderTarget, formState, callback, 'carribyan');
         break;
       default:
         renderTarget.innerHTML = '<div class="form-card">Select a form from the menu.</div>';

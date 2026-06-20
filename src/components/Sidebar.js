@@ -40,6 +40,13 @@ export class Sidebar {
           { id: 'semi-rimless', label: 'Semi-Rimless in Plastic', icon: 'shield' },
           { id: 'single-vision', label: 'Single Vision Consent', icon: 'file-text' }
         ]
+      },
+      {
+        title: 'School & Work Excuses',
+        items: [
+          { id: 'school-excuse-james', label: 'School Excuse (James)', icon: 'file-text' },
+          { id: 'school-excuse-carribyan', label: 'School Excuse (Carribyan)', icon: 'file-text' }
+        ]
       }
     ];
     

@@ -489,4 +489,18 @@
   body.active-form-pd-record .signature-canvas-wrapper {
     height: 50px !important;
   }
+
+  /* Scoped print overrides for school excuses to hide inputs and format the printed slip */
+  body.active-form-school-excuse-james .excuse-slip-print,
+  body.active-form-school-excuse-carribyan .excuse-slip-print {
+    border: 1px solid #000 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0.5in !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+  }
 }
