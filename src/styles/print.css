@@ -581,4 +581,82 @@
     margin-bottom: 10px !important;
     line-height: 1.3 !important;
   }
+
+  /* Scoped print overrides for active-form-patient-info to force exactly one page */
+  body.active-form-patient-info .form-card {
+    padding: 0.1in !important;
+    margin: 0 !important;
+    min-height: auto !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  body.active-form-patient-info .form-section {
+    margin-bottom: 3px !important;
+    padding-bottom: 2px !important;
+    page-break-inside: avoid !important;
+  }
+
+  body.active-form-patient-info .form-header-block {
+    margin-bottom: 4px !important;
+    padding-bottom: 2px !important;
+  }
+
+  body.active-form-patient-info .form-header-block h2 {
+    font-size: 0.9rem !important;
+    margin-bottom: 1px !important;
+  }
+
+  body.active-form-patient-info .form-header-block p {
+    font-size: 0.65rem !important;
+  }
+
+  body.active-form-patient-info .form-section-title {
+    font-size: 0.65rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  body.active-form-patient-info .form-section-title svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  body.active-form-patient-info .form-grid {
+    gap: 3px !important;
+  }
+
+  body.active-form-patient-info .form-group {
+    margin-bottom: 1px !important;
+  }
+
+  body.active-form-patient-info label {
+    font-size: 6pt !important;
+    margin-bottom: 0px !important;
+  }
+
+  body.active-form-patient-info .form-control {
+    height: 15px !important;
+    font-size: 0.65rem !important;
+    padding: 0px 2px !important;
+  }
+
+  body.active-form-patient-info .checkbox-grid {
+    gap: 1px 4px !important;
+  }
+
+  body.active-form-patient-info .radio-label,
+  body.active-form-patient-info .checkbox-label {
+    font-size: 6.5pt !important;
+  }
+
+  body.active-form-patient-info .signature-canvas-wrapper {
+    height: 40px !important;
+  }
+
+  body.active-form-patient-info .form-section div[style*="background-color: var(--bg-primary)"] {
+    padding: 8px !important;
+    font-size: 6.5pt !important;
+    margin-bottom: 10px !important;
+    line-height: 1.25 !important;
+  }
 }
