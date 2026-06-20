@@ -503,4 +503,82 @@
     page-break-inside: avoid !important;
     page-break-after: avoid !important;
   }
+
+  /* Scoped print overrides for active-form-prior-auth to force exactly one page */
+  body.active-form-prior-auth .form-card {
+    padding: 0.12in !important;
+    margin: 0 !important;
+    min-height: auto !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  body.active-form-prior-auth .form-section {
+    margin-bottom: 5px !important;
+    padding-bottom: 5px !important;
+    page-break-inside: avoid !important;
+  }
+
+  body.active-form-prior-auth .form-header-block {
+    margin-bottom: 6px !important;
+    padding-bottom: 4px !important;
+  }
+
+  body.active-form-prior-auth .form-header-block h2 {
+    font-size: 1.0rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  body.active-form-prior-auth .form-header-block p {
+    font-size: 0.75rem !important;
+  }
+
+  body.active-form-prior-auth .form-section-title {
+    font-size: 0.7rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  body.active-form-prior-auth .form-grid {
+    gap: 4px !important;
+  }
+
+  body.active-form-prior-auth .form-group {
+    margin-bottom: 2px !important;
+  }
+
+  body.active-form-prior-auth label {
+    font-size: 7.5pt !important;
+    margin-bottom: 1px !important;
+  }
+
+  body.active-form-prior-auth .form-control {
+    height: 18px !important;
+    font-size: 0.75rem !important;
+    padding: 0px 3px !important;
+  }
+
+  body.active-form-prior-auth .checkbox-label {
+    font-size: 7.5pt !important;
+  }
+
+  body.active-form-prior-auth .checkbox-label + div {
+    font-size: 7pt !important;
+    padding-left: 20px !important;
+  }
+
+  body.active-form-prior-auth .static-signature-wrapper {
+    height: 60px !important;
+    padding: 5px !important;
+  }
+
+  body.active-form-prior-auth .static-signature-wrapper img {
+    max-height: 50px !important;
+  }
+
+  body.active-form-prior-auth .form-section div[style*="background-color: var(--bg-primary)"] {
+    padding: 10px !important;
+    font-size: 7.5pt !important;
+    margin-bottom: 10px !important;
+    line-height: 1.3 !important;
+  }
 }
