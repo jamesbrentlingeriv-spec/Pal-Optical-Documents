@@ -303,7 +303,7 @@
   }
 
   body.active-form-fee-slip .fee-slip-container {
-    padding: 0.15in !important;
+    padding: 0.05in 0.1in !important;
     border: none !important;
     box-shadow: none !important;
     height: 100% !important;
@@ -316,32 +316,81 @@
   }
 
   body.active-form-fee-slip .fee-slip-container input:not([type=checkbox]):not([type=radio]) {
-    font-size: 8pt !important;
+    font-size: 7pt !important;
+    height: 11px !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .header-input input {
-    font-size: 11pt !important;
+    font-size: 10pt !important;
+    height: 14px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .header-input span {
+    font-size: 10px !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .summary-input input {
-    font-size: 11pt !important;
+    font-size: 9pt !important;
+    height: 14px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .summary-input span {
+    font-size: 9px !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .label-text {
-    font-size: 7.5px !important;
+    font-size: 7px !important;
+    line-height: 1.05 !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .code-text {
-    font-size: 6.5px !important;
+    font-size: 6px !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .section-title {
-    font-size: 0.65rem !important;
-    padding: 1px 0 !important;
+    font-size: 8px !important;
+    padding: 0px !important;
+    margin-bottom: 2px !important;
+    border-left: 2px solid #000 !important;
+    border-right: 2px solid #000 !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .checkbox-custom,
+  body.active-form-fee-slip .fee-slip-container .radio-custom {
+    height: 8px !important;
+    width: 8px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .proc-val {
+    font-size: 6px !important;
+    height: 9px !important;
+    width: 24px !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .flex-1.grid.grid-cols-12 {
     gap-x: 2px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container div[class*="mt-auto pt-4 border-t-2"] div {
+    font-size: 7.5pt !important;
+    line-height: 1.15 !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container div[class*="min-h-\[50px\]"] {
+    min-height: 20px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .mb-4 {
+    margin-bottom: 4px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .mt-2 {
+    margin-top: 1px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .mt-auto {
+    margin-top: 2px !important;
+    padding-top: 2px !important;
   }
 
   /* Scoped print overrides for new waivers to ensure single-page fits */
