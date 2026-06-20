@@ -435,4 +435,58 @@
   body.active-form-dr-side-patient .form-section:nth-of-type(4) {
     page-break-before: always;
   }
+
+  /* Scoped print overrides for active-form-pd-record to force exactly one page */
+  body.active-form-pd-record .pd-form-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0.15in !important;
+    box-sizing: border-box !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  body.active-form-pd-record .pd-slip {
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 15px !important;
+    box-sizing: border-box !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  body.active-form-pd-record .pd-control {
+    border: none !important;
+    border-bottom: 1px solid #000 !important;
+    border-radius: 0 !important;
+    background-color: transparent !important;
+    padding: 2px !important;
+    font-size: 9.5pt !important;
+    height: 18px !important;
+  }
+
+  body.active-form-pd-record .pd-section {
+    margin-bottom: 8px !important;
+  }
+
+  body.active-form-pd-record .pd-grid {
+    gap: 10px !important;
+  }
+
+  body.active-form-pd-record .pd-divider {
+    margin: 4px 0 !important;
+  }
+
+  body.active-form-pd-record .pd-signature-row {
+    margin-top: 5px !important;
+    padding-top: 10px !important;
+    page-break-inside: avoid !important;
+  }
+
+  body.active-form-pd-record .signature-canvas-wrapper {
+    height: 50px !important;
+  }
 }

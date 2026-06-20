@@ -1,5 +1,4 @@
 /* Pal Optical Forms Web App - Avesis Medicaid Statement of Necessity */
-import { SignaturePad } from '../components/SignaturePad.js';
 
 export class PriorAuthForm {
   constructor(container, state = {}, onStateChange) {
@@ -9,11 +8,9 @@ export class PriorAuthForm {
       ...state
     };
     this.onStateChange = onStateChange;
-    this.sigPad = null;
     
     this.render();
     this.bindEvents();
-    this.initSignature();
   }
   
   render() {
@@ -134,8 +131,11 @@ export class PriorAuthForm {
             </div>
             
             <div class="form-grid">
-              <div class="form-group col-8" id="pa-sig-target">
-                <!-- Signature pad -->
+              <div class="form-group col-8">
+                <label>Authorized Signature (Linda)</label>
+                <div class="static-signature-wrapper" style="border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; background-color: var(--bg-primary); display: flex; align-items: center; justify-content: center; height: 100px; position: relative; overflow: hidden;">
+                  <img src="/default_signature.png" alt="Linda Signature" style="max-height: 80px; object-fit: contain;">
+                </div>
               </div>
               
               <div class="form-group col-4">
@@ -154,25 +154,6 @@ export class PriorAuthForm {
     
     form.addEventListener('input', () => this.updateState());
     form.addEventListener('change', () => this.updateState());
-  }
-  
-  initSignature() {
-    const sigTarget = this.container.querySelector('#pa-sig-target');
-    this.sigPad = new SignaturePad(sigTarget, 'prior-auth', 'Sign here with finger or mouse');
-    
-    if (this.state.signature) {
-      this.sigPad.setDataUrl(this.state.signature);
-    }
-    
-    const canvas = sigTarget.querySelector('canvas');
-    canvas.addEventListener('mouseup', () => this.saveSignature());
-    canvas.addEventListener('touchend', () => this.saveSignature());
-    canvas.addEventListener('signature-change', () => this.saveSignature());
-  }
-  
-  saveSignature() {
-    this.state.signature = this.sigPad.getDataUrl();
-    this.onStateChange(this.state);
   }
   
   updateState() {
@@ -208,7 +189,6 @@ export class PriorAuthForm {
     };
     this.render();
     this.bindEvents();
-    this.initSignature();
     this.onStateChange(this.state);
   }
 }
