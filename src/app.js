@@ -20,6 +20,7 @@ import { PatientsOwnFrameForm } from './forms/PatientsOwnFrameForm.js';
 import { SemiRimlessWaiverForm } from './forms/SemiRimlessWaiverForm.js';
 import { SingleVisionConsentForm } from './forms/SingleVisionConsentForm.js';
 import { SchoolExcuseForm } from './forms/SchoolExcuseForm.js';
+import { WellcareSpendablesForm } from './forms/WellcareSpendablesForm.js';
 
 class App {
   constructor() {
@@ -135,6 +136,7 @@ class App {
       case 'single-vision': return 'Single Vision Consent';
       case 'school-excuse-james': return 'School Excuse (James)';
       case 'school-excuse-carribyan': return 'School Excuse (Carribyan)';
+      case 'wellcare-spendables': return 'Wellcare Spendable Card Auth';
       default: return 'Pal Optical Form';
     }
   }
@@ -226,6 +228,9 @@ class App {
         break;
       case 'school-excuse-carribyan':
         this.currentFormInstance = new SchoolExcuseForm(renderTarget, formState, callback, 'carribyan');
+        break;
+      case 'wellcare-spendables':
+        this.currentFormInstance = new WellcareSpendablesForm(renderTarget, formState, callback);
         break;
       default:
         renderTarget.innerHTML = '<div class="form-card">Select a form from the menu.</div>';
