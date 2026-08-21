@@ -7,8 +7,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Signature drawing inversion in dark mode */
-body.dark-mode canvas, body.dark-mode .signature-canvas-wrapper canvas {
-  filter: invert(1) !important;
-}

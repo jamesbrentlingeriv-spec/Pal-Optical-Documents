@@ -37,6 +37,15 @@ export class FormActions {
   
   render() {
     this.container.innerHTML = `
+      <!-- Hamburger button (mobile only) -->
+      <button type="button" class="mobile-menu-btn" id="mobile-hamburger" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
       <div class="header-title-container">
         <h1>${this.formTitle}</h1>
         <p>Choose fill option or print directly</p>
@@ -46,7 +55,7 @@ export class FormActions {
         <!-- Mode Switcher -->
         <div class="toggle-group">
           <div class="toggle-option ${this.mode === 'fill' ? 'active' : ''}" id="mode-fill">Fill Digitally</div>
-          <div class="toggle-option ${this.mode === 'print-blank' ? 'active' : ''}" id="mode-blank">Print Blank Form</div>
+          <div class="toggle-option ${this.mode === 'print-blank' ? 'active' : ''}" id="mode-blank">Print Blank</div>
         </div>
         
         <!-- Reset Button -->
@@ -57,7 +66,7 @@ export class FormActions {
             <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
             <path d="M8 21H3v-5"/>
           </svg>
-          Reset Form
+          Reset
         </button>
         
         <!-- Print Button -->
@@ -67,7 +76,7 @@ export class FormActions {
             <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
             <rect x="6" y="14" width="12" height="8"/>
           </svg>
-          Print Form
+          Print
         </button>
       </div>
     `;
@@ -78,6 +87,17 @@ export class FormActions {
     const blankOpt = this.container.querySelector('#mode-blank');
     const resetBtn = this.container.querySelector('#btn-reset');
     const printBtn = this.container.querySelector('#btn-print');
+    const hamburger = this.container.querySelector('#mobile-hamburger');
+    
+    // Hamburger: open sidebar drawer on mobile
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        const sidebar = document.getElementById('sidebar-target');
+        const overlay = document.getElementById('sidebar-overlay');
+        if (sidebar) sidebar.classList.add('mobile-open');
+        if (overlay) overlay.classList.add('active');
+      });
+    }
     
     fillOpt.addEventListener('click', () => {
       if (this.mode === 'fill') return;

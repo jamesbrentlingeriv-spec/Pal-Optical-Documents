@@ -116,6 +116,15 @@ class App {
       () => this.resetForm(),
       () => this.printForm()
     );
+    
+    // Wire overlay tap to close sidebar drawer
+    const overlay = document.getElementById('sidebar-overlay');
+    if (overlay) {
+      overlay.addEventListener('click', () => {
+        sidebarTarget.classList.remove('mobile-open');
+        overlay.classList.remove('active');
+      });
+    }
   }
   
   getFormTitle(formId) {

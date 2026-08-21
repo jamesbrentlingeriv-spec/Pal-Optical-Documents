@@ -83,6 +83,12 @@ export class Sidebar {
           <div class="logo-text">PAL OPTICAL</div>
           <div class="logo-subtext">Office Forms</div>
         </div>
+        <button type="button" class="sidebar-close-btn" id="sidebar-close" aria-label="Close menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+          Close
+        </button>
       </div>
       
       <nav class="sidebar-menu">
@@ -90,20 +96,7 @@ export class Sidebar {
       </nav>
       
       <div class="sidebar-footer">
-        <span style="font-size: 0.8rem; font-weight: 500;">Theme Mode</span>
-        <button type="button" class="theme-toggle-btn" id="theme-toggle" title="Toggle Theme">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-sun-icon">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/>
-            <line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/>
-            <line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.72" x2="5.64" y2="18.3"/>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-          </svg>
-        </button>
+        <span style="font-size: 0.75rem; color: #555; font-weight: 500;">Pal Optical &copy; Office Forms</span>
       </div>
     `;
   }
@@ -121,24 +114,25 @@ export class Sidebar {
         items.forEach(el => el.classList.remove('active'));
         item.classList.add('active');
         
+        // Close mobile drawer after selecting a form
+        this.closeMobileDrawer();
+        
         // Trigger callback
         this.onSelectForm(formId);
       });
     });
     
-    // Theme toggle click
-    const toggleBtn = this.container.querySelector('#theme-toggle');
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      localStorage.setItem('pal-optical-theme', isDark ? 'dark' : 'light');
-    });
-    
-    // Initialize theme based on preference
-    const savedTheme = localStorage.getItem('pal-optical-theme');
-    if (savedTheme === 'dark') {
-      document.body.classList.add('dark-mode');
+    // Sidebar close button (mobile)
+    const closeBtn = this.container.querySelector('#sidebar-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => this.closeMobileDrawer());
     }
+  }
+  
+  closeMobileDrawer() {
+    this.container.classList.remove('mobile-open');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (overlay) overlay.classList.remove('active');
   }
   
   getIcon(iconName) {
