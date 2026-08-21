@@ -38,7 +38,7 @@ export class FormActions {
   render() {
     this.container.innerHTML = `
       <!-- Hamburger button (mobile only) -->
-      <button type="button" class="mobile-menu-btn" id="mobile-hamburger" aria-label="Open menu">
+      <button type="button" class="mobile-menu-btn" id="mobile-hamburger" aria-label="Open menu" title="Open navigation menu">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="6" x2="21" y2="6"/>
           <line x1="3" y1="12" x2="21" y2="12"/>
@@ -53,9 +53,15 @@ export class FormActions {
       
       <div class="actions-toolbar">
         <!-- Mode Switcher -->
-        <div class="toggle-group">
-          <div class="toggle-option ${this.mode === 'fill' ? 'active' : ''}" id="mode-fill">Fill Digitally</div>
-          <div class="toggle-option ${this.mode === 'print-blank' ? 'active' : ''}" id="mode-blank">Print Blank</div>
+        <div class="toggle-group" id="header-mode-toggle">
+          <div class="toggle-option ${this.mode === 'fill' ? 'active' : ''}" id="mode-fill" title="Fill Digitally">
+            <span class="toggle-text-full">Fill Digitally</span>
+            <span class="toggle-text-short">Fill</span>
+          </div>
+          <div class="toggle-option ${this.mode === 'print-blank' ? 'active' : ''}" id="mode-blank" title="Print Blank Form">
+            <span class="toggle-text-full">Print Blank</span>
+            <span class="toggle-text-short">Blank</span>
+          </div>
         </div>
         
         <!-- Reset Button -->
@@ -66,27 +72,38 @@ export class FormActions {
             <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
             <path d="M8 21H3v-5"/>
           </svg>
-          Reset
+          <span class="btn-text">Reset</span>
         </button>
         
-        <!-- Print Button -->
-        <button type="button" class="btn btn-primary" id="btn-print">
+        <!-- Print Button (Always prioritized) -->
+        <button type="button" class="btn btn-primary" id="btn-print" title="Print Form">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 6 2 18 2 18 9"/>
             <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
             <rect x="6" y="14" width="12" height="8"/>
           </svg>
-          Print
+          <span class="btn-text">Print</span>
         </button>
       </div>
+
+      <!-- Mobile Floating Action Print Button (FAB) -->
+      <button type="button" class="mobile-print-fab" id="fab-print" title="Print Form" aria-label="Print Form">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 6 2 18 2 18 9"/>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        <span>Print Form</span>
+      </button>
     `;
   }
-  
+
   bindEvents() {
     const fillOpt = this.container.querySelector('#mode-fill');
     const blankOpt = this.container.querySelector('#mode-blank');
     const resetBtn = this.container.querySelector('#btn-reset');
     const printBtn = this.container.querySelector('#btn-print');
+    const fabPrintBtn = this.container.querySelector('#fab-print');
     const hamburger = this.container.querySelector('#mobile-hamburger');
     
     // Hamburger: open sidebar drawer on mobile
@@ -124,5 +141,11 @@ export class FormActions {
     printBtn.addEventListener('click', () => {
       this.onPrint();
     });
+
+    if (fabPrintBtn) {
+      fabPrintBtn.addEventListener('click', () => {
+        this.onPrint();
+      });
+    }
   }
 }

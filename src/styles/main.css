@@ -1,4 +1,4 @@
-﻿/* Pal Optical Forms Web App - Main Stylesheet (Monochrome) */
+/* Pal Optical Forms Web App - Main Stylesheet (Monochrome) */
 
 :root {
   /* Monochrome Black & White Palette */
@@ -299,6 +299,9 @@ body {
   border-radius: 8px;
 }
 
+.toggle-text-full { display: inline; }
+.toggle-text-short { display: none; }
+
 .toggle-option {
   padding: 5px 11px;
   font-size: 0.78rem;
@@ -379,6 +382,44 @@ body {
 
 .sidebar-close-btn:hover { background: rgba(255,255,255,0.1); }
 
+/* Mobile Floating Action Print Button (FAB) */
+.mobile-print-fab {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: fixed;
+  bottom: 22px;
+  right: 20px;
+  z-index: 100;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 12px 18px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.mobile-print-fab:hover {
+  background-color: #222222;
+}
+
+.mobile-print-fab:active {
+  transform: scale(0.95);
+}
+
+.mobile-print-fab svg {
+  width: 18px;
+  height: 18px;
+  stroke: #ffffff;
+}
+
 /* Responsive / Mobile */
 @media (max-width: 768px) {
   .app-container {
@@ -405,23 +446,128 @@ body {
   .sidebar-overlay.active { display: block; }
 
   /* Show hamburger button */
-  .mobile-menu-btn { display: flex; }
+  .mobile-menu-btn {
+    display: flex;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+
+  .mobile-menu-btn svg {
+    width: 18px;
+    height: 18px;
+  }
 
   /* Show close button inside sidebar */
   .sidebar-close-btn { display: flex; }
 
-  /* Compact header on mobile */
-  .actions-header { padding: 0 12px; }
+  /* Header adjustments on mobile */
+  .actions-header {
+    padding: 0 10px;
+    height: 56px;
+    min-height: 56px;
+    gap: 8px;
+    overflow: visible;
+  }
 
-  .header-title-container h1 { font-size: 0.9rem; }
+  .header-title-container {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .header-title-container h1 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   .header-title-container p { display: none; }
 
-  .actions-toolbar { gap: 6px; }
+  /* Toolbar never shrinks or overflows */
+  .actions-toolbar {
+    gap: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
 
-  .btn { padding: 7px 10px; font-size: 0.8rem; }
+  /* Compact Mode Toggle */
+  .toggle-group {
+    padding: 2px;
+  }
 
-  .form-viewport { padding: 16px 10px; }
+  .toggle-text-full { display: none; }
+  .toggle-text-short { display: inline; }
+
+  .toggle-option {
+    padding: 4px 6px;
+    font-size: 0.72rem;
+  }
+
+  /* Compact Buttons */
+  .btn {
+    padding: 6px 8px;
+    font-size: 0.78rem;
+    gap: 4px;
+  }
+
+  .btn svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* Icon-only Reset on mobile */
+  #btn-reset .btn-text {
+    display: none;
+  }
+
+  #btn-reset {
+    padding: 6px 7px;
+  }
+
+  /* Always visible, bold Print button */
+  #btn-print {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    display: inline-flex;
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  /* Show Floating Action Print Button */
+  .mobile-print-fab {
+    display: inline-flex;
+  }
+
+  .form-viewport {
+    padding: 14px 8px 80px 8px; /* Extra bottom padding so FAB never covers form fields */
+  }
+}
+
+@media (max-width: 380px) {
+  .actions-header {
+    padding: 0 6px;
+    gap: 5px;
+  }
+
+  .header-title-container h1 {
+    font-size: 0.75rem;
+  }
+
+  .toggle-option {
+    padding: 3px 5px;
+    font-size: 0.68rem;
+  }
+
+  #btn-print {
+    padding: 5px 8px;
+    font-size: 0.74rem;
+  }
 }
 
 /* Signature canvas inversion fallback */

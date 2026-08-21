@@ -4,6 +4,8 @@
   /* Hide all interactive UI panels */
   aside.sidebar,
   header.actions-header,
+  .mobile-menu-btn,
+  .mobile-print-fab,
   .signature-controls,
   .signature-placeholder,
   .btn,
