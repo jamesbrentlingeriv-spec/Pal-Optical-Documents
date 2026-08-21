@@ -1,5 +1,6 @@
 /* Pal Optical Forms Web App - Eagle Safety Eyewear Order Form Interactive Sheet */
 import { SignaturePad } from '../components/SignaturePad.js';
+import safetyFieldsData from './safety_fields.json';
 
 export class SafetyOrderForm {
   constructor(container, state = {}, onStateChange) {
@@ -33,21 +34,36 @@ export class SafetyOrderForm {
     `;
     
     try {
-      // 1. Fetch the fields mapping
-      const res = await fetch('/src/forms/safety_fields.json');
-      const data = await res.json();
-      this.fields = data.fields;
-      this.pageWidth = data.pageWidth;
-      this.pageHeight = data.pageHeight;
+      // 1. Load the fields mapping directly from bundled JSON
+      this.fields = safetyFieldsData.fields || [];
+      this.pageWidth = safetyFieldsData.pageWidth || 612;
+      this.pageHeight = safetyFieldsData.pageHeight || 792;
       
       // 2. Load and render PDF page 1 using PDF.js
-      const pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
+      let pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
       if (!pdfjsLib) {
-        throw new Error('PDF.js library is not loaded.');
+        for (let i = 0; i < 25; i++) {
+          await new Promise((r) => setTimeout(r, 100));
+          pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
+          if (pdfjsLib) break;
+        }
       }
-      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+      if (!pdfjsLib) {
+        throw new Error('PDF.js library is not loaded. Please check network connection.');
+      }
+      try {
+        if (pdfjsLib.GlobalWorkerOptions) {
+          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+        }
+      } catch (e) {
+        console.warn('PDF.js worker setup note:', e);
+      }
       
-      const loadingTask = pdfjsLib.getDocument('/safety_order_form.pdf');
+      const loadingTask = pdfjsLib.getDocument({
+        url: '/safety_order_form.pdf',
+        cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/cmaps/',
+        cMapPacked: true,
+      });
       const pdf = await loadingTask.promise;
       const page = await pdf.getPage(1);
       

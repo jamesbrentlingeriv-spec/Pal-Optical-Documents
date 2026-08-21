@@ -1,4 +1,5 @@
 /* Pal Optical Forms Web App - CMS-1500 Health Insurance Claim Form Interactive Sheet */
+import cms1500FieldsData from './cms1500_fields.json';
 
 export class CMS1500Form {
   constructor(container, state = {}, onStateChange) {
@@ -32,21 +33,36 @@ export class CMS1500Form {
     `;
     
     try {
-      // 1. Fetch the fields mapping
-      const res = await fetch('/src/forms/cms1500_fields.json');
-      const data = await res.json();
-      this.fields = data.fields;
-      this.pageWidth = data.pageWidth;
-      this.pageHeight = data.pageHeight;
+      // 1. Load the fields mapping directly from bundled JSON
+      this.fields = cms1500FieldsData.fields || [];
+      this.pageWidth = cms1500FieldsData.pageWidth || 612;
+      this.pageHeight = cms1500FieldsData.pageHeight || 792;
       
       // 2. Load and render PDF page 1 using PDF.js
-      const pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
+      let pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
+      if (!pdfjsLib) {
+        for (let i = 0; i < 25; i++) {
+          await new Promise((r) => setTimeout(r, 100));
+          pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
+          if (pdfjsLib) break;
+        }
+      }
       if (!pdfjsLib) {
         throw new Error('PDF.js library is not loaded. Please ensure index.html includes the script tag.');
       }
-      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+      try {
+        if (pdfjsLib.GlobalWorkerOptions) {
+          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+        }
+      } catch (e) {
+        console.warn('PDF.js worker setup note:', e);
+      }
       
-      const loadingTask = pdfjsLib.getDocument('/cms1500-form.pdf');
+      const loadingTask = pdfjsLib.getDocument({
+        url: '/cms1500-form.pdf',
+        cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/cmaps/',
+        cMapPacked: true,
+      });
       const pdf = await loadingTask.promise;
       const page = await pdf.getPage(1);
       
