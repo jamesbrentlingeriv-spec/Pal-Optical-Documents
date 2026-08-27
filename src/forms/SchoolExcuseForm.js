@@ -20,7 +20,7 @@ export class SchoolExcuseForm {
     
     this.onStateChange = onStateChange;
     this.signatureFile = doctor === 'james' ? '/jamessig.png' : '/CARRIBYAN SIG.jpg';
-    this.doctorName = doctor === 'james' ? 'James Brentlinger, O.D.' : 'Carribyan';
+    this.doctorName = doctor === 'james' ? 'James Brentlinger, ABOC, NCLEC' : 'Carribyan';
     
     this.render();
     this.bindEvents();
