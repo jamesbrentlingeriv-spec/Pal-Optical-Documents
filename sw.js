@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pal-optical-v9';
+const CACHE_NAME = 'pal-optical-v10';
 const ASSETS = [
   '/',
   '/index.html',
@@ -19,6 +19,7 @@ const ASSETS = [
   '/PD%20FORM.pdf',
   '/default_signature.png',
   '/jamessig.jpg',
+  '/jamessig.png',
   '/CARRIBYAN%20SIG.jpg',
   '/src/forms/CMS1500Form.js',
   '/src/forms/ChildNoPolyForm.js',
