@@ -19,7 +19,7 @@ export class SchoolExcuseForm {
     };
     
     this.onStateChange = onStateChange;
-    this.signatureFile = doctor === 'james' ? '/jamessig.jpg' : '/CARRIBYAN SIG.jpg';
+    this.signatureFile = doctor === 'james' ? '/jamessig.png' : '/CARRIBYAN SIG.jpg';
     this.doctorName = doctor === 'james' ? 'James Brentlinger, O.D.' : 'Carribyan';
     
     this.render();
