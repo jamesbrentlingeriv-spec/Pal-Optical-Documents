@@ -15,6 +15,7 @@ export class SchoolExcuseForm {
       serviceRepair: false,
       serviceDispense: false,
       serviceFollowup: false,
+      serviceMaking: false,
       ...state
     };
     
@@ -52,13 +53,19 @@ export class SchoolExcuseForm {
                 <label for="excuse-date">Date</label>
                 <input type="text" class="form-control" id="excuse-date" placeholder="MM/DD/YYYY" value="${this.state.date || ''}">
               </div>
-              <div class="form-group col-6">
+              <div class="form-group col-6" id="group-time-in" style="${this.state.serviceMaking ? 'display: none;' : ''}">
                 <label for="excuse-time-in">Time In</label>
                 <input type="text" class="form-control" id="excuse-time-in" placeholder="e.g. 10:00 AM" value="${this.state.timeIn || ''}">
               </div>
-              <div class="form-group col-6">
+              <div class="form-group col-6" id="group-time-out" style="${this.state.serviceMaking ? 'display: none;' : ''}">
                 <label for="excuse-time-out">Time Out</label>
                 <input type="text" class="form-control" id="excuse-time-out" placeholder="e.g. 11:30 AM" value="${this.state.timeOut || ''}">
+              </div>
+              <div class="form-group col-12" id="group-all-day-notice" style="${this.state.serviceMaking ? '' : 'display: none;'}">
+                <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 10px;">
+                  <span style="display: inline-block; background-color: #0f172a; color: #fff; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; font-weight: 800;">ALL DAY EXCUSE</span>
+                  <span>Time In and Time Out are hidden because "Eyeglasses Being Made" is selected.</span>
+                </div>
               </div>
             </div>
             
@@ -76,6 +83,9 @@ export class SchoolExcuseForm {
                 </label>
                 <label class="checkbox-label">
                   <input type="checkbox" id="service-followup" ${this.state.serviceFollowup ? 'checked' : ''}> Follow-up Consultation
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" id="service-making" ${this.state.serviceMaking ? 'checked' : ''}> Eyeglasses Being Made
                 </label>
               </div>
             </div>
@@ -120,11 +130,20 @@ export class SchoolExcuseForm {
                 <span id="check-followup" style="display: inline-block; width: 20px; height: 20px; border: 1.5px solid #000; text-align: center; line-height: 18px; font-weight: 800; font-size: 1.1rem;">${this.state.serviceFollowup ? '✓' : ''}</span>
                 <span>Follow-up Consultation</span>
               </div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span id="check-making" style="display: inline-block; width: 20px; height: 20px; border: 1.5px solid #000; text-align: center; line-height: 18px; font-weight: 800; font-size: 1.1rem;">${this.state.serviceMaking ? '✓' : ''}</span>
+                <span>Eyeglasses Being Made</span>
+              </div>
             </div>
             
-            <div style="display: flex; gap: 40px; margin-bottom: 40px; font-weight: 700; flex-wrap: wrap;">
-              <div>Time In: <span style="border-bottom: 1px solid #000; padding: 0 10px; min-width: 90px; display: inline-block; text-align: center;" id="preview-time-in">${this.state.timeIn || '____:____'}</span> <span style="font-size: 0.85rem; font-weight: 500; color: #475569;">AM/PM</span></div>
-              <div>Time Out: <span style="border-bottom: 1px solid #000; padding: 0 10px; min-width: 90px; display: inline-block; text-align: center;" id="preview-time-out">${this.state.timeOut || '____:____'}</span> <span style="font-size: 0.85rem; font-weight: 500; color: #475569;">AM/PM</span></div>
+            <div id="preview-time-container" style="margin-bottom: 40px; font-weight: 700;">
+              <div id="preview-time-normal" style="display: ${this.state.serviceMaking ? 'none' : 'flex'}; gap: 40px; flex-wrap: wrap;">
+                <div>Time In: <span style="border-bottom: 1px solid #000; padding: 0 10px; min-width: 90px; display: inline-block; text-align: center;" id="preview-time-in">${this.state.timeIn || '____:____'}</span> <span style="font-size: 0.85rem; font-weight: 500; color: #475569;">AM/PM</span></div>
+                <div>Time Out: <span style="border-bottom: 1px solid #000; padding: 0 10px; min-width: 90px; display: inline-block; text-align: center;" id="preview-time-out">${this.state.timeOut || '____:____'}</span> <span style="font-size: 0.85rem; font-weight: 500; color: #475569;">AM/PM</span></div>
+              </div>
+              <div id="preview-time-allday" style="display: ${this.state.serviceMaking ? 'block' : 'none'};">
+                <span style="display: inline-block; font-size: 1.3rem; font-weight: 800; letter-spacing: 0.5px; border-bottom: 2px solid #000; padding-bottom: 2px; text-transform: uppercase;">ALL DAY EXCUSE</span>
+              </div>
             </div>
             
             <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 60px; gap: 20px; flex-wrap: wrap;">
@@ -160,13 +179,14 @@ export class SchoolExcuseForm {
     
     const patientName = form.querySelector('#excuse-patient-name').value;
     const date = form.querySelector('#excuse-date').value;
-    const timeIn = form.querySelector('#excuse-time-in').value;
-    const timeOut = form.querySelector('#excuse-time-out').value;
+    const timeIn = form.querySelector('#excuse-time-in') ? form.querySelector('#excuse-time-in').value : '';
+    const timeOut = form.querySelector('#excuse-time-out') ? form.querySelector('#excuse-time-out').value : '';
     
     const serviceExam = form.querySelector('#service-exam').checked;
     const serviceRepair = form.querySelector('#service-repair').checked;
     const serviceDispense = form.querySelector('#service-dispense').checked;
     const serviceFollowup = form.querySelector('#service-followup').checked;
+    const serviceMaking = form.querySelector('#service-making').checked;
     
     this.state = {
       ...this.state,
@@ -177,7 +197,8 @@ export class SchoolExcuseForm {
       serviceExam,
       serviceRepair,
       serviceDispense,
-      serviceFollowup
+      serviceFollowup,
+      serviceMaking
     };
     
     // Live update preview elements
@@ -190,6 +211,20 @@ export class SchoolExcuseForm {
     this.container.querySelector('#check-repair').textContent = serviceRepair ? '✓' : '';
     this.container.querySelector('#check-dispense').textContent = serviceDispense ? '✓' : '';
     this.container.querySelector('#check-followup').textContent = serviceFollowup ? '✓' : '';
+    this.container.querySelector('#check-making').textContent = serviceMaking ? '✓' : '';
+    
+    // Toggle time in/out vs ALL DAY EXCUSE
+    const groupTimeIn = this.container.querySelector('#group-time-in');
+    const groupTimeOut = this.container.querySelector('#group-time-out');
+    const groupAllDayNotice = this.container.querySelector('#group-all-day-notice');
+    const previewTimeNormal = this.container.querySelector('#preview-time-normal');
+    const previewTimeAllDay = this.container.querySelector('#preview-time-allday');
+    
+    if (groupTimeIn) groupTimeIn.style.display = serviceMaking ? 'none' : '';
+    if (groupTimeOut) groupTimeOut.style.display = serviceMaking ? 'none' : '';
+    if (groupAllDayNotice) groupAllDayNotice.style.display = serviceMaking ? '' : 'none';
+    if (previewTimeNormal) previewTimeNormal.style.display = serviceMaking ? 'none' : 'flex';
+    if (previewTimeAllDay) previewTimeAllDay.style.display = serviceMaking ? 'block' : 'none';
     
     this.onStateChange(this.state);
   }
@@ -204,7 +239,8 @@ export class SchoolExcuseForm {
       serviceExam: true,
       serviceRepair: false,
       serviceDispense: false,
-      serviceFollowup: false
+      serviceFollowup: false,
+      serviceMaking: false
     };
     this.render();
     this.bindEvents();
