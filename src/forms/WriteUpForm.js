@@ -65,7 +65,7 @@ export class WriteUpForm {
               src="/write_up_background.jpg" 
               alt="Write-Up Form Background" 
               class="writeup-bg-img"
-              style="position: absolute; left: 4.09%; top: 1.96%; width: 97.45%; height: 98.06%; display: block; pointer-events: none; -webkit-user-select: none; user-select: none;"
+              style="position: absolute; left: 4.09%; top: 0%; width: 97.45%; height: 98.06%; display: block; pointer-events: none; -webkit-user-select: none; user-select: none;"
             />
 
             <!-- Interactive Inputs Overlay -->

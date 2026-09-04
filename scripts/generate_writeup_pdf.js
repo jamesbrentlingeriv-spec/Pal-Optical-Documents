@@ -10,8 +10,10 @@ const baseDir = path.resolve(__dirname, '..');
 // Exact coordinate transformations:
 // 1 pixel = 0.36 points (200 DPI scan -> 72 pt/in)
 // Physical paper: 5.5" x 8.5" = 396 pt x 612 pt
-// Left edge of paper is at scan pixel -45. X_pt = 16.2 + X_px * 0.36
-// Top edge of paper is at scan pixel 0. Y_pt = 612 - (Y_px * 0.36)
+// Scan image width = 1072 px = 385.92 pt. Left offset = 16.2 pt. Right margin = 396 - 385.92 - 16.2 = -6.12 pt (Paper left edge = scan px -45).
+// Scan image height = 1667 px = 600.12 pt. Top offset = 0 pt. Paper top edge = scan px 0 (Y_pt = 612).
+// X_pt = 16.2 + X_px * 0.36
+// Y_pt = 612 - (Y_px * 0.36)
 
 function pxToPtX(px) {
   return +(16.2 + px * 0.36).toFixed(2);
@@ -21,16 +23,20 @@ function pxToPtY(py) {
   return +(612 - (py * 0.36)).toFixed(2);
 }
 
-// Field definition list
+function pxWidthToPt(wPx) {
+  return +(wPx * 0.36).toFixed(2);
+}
+
+// Field definition list with verified coordinates
 export const fieldsConfig = [
-  // Order / Invoice number at top right (over 40080)
+  // Order / Invoice number at top right
   {
     name: 'order_number',
     label: 'Order / Invoice #',
     type: 'text',
     x: pxToPtX(815),
     y: pxToPtY(58),
-    width: +((930 - 815) * 0.36).toFixed(2),
+    width: pxWidthToPt(935 - 815), // 43.2 pt
     height: 18,
     fontSize: 12,
     alignment: 'right',
@@ -41,9 +47,9 @@ export const fieldsConfig = [
     name: 'date',
     label: 'Date',
     type: 'text',
-    x: pxToPtX(671),
+    x: pxToPtX(670),
     y: pxToPtY(112),
-    width: +((941 - 671) * 0.36).toFixed(2),
+    width: pxWidthToPt(945 - 670), // 99.0 pt
     height: 16,
     fontSize: 10
   },
@@ -52,9 +58,9 @@ export const fieldsConfig = [
     name: 'patient_name',
     label: 'Patient Name',
     type: 'text',
-    x: pxToPtX(114),
+    x: pxToPtX(115),
     y: pxToPtY(162),
-    width: +((944 - 114) * 0.36).toFixed(2),
+    width: pxWidthToPt(945 - 115), // 298.8 pt
     height: 16,
     fontSize: 10
   },
@@ -62,9 +68,9 @@ export const fieldsConfig = [
     name: 'patient_street',
     label: 'Street Address',
     type: 'text',
-    x: pxToPtX(121),
+    x: pxToPtX(120),
     y: pxToPtY(216),
-    width: +((952 - 121) * 0.36).toFixed(2),
+    width: pxWidthToPt(950 - 120), // 298.8 pt
     height: 16,
     fontSize: 10
   },
@@ -72,9 +78,9 @@ export const fieldsConfig = [
     name: 'patient_city',
     label: 'City',
     type: 'text',
-    x: pxToPtX(83),
+    x: pxToPtX(80),
     y: pxToPtY(266),
-    width: +((496 - 83) * 0.36).toFixed(2),
+    width: pxWidthToPt(495 - 80), // 149.4 pt
     height: 16,
     fontSize: 10
   },
@@ -82,9 +88,9 @@ export const fieldsConfig = [
     name: 'patient_state',
     label: 'State',
     type: 'text',
-    x: pxToPtX(582),
+    x: pxToPtX(580),
     y: pxToPtY(266),
-    width: +((691 - 582) * 0.36).toFixed(2),
+    width: pxWidthToPt(690 - 580), // 39.6 pt
     height: 16,
     fontSize: 10
   },
@@ -92,9 +98,9 @@ export const fieldsConfig = [
     name: 'patient_zip',
     label: 'Zip Code',
     type: 'text',
-    x: pxToPtX(729),
+    x: pxToPtX(730),
     y: pxToPtY(266),
-    width: +((948 - 729) * 0.36).toFixed(2),
+    width: pxWidthToPt(950 - 730), // 79.2 pt
     height: 16,
     fontSize: 10
   },
@@ -102,9 +108,9 @@ export const fieldsConfig = [
     name: 'patient_phone',
     label: 'Phone Number',
     type: 'text',
-    x: pxToPtX(122),
+    x: pxToPtX(120),
     y: pxToPtY(321),
-    width: +((951 - 122) * 0.36).toFixed(2),
+    width: pxWidthToPt(950 - 120), // 298.8 pt
     height: 16,
     fontSize: 10
   },
@@ -115,7 +121,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(124),
     y: pxToPtY(432),
-    width: +((953 - 124) * 0.36).toFixed(2),
+    width: pxWidthToPt(953 - 124), // 298.44 pt
     height: 16,
     fontSize: 10
   },
@@ -125,7 +131,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(77),
     y: pxToPtY(484),
-    width: +((302 - 77) * 0.36).toFixed(2),
+    width: pxWidthToPt(305 - 77), // 82.08 pt
     height: 16,
     fontSize: 10
   },
@@ -135,7 +141,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(468),
     y: pxToPtY(484),
-    width: +((630 - 468) * 0.36).toFixed(2),
+    width: pxWidthToPt(630 - 468), // 58.32 pt
     height: 16,
     fontSize: 10
   },
@@ -145,7 +151,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(796),
     y: pxToPtY(484),
-    width: +((958 - 796) * 0.36).toFixed(2),
+    width: pxWidthToPt(958 - 796), // 58.32 pt
     height: 16,
     fontSize: 10
   },
@@ -155,7 +161,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(118),
     y: pxToPtY(537),
-    width: +((486 - 118) * 0.36).toFixed(2),
+    width: pxWidthToPt(486 - 118), // 132.48 pt
     height: 16,
     fontSize: 10
   },
@@ -165,7 +171,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(542),
     y: pxToPtY(537),
-    width: +((680 - 542) * 0.36).toFixed(2),
+    width: pxWidthToPt(680 - 542), // 49.68 pt
     height: 16,
     fontSize: 10
   },
@@ -175,7 +181,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(738),
     y: pxToPtY(537),
-    width: +((953 - 738) * 0.36).toFixed(2),
+    width: pxWidthToPt(953 - 738), // 77.4 pt
     height: 16,
     fontSize: 10
   },
@@ -185,7 +191,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(239),
     y: pxToPtY(588),
-    width: +((679 - 239) * 0.36).toFixed(2),
+    width: pxWidthToPt(680 - 239), // 158.76 pt
     height: 16,
     fontSize: 10
   },
@@ -195,37 +201,37 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(735),
     y: pxToPtY(588),
-    width: +((961 - 735) * 0.36).toFixed(2),
+    width: pxWidthToPt(960 - 735), // 81.0 pt
     height: 16,
     fontSize: 10
   },
-  // Paid By Checkboxes:
+  // Paid By Checkboxes (inside the actual parenthesis (  ) brackets)
   {
     name: 'paid_cash',
     label: 'Paid Cash',
     type: 'checkbox',
-    x: 101.1,
-    y: 379.2,
-    width: 12,
-    height: 12
+    x: pxToPtX(150),
+    y: pxToPtY(640),
+    width: pxWidthToPt(24), // 8.64 pt
+    height: pxWidthToPt(22)  // 7.92 pt
   },
   {
     name: 'paid_check',
     label: 'Paid Check',
     type: 'checkbox',
-    x: 141.6,
-    y: 378.8,
-    width: 12,
-    height: 12
+    x: pxToPtX(285),
+    y: pxToPtY(640),
+    width: pxWidthToPt(24), // 8.64 pt
+    height: pxWidthToPt(22)  // 7.92 pt
   },
   {
     name: 'paid_credit_card',
     label: 'Paid Credit Card',
     type: 'checkbox',
-    x: 183.0,
-    y: 378.5,
-    width: 12,
-    height: 12
+    x: pxToPtX(445),
+    y: pxToPtY(640),
+    width: pxWidthToPt(24), // 8.64 pt
+    height: pxWidthToPt(22)  // 7.92 pt
   },
   // Left Column Pricing Amounts
   {
@@ -234,7 +240,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(120),
     y: pxToPtY(739),
-    width: +((640 - 120) * 0.36).toFixed(2),
+    width: pxWidthToPt(640 - 120), // 187.2 pt
     height: 16,
     fontSize: 10,
     alignment: 'right'
@@ -245,7 +251,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(116),
     y: pxToPtY(812),
-    width: +((636 - 116) * 0.36).toFixed(2),
+    width: pxWidthToPt(636 - 116), // 187.2 pt
     height: 16,
     fontSize: 10,
     alignment: 'right'
@@ -256,7 +262,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(102),
     y: pxToPtY(892),
-    width: +((639 - 102) * 0.36).toFixed(2),
+    width: pxWidthToPt(639 - 102), // 193.32 pt
     height: 16,
     fontSize: 10,
     alignment: 'right'
@@ -267,7 +273,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(90),
     y: pxToPtY(963),
-    width: +((628 - 90) * 0.36).toFixed(2),
+    width: pxWidthToPt(628 - 90), // 193.68 pt
     height: 16,
     fontSize: 10,
     alignment: 'right'
@@ -278,7 +284,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(85),
     y: pxToPtY(1036),
-    width: +((647 - 85) * 0.36).toFixed(2),
+    width: pxWidthToPt(647 - 85), // 202.32 pt
     height: 16,
     fontSize: 10,
     alignment: 'right'
@@ -288,8 +294,8 @@ export const fieldsConfig = [
     label: 'Total',
     type: 'text',
     x: pxToPtX(101),
-    y: pxToPtY(1108),
-    width: +((664 - 101) * 0.36).toFixed(2),
+    y: pxToPtY(1110),
+    width: pxWidthToPt(664 - 101), // 202.68 pt
     height: 16,
     fontSize: 10,
     alignment: 'right',
@@ -300,8 +306,8 @@ export const fieldsConfig = [
     label: 'Deposit',
     type: 'text',
     x: pxToPtX(76),
-    y: pxToPtY(1176),
-    width: +((638 - 76) * 0.36).toFixed(2),
+    y: pxToPtY(1178),
+    width: pxWidthToPt(638 - 76), // 202.32 pt
     height: 16,
     fontSize: 10,
     alignment: 'right'
@@ -311,31 +317,31 @@ export const fieldsConfig = [
     label: 'Balance Due',
     type: 'text',
     x: pxToPtX(76),
-    y: pxToPtY(1253),
-    width: +((638 - 76) * 0.36).toFixed(2),
+    y: pxToPtY(1254),
+    width: pxWidthToPt(638 - 76), // 202.32 pt
     height: 16,
     fontSize: 10,
     alignment: 'right',
     fontBold: true
   },
-  // Right Column Lens Features & Materials
+  // Right Column Lens Features & Materials Checkboxes (inside actual parenthesis (  ))
   {
     name: 'lens_plastic',
     label: 'Plastic',
     type: 'checkbox',
-    x: 259.2,
-    y: 358.3,
-    width: 12,
-    height: 12
+    x: pxToPtX(760),
+    y: pxToPtY(698),
+    width: pxWidthToPt(26), // 9.36 pt
+    height: pxWidthToPt(23)  // 8.28 pt
   },
   {
     name: 'lens_poly',
     label: 'Polycarbonate',
     type: 'checkbox',
-    x: 300.6,
-    y: 358.3,
-    width: 12,
-    height: 12
+    x: pxToPtX(890),
+    y: pxToPtY(698),
+    width: pxWidthToPt(26), // 9.36 pt
+    height: pxWidthToPt(23)  // 8.28 pt
   },
   {
     name: 'hi_index',
@@ -343,7 +349,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(830),
     y: pxToPtY(784),
-    width: +((974 - 830) * 0.36).toFixed(2),
+    width: pxWidthToPt(975 - 830), // 52.2 pt
     height: 16,
     fontSize: 10
   },
@@ -351,73 +357,73 @@ export const fieldsConfig = [
     name: 'lens_trivex',
     label: 'Trivex',
     type: 'checkbox',
-    x: 259.2,
-    y: 302.5,
-    width: 12,
-    height: 12
+    x: pxToPtX(770),
+    y: pxToPtY(854),
+    width: pxWidthToPt(26), // 9.36 pt
+    height: pxWidthToPt(24)  // 8.64 pt
   },
   {
     name: 'lens_glass',
     label: 'Glass',
     type: 'checkbox',
-    x: 306.0,
-    y: 302.5,
-    width: 12,
-    height: 12
+    x: pxToPtX(895),
+    y: pxToPtY(854),
+    width: pxWidthToPt(26), // 9.36 pt
+    height: pxWidthToPt(24)  // 8.64 pt
   },
   {
     name: 'lens_sv',
     label: 'Single Vision (SV)',
     type: 'checkbox',
-    x: 255.6,
-    y: 263.8,
-    width: 12,
-    height: 12
+    x: pxToPtX(724),
+    y: pxToPtY(962),
+    width: pxWidthToPt(24), // 8.64 pt
+    height: pxWidthToPt(22)  // 7.92 pt
   },
   {
     name: 'lens_ft28',
     label: 'Flat Top 28 (FT-28)',
     type: 'checkbox',
-    x: 272.5,
-    y: 263.8,
-    width: 12,
-    height: 12
+    x: pxToPtX(810),
+    y: pxToPtY(962),
+    width: pxWidthToPt(24), // 8.64 pt
+    height: pxWidthToPt(22)  // 7.92 pt
   },
   {
     name: 'lens_ft35',
     label: 'Flat Top 35 (FT-35)',
     type: 'checkbox',
-    x: 304.9,
-    y: 263.8,
-    width: 12,
-    height: 12
+    x: pxToPtX(910),
+    y: pxToPtY(962),
+    width: pxWidthToPt(24), // 8.64 pt
+    height: pxWidthToPt(22)  // 7.92 pt
   },
   {
     name: 'lens_7x28',
     label: '7x28 Trifocal',
     type: 'checkbox',
-    x: 255.6,
-    y: 238.4,
-    width: 12,
-    height: 12
+    x: pxToPtX(740),
+    y: pxToPtY(1034),
+    width: pxWidthToPt(24), // 8.64 pt
+    height: pxWidthToPt(22)  // 7.92 pt
   },
   {
     name: 'lens_7x35',
     label: '7x35 Trifocal',
     type: 'checkbox',
-    x: 279.7,
-    y: 238.4,
-    width: 12,
-    height: 12
+    x: pxToPtX(825),
+    y: pxToPtY(1034),
+    width: pxWidthToPt(24), // 8.64 pt
+    height: pxWidthToPt(22)  // 7.92 pt
   },
   {
     name: 'lens_rd22',
     label: 'Round 22 (RD22)',
     type: 'checkbox',
-    x: 308.5,
-    y: 238.4,
-    width: 12,
-    height: 12
+    x: pxToPtX(930),
+    y: pxToPtY(1034),
+    width: pxWidthToPt(24), // 8.64 pt
+    height: pxWidthToPt(22)  // 7.92 pt
   },
   {
     name: 'progressive',
@@ -425,7 +431,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(769),
     y: pxToPtY(1108),
-    width: +((1005 - 769) * 0.36).toFixed(2),
+    width: pxWidthToPt(1005 - 769), // 84.96 pt
     height: 16,
     fontSize: 10
   },
@@ -435,7 +441,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(757),
     y: pxToPtY(1176),
-    width: +((1005 - 757) * 0.36).toFixed(2),
+    width: pxWidthToPt(1005 - 757), // 89.28 pt
     height: 16,
     fontSize: 10
   },
@@ -444,20 +450,20 @@ export const fieldsConfig = [
     label: 'Insurance Details',
     type: 'text',
     x: pxToPtX(724),
-    y: pxToPtY(1253),
-    width: +((991 - 724) * 0.36).toFixed(2),
+    y: pxToPtY(1254),
+    width: pxWidthToPt(991 - 724), // 96.12 pt
     height: 16,
     fontSize: 10
   },
   // Rx Table Grid:
-  // Row R (OD): Y=1346 to 1406
+  // Row R (OD): Y=1346 to 1408
   {
     name: 'rx_r_sph',
     label: 'OD Sphere',
     type: 'text',
-    x: 43.2,
-    y: 106.0,
-    width: 63.7,
+    x: pxToPtX(75),
+    y: pxToPtY(1408),
+    width: pxWidthToPt(252 - 75), // 63.72 pt
     height: 20,
     fontSize: 11,
     alignment: 'center'
@@ -466,9 +472,9 @@ export const fieldsConfig = [
     name: 'rx_r_cyl',
     label: 'OD Cylinder',
     type: 'text',
-    x: 107.3,
-    y: 106.0,
-    width: 55.8,
+    x: pxToPtX(252),
+    y: pxToPtY(1408),
+    width: pxWidthToPt(408 - 252), // 56.16 pt
     height: 20,
     fontSize: 11,
     alignment: 'center'
@@ -477,9 +483,9 @@ export const fieldsConfig = [
     name: 'rx_r_axis',
     label: 'OD Axis',
     type: 'text',
-    x: 163.4,
-    y: 106.0,
-    width: 51.5,
+    x: pxToPtX(408),
+    y: pxToPtY(1408),
+    width: pxWidthToPt(552 - 408), // 51.84 pt
     height: 20,
     fontSize: 11,
     alignment: 'center'
@@ -488,9 +494,9 @@ export const fieldsConfig = [
     name: 'rx_r_add',
     label: 'OD Add',
     type: 'text',
-    x: 215.3,
-    y: 106.0,
-    width: 60.8,
+    x: pxToPtX(552),
+    y: pxToPtY(1408),
+    width: pxWidthToPt(722 - 552), // 61.20 pt
     height: 20,
     fontSize: 11,
     alignment: 'center'
@@ -499,21 +505,21 @@ export const fieldsConfig = [
     name: 'rx_r_prism',
     label: 'OD Prism',
     type: 'text',
-    x: 276.5,
-    y: 106.0,
-    width: 99.7,
+    x: pxToPtX(722),
+    y: pxToPtY(1408),
+    width: pxWidthToPt(1000 - 722), // 100.08 pt
     height: 20,
     fontSize: 11,
     alignment: 'center'
   },
-  // Row L (OS): Y=1408 to 1468
+  // Row L (OS): Y=1408 to 1470
   {
     name: 'rx_l_sph',
     label: 'OS Sphere',
     type: 'text',
-    x: 43.2,
-    y: 84.0,
-    width: 63.7,
+    x: pxToPtX(75),
+    y: pxToPtY(1470),
+    width: pxWidthToPt(252 - 75), // 63.72 pt
     height: 20,
     fontSize: 11,
     alignment: 'center'
@@ -522,9 +528,9 @@ export const fieldsConfig = [
     name: 'rx_l_cyl',
     label: 'OS Cylinder',
     type: 'text',
-    x: 107.3,
-    y: 84.0,
-    width: 55.8,
+    x: pxToPtX(252),
+    y: pxToPtY(1470),
+    width: pxWidthToPt(408 - 252), // 56.16 pt
     height: 20,
     fontSize: 11,
     alignment: 'center'
@@ -533,9 +539,9 @@ export const fieldsConfig = [
     name: 'rx_l_axis',
     label: 'OS Axis',
     type: 'text',
-    x: 163.4,
-    y: 84.0,
-    width: 51.5,
+    x: pxToPtX(408),
+    y: pxToPtY(1470),
+    width: pxWidthToPt(552 - 408), // 51.84 pt
     height: 20,
     fontSize: 11,
     alignment: 'center'
@@ -544,9 +550,9 @@ export const fieldsConfig = [
     name: 'rx_l_add',
     label: 'OS Add',
     type: 'text',
-    x: 215.3,
-    y: 84.0,
-    width: 60.8,
+    x: pxToPtX(552),
+    y: pxToPtY(1470),
+    width: pxWidthToPt(722 - 552), // 61.20 pt
     height: 20,
     fontSize: 11,
     alignment: 'center'
@@ -555,9 +561,9 @@ export const fieldsConfig = [
     name: 'rx_l_prism',
     label: 'OS Prism',
     type: 'text',
-    x: 276.5,
-    y: 84.0,
-    width: 99.7,
+    x: pxToPtX(722),
+    y: pxToPtY(1470),
+    width: pxWidthToPt(1000 - 722), // 100.08 pt
     height: 20,
     fontSize: 11,
     alignment: 'center'
@@ -569,7 +575,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(188),
     y: pxToPtY(1580),
-    width: +((965 - 188) * 0.36).toFixed(2),
+    width: pxWidthToPt(965 - 188), // 279.72 pt
     height: 16,
     fontSize: 10
   },
@@ -579,7 +585,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(97),
     y: pxToPtY(1629),
-    width: +((551 - 97) * 0.36).toFixed(2),
+    width: pxWidthToPt(551 - 97), // 163.44 pt
     height: 16,
     fontSize: 10
   },
@@ -589,7 +595,7 @@ export const fieldsConfig = [
     type: 'text',
     x: pxToPtX(643),
     y: pxToPtY(1629),
-    width: +((957 - 643) * 0.36).toFixed(2),
+    width: pxWidthToPt(957 - 643), // 113.04 pt
     height: 16,
     fontSize: 10
   }
@@ -665,6 +671,12 @@ async function createWriteUpPDF(options = {}) {
 async function main() {
   console.log('Generating Pal Optical Write-Up forms...');
   
+  // Ensure public directory exists
+  const publicDir = path.join(baseDir, 'public');
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+  }
+
   // 1. Full form fillable PDF (with clean background and interactive fields)
   await createWriteUpPDF({
     includeBackground: true,
@@ -689,7 +701,18 @@ async function main() {
   fs.copyFileSync(path.join(baseDir, 'write up - fillable.pdf'), path.join(baseDir, 'write up.pdf'));
   console.log(`Updated main write up.pdf with interactive fillable form.`);
 
-  // 5. Export write_up_fields.json for the web app
+  // 5. Also copy generated PDFs to public/ for web app downloads
+  fs.copyFileSync(path.join(baseDir, 'write up - fillable.pdf'), path.join(publicDir, 'write up - fillable.pdf'));
+  fs.copyFileSync(path.join(baseDir, 'write up - fillable (blank order num).pdf'), path.join(publicDir, 'write up - fillable (blank order num).pdf'));
+  fs.copyFileSync(path.join(baseDir, 'write up - print overlay only.pdf'), path.join(publicDir, 'write up - print overlay only.pdf'));
+  fs.copyFileSync(path.join(baseDir, 'write up.pdf'), path.join(publicDir, 'write up.pdf'));
+  console.log(`Copied PDFs to public directory.`);
+
+  // 6. Ensure write_up_background.jpg is in public/
+  fs.copyFileSync(path.join(baseDir, 'scanned_writeup_clean.jpg'), path.join(publicDir, 'write_up_background.jpg'));
+  console.log(`Updated public/write_up_background.jpg.`);
+
+  // 7. Export write_up_fields.json for the web app
   const jsonExport = {
     pageWidth: 396,
     pageHeight: 612,

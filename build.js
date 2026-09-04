@@ -59,6 +59,10 @@ const pdfFiles = [
   "fee slip.pdf",
   "Printable Patient Form.pdf",
   "PD FORM.pdf",
+  "write up.pdf",
+  "write up - fillable.pdf",
+  "write up - fillable (blank order num).pdf",
+  "write up - print overlay only.pdf",
 ];
 
 pdfFiles.forEach((file) => {
@@ -72,7 +76,15 @@ pdfFiles.forEach((file) => {
 
 // Step 4: Copy image files from root to dist
 console.log("\n🖼️  Copying image files...");
-const imageFiles = ["cms1500print.png", "default_signature.png", "jamessig.jpg", "jamessig.png", "CARRIBYAN SIG.jpg"];
+const imageFiles = [
+  "cms1500print.png",
+  "default_signature.png",
+  "jamessig.jpg",
+  "jamessig.png",
+  "CARRIBYAN SIG.jpg",
+  "scanned_writeup_clean.jpg",
+  "scanned_writeup_blank_num.jpg",
+];
 
 imageFiles.forEach((file) => {
   const src = path.join(__dirname, file);
