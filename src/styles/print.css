@@ -1097,6 +1097,33 @@
     flex-direction: column !important;
   }
 
+  body.active-form-eyeglass-job-note .job-note-sig-display {
+    width: 100% !important;
+  }
+
+  body.active-form-eyeglass-job-note .job-note-sig-image-wrapper {
+    height: 30px !important;
+    border-bottom: 1px solid #000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  body.active-form-eyeglass-job-note .job-note-sig-img {
+    max-height: 28px !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.active-form-eyeglass-job-note .job-note-sig-subline {
+    display: block !important;
+    margin-top: 2px !important;
+    text-align: center !important;
+  }
+
   body.active-form-eyeglass-job-note .job-note-sig-name {
     font-size: 7.2pt !important;
     font-weight: 700 !important;
@@ -1105,6 +1132,10 @@
     margin-top: 2px !important;
     line-height: 1.1 !important;
     white-space: nowrap !important;
+  }
+
+  body.active-form-eyeglass-job-note .job-note-sig-toggle-btn {
+    display: none !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-sig-target-wrapper .signature-canvas-wrapper {
@@ -1116,6 +1147,12 @@
     border-bottom: 1px solid #000 !important;
     font-size: 9pt !important;
     height: 16px !important;
+  }
+
+  /* Blank print mode: hide signature image */
+  .print-blank-active .job-note-sig-img {
+    visibility: hidden !important;
+    opacity: 0 !important;
   }
 }
 

@@ -5,7 +5,7 @@ export class EyeglassJobNoteForm {
   constructor(container, state = {}, onStateChange) {
     this.container = container;
     
-    // Set default date to today and default signature
+    // Set default date to today and default signature to jamessig.png
     const today = new Date().toLocaleDateString('en-US');
     this.state = {
       patientName: '',
@@ -53,8 +53,15 @@ export class EyeglassJobNoteForm {
       actionWarrantyReplace: false,
       status: '',
       signature: '/jamessig.png',
+      isManualSignature: false,
       ...state
     };
+
+    // Guarantee jamessig.png is used if empty or if legacy default_signature was cached
+    if (!this.state.signature || this.state.signature === '/default_signature.png') {
+      this.state.signature = '/jamessig.png';
+      this.state.isManualSignature = false;
+    }
 
     this.onStateChange = onStateChange;
     this.sigPad = null;
@@ -301,10 +308,24 @@ export class EyeglassJobNoteForm {
               <div class="job-note-sig-block">
                 <span class="job-note-sig-label">Optician Sig:</span>
                 <div class="job-note-sig-col">
-                  <div class="job-note-sig-target-wrapper" id="job-note-sig-target">
+                  <!-- James Brentlinger Signature from Public Folder -->
+                  <div class="job-note-sig-display" id="job-note-sig-display" style="${this.state.isManualSignature ? 'display: none;' : ''}">
+                    <div class="job-note-sig-image-wrapper">
+                      <img src="/jamessig.png" alt="James Brentlinger Signature" class="job-note-sig-img" id="job-note-sig-img" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='jamessig.png';}">
+                    </div>
+                  </div>
+
+                  <!-- Optional Canvas Signature Pad (available if user chooses to sign manually) -->
+                  <div class="job-note-sig-target-wrapper" id="job-note-sig-target" style="${this.state.isManualSignature ? '' : 'display: none;'}">
                     <!-- SignaturePad mounts here -->
                   </div>
-                  <div class="job-note-sig-name">James Brentlinger ABOC, NCLEC</div>
+
+                  <div class="job-note-sig-subline">
+                    <div class="job-note-sig-name">James Brentlinger ABOC, NCLEC</div>
+                    <button type="button" class="job-note-sig-toggle-btn print:hidden" id="job-note-sig-toggle" title="Toggle between James Brentlinger signature and manual draw">
+                      ${this.state.isManualSignature ? 'Use James Signature' : 'Draw Custom'}
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -352,6 +373,30 @@ export class EyeglassJobNoteForm {
         this.onStateChange(this.state);
       }
     });
+
+    const toggleBtn = this.container.querySelector('#job-note-sig-toggle');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const displayEl = this.container.querySelector('#job-note-sig-display');
+        const targetEl = this.container.querySelector('#job-note-sig-target');
+        if (this.state.isManualSignature) {
+          this.state.isManualSignature = false;
+          this.state.signature = '/jamessig.png';
+          if (displayEl) displayEl.style.display = '';
+          if (targetEl) targetEl.style.display = 'none';
+          toggleBtn.textContent = 'Draw Custom';
+        } else {
+          this.state.isManualSignature = true;
+          if (displayEl) displayEl.style.display = 'none';
+          if (targetEl) targetEl.style.display = '';
+          toggleBtn.textContent = 'Use James Signature';
+          if (this.sigPad) {
+            this.sigPad.resizeCanvas();
+          }
+        }
+        this.onStateChange(this.state);
+      });
+    }
   }
 
   initSignatures() {
@@ -424,7 +469,8 @@ export class EyeglassJobNoteForm {
       actionLabRemake: false,
       actionWarrantyReplace: false,
       status: '',
-      signature: '/jamessig.png'
+      signature: '/jamessig.png',
+      isManualSignature: false
     };
 
     this.render();
