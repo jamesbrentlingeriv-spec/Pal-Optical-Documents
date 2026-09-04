@@ -12,6 +12,7 @@ import { FeeSlipForm } from './forms/FeeSlipForm.js';
 import { DrSideNewPatientForm } from './forms/DrSideNewPatientForm.js';
 import { PDForm } from './forms/PDForm.js';
 import { EyeglassJobNoteForm } from './forms/EyeglassJobNoteForm.js';
+import { WriteUpForm } from './forms/WriteUpForm.js';
 
 // Waivers
 import { ChildNoPolyForm } from './forms/ChildNoPolyForm.js';
@@ -136,6 +137,7 @@ class App {
       case 'price-quote': return 'Eyewear Price Quote';
       case 'safety-order': return 'Eagle Safety Order Form';
       case 'pd-record': return 'Pupillary Distance (PD) Record';
+      case 'writeup': return 'Lab Write-Up Slip (5.5" x 8.5")';
       case 'eyeglass-job-note': return 'Eyeglass Job Note';
       case 'cms1500': return 'CMS-1500 Claim Worksheet';
       case 'fee-slip': return 'Office Fee Slip / Superbill';
@@ -209,6 +211,9 @@ class App {
         break;
       case 'pd-record':
         this.currentFormInstance = new PDForm(renderTarget, formState, callback);
+        break;
+      case 'writeup':
+        this.currentFormInstance = new WriteUpForm(renderTarget, formState, callback);
         break;
       case 'eyeglass-job-note':
         this.currentFormInstance = new EyeglassJobNoteForm(renderTarget, formState, callback);

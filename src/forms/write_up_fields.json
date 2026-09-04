@@ -1,0 +1,565 @@
+{
+  "pageWidth": 396,
+  "pageHeight": 612,
+  "fields": [
+    {
+      "name": "order_number",
+      "label": "Order / Invoice #",
+      "type": "text",
+      "x": 309.6,
+      "y": 591.12,
+      "width": 41.4,
+      "height": 18,
+      "fontSize": 12,
+      "alignment": "right",
+      "fontBold": true
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "text",
+      "x": 257.76,
+      "y": 571.68,
+      "width": 97.2,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "patient_name",
+      "label": "Patient Name",
+      "type": "text",
+      "x": 57.24,
+      "y": 553.68,
+      "width": 298.8,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "patient_street",
+      "label": "Street Address",
+      "type": "text",
+      "x": 59.76,
+      "y": 534.24,
+      "width": 299.16,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "patient_city",
+      "label": "City",
+      "type": "text",
+      "x": 46.08,
+      "y": 516.24,
+      "width": 148.68,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "patient_state",
+      "label": "State",
+      "type": "text",
+      "x": 225.72,
+      "y": 516.24,
+      "width": 39.24,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "patient_zip",
+      "label": "Zip Code",
+      "type": "text",
+      "x": 278.64,
+      "y": 516.24,
+      "width": 78.84,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "patient_phone",
+      "label": "Phone Number",
+      "type": "text",
+      "x": 60.12,
+      "y": 496.44,
+      "width": 298.44,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "frame_model",
+      "label": "Frame Model / Size",
+      "type": "text",
+      "x": 60.84,
+      "y": 456.48,
+      "width": 298.44,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "pd",
+      "label": "P.D. (Pupillary Distance)",
+      "type": "text",
+      "x": 43.92,
+      "y": 437.76,
+      "width": 81,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "seg_height",
+      "label": "Seg Height",
+      "type": "text",
+      "x": 184.68,
+      "y": 437.76,
+      "width": 58.32,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "blue_light",
+      "label": "Blue Light Filter",
+      "type": "text",
+      "x": 302.76,
+      "y": 437.76,
+      "width": 58.32,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "frame_color",
+      "label": "Frame Color",
+      "type": "text",
+      "x": 58.68,
+      "y": 418.68,
+      "width": 132.48,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "sc",
+      "label": "S/C (Scratch Coat)",
+      "type": "text",
+      "x": 211.32,
+      "y": 418.68,
+      "width": 49.68,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "ar",
+      "label": "A/R (Anti-Reflective)",
+      "type": "text",
+      "x": 281.88,
+      "y": 418.68,
+      "width": 77.4,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "time_promised",
+      "label": "Time Promised",
+      "type": "text",
+      "x": 102.24,
+      "y": 400.32,
+      "width": 158.4,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "uv",
+      "label": "U/V Coating",
+      "type": "text",
+      "x": 280.8,
+      "y": 400.32,
+      "width": 81.36,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "paid_cash",
+      "label": "Paid Cash",
+      "type": "checkbox",
+      "x": 101.1,
+      "y": 379.2,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "paid_check",
+      "label": "Paid Check",
+      "type": "checkbox",
+      "x": 141.6,
+      "y": 378.8,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "paid_credit_card",
+      "label": "Paid Credit Card",
+      "type": "checkbox",
+      "x": 183,
+      "y": 378.5,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "charge_frame",
+      "label": "Frame Price",
+      "type": "text",
+      "x": 59.4,
+      "y": 345.96,
+      "width": 187.2,
+      "height": 16,
+      "fontSize": 10,
+      "alignment": "right"
+    },
+    {
+      "name": "charge_lenses",
+      "label": "Lenses Price",
+      "type": "text",
+      "x": 57.96,
+      "y": 319.68,
+      "width": 187.2,
+      "height": 16,
+      "fontSize": 10,
+      "alignment": "right"
+    },
+    {
+      "name": "charge_misc",
+      "label": "Misc Price",
+      "type": "text",
+      "x": 52.92,
+      "y": 290.88,
+      "width": 193.32,
+      "height": 16,
+      "fontSize": 10,
+      "alignment": "right"
+    },
+    {
+      "name": "charge_disc",
+      "label": "Discount",
+      "type": "text",
+      "x": 48.6,
+      "y": 265.32,
+      "width": 193.68,
+      "height": 16,
+      "fontSize": 10,
+      "alignment": "right"
+    },
+    {
+      "name": "charge_tax",
+      "label": "Tax",
+      "type": "text",
+      "x": 46.8,
+      "y": 239.04,
+      "width": 202.32,
+      "height": 16,
+      "fontSize": 10,
+      "alignment": "right"
+    },
+    {
+      "name": "charge_total",
+      "label": "Total",
+      "type": "text",
+      "x": 52.56,
+      "y": 213.12,
+      "width": 202.68,
+      "height": 16,
+      "fontSize": 10,
+      "alignment": "right",
+      "fontBold": true
+    },
+    {
+      "name": "charge_dep",
+      "label": "Deposit",
+      "type": "text",
+      "x": 43.56,
+      "y": 188.64,
+      "width": 202.32,
+      "height": 16,
+      "fontSize": 10,
+      "alignment": "right"
+    },
+    {
+      "name": "charge_bal",
+      "label": "Balance Due",
+      "type": "text",
+      "x": 43.56,
+      "y": 160.92,
+      "width": 202.32,
+      "height": 16,
+      "fontSize": 10,
+      "alignment": "right",
+      "fontBold": true
+    },
+    {
+      "name": "lens_plastic",
+      "label": "Plastic",
+      "type": "checkbox",
+      "x": 259.2,
+      "y": 358.3,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "lens_poly",
+      "label": "Polycarbonate",
+      "type": "checkbox",
+      "x": 300.6,
+      "y": 358.3,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "hi_index",
+      "label": "Hi-Index Spec",
+      "type": "text",
+      "x": 315,
+      "y": 329.76,
+      "width": 51.84,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "lens_trivex",
+      "label": "Trivex",
+      "type": "checkbox",
+      "x": 259.2,
+      "y": 302.5,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "lens_glass",
+      "label": "Glass",
+      "type": "checkbox",
+      "x": 306,
+      "y": 302.5,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "lens_sv",
+      "label": "Single Vision (SV)",
+      "type": "checkbox",
+      "x": 255.6,
+      "y": 263.8,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "lens_ft28",
+      "label": "Flat Top 28 (FT-28)",
+      "type": "checkbox",
+      "x": 272.5,
+      "y": 263.8,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "lens_ft35",
+      "label": "Flat Top 35 (FT-35)",
+      "type": "checkbox",
+      "x": 304.9,
+      "y": 263.8,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "lens_7x28",
+      "label": "7x28 Trifocal",
+      "type": "checkbox",
+      "x": 255.6,
+      "y": 238.4,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "lens_7x35",
+      "label": "7x35 Trifocal",
+      "type": "checkbox",
+      "x": 279.7,
+      "y": 238.4,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "lens_rd22",
+      "label": "Round 22 (RD22)",
+      "type": "checkbox",
+      "x": 308.5,
+      "y": 238.4,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "name": "progressive",
+      "label": "Progressive Lens Brand/Type",
+      "type": "text",
+      "x": 293.04,
+      "y": 213.12,
+      "width": 84.96,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "lens_other",
+      "label": "Other Lens Specs",
+      "type": "text",
+      "x": 288.72,
+      "y": 188.64,
+      "width": 89.28,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "insurance",
+      "label": "Insurance Details",
+      "type": "text",
+      "x": 276.84,
+      "y": 160.92,
+      "width": 96.12,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "rx_r_sph",
+      "label": "OD Sphere",
+      "type": "text",
+      "x": 43.2,
+      "y": 106,
+      "width": 63.7,
+      "height": 20,
+      "fontSize": 11,
+      "alignment": "center"
+    },
+    {
+      "name": "rx_r_cyl",
+      "label": "OD Cylinder",
+      "type": "text",
+      "x": 107.3,
+      "y": 106,
+      "width": 55.8,
+      "height": 20,
+      "fontSize": 11,
+      "alignment": "center"
+    },
+    {
+      "name": "rx_r_axis",
+      "label": "OD Axis",
+      "type": "text",
+      "x": 163.4,
+      "y": 106,
+      "width": 51.5,
+      "height": 20,
+      "fontSize": 11,
+      "alignment": "center"
+    },
+    {
+      "name": "rx_r_add",
+      "label": "OD Add",
+      "type": "text",
+      "x": 215.3,
+      "y": 106,
+      "width": 60.8,
+      "height": 20,
+      "fontSize": 11,
+      "alignment": "center"
+    },
+    {
+      "name": "rx_r_prism",
+      "label": "OD Prism",
+      "type": "text",
+      "x": 276.5,
+      "y": 106,
+      "width": 99.7,
+      "height": 20,
+      "fontSize": 11,
+      "alignment": "center"
+    },
+    {
+      "name": "rx_l_sph",
+      "label": "OS Sphere",
+      "type": "text",
+      "x": 43.2,
+      "y": 84,
+      "width": 63.7,
+      "height": 20,
+      "fontSize": 11,
+      "alignment": "center"
+    },
+    {
+      "name": "rx_l_cyl",
+      "label": "OS Cylinder",
+      "type": "text",
+      "x": 107.3,
+      "y": 84,
+      "width": 55.8,
+      "height": 20,
+      "fontSize": 11,
+      "alignment": "center"
+    },
+    {
+      "name": "rx_l_axis",
+      "label": "OS Axis",
+      "type": "text",
+      "x": 163.4,
+      "y": 84,
+      "width": 51.5,
+      "height": 20,
+      "fontSize": 11,
+      "alignment": "center"
+    },
+    {
+      "name": "rx_l_add",
+      "label": "OS Add",
+      "type": "text",
+      "x": 215.3,
+      "y": 84,
+      "width": 60.8,
+      "height": 20,
+      "fontSize": 11,
+      "alignment": "center"
+    },
+    {
+      "name": "rx_l_prism",
+      "label": "OS Prism",
+      "type": "text",
+      "x": 276.5,
+      "y": 84,
+      "width": 99.7,
+      "height": 20,
+      "fontSize": 11,
+      "alignment": "center"
+    },
+    {
+      "name": "rx_doctor",
+      "label": "Prescribing Doctor",
+      "type": "text",
+      "x": 83.88,
+      "y": 43.2,
+      "width": 279.72,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "notif",
+      "label": "Notification Status",
+      "type": "text",
+      "x": 51.12,
+      "y": 25.56,
+      "width": 163.44,
+      "height": 16,
+      "fontSize": 10
+    },
+    {
+      "name": "disp",
+      "label": "Dispensed By",
+      "type": "text",
+      "x": 247.68,
+      "y": 25.56,
+      "width": 113.04,
+      "height": 16,
+      "fontSize": 10
+    }
+  ]
+}

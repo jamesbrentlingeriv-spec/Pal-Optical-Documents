@@ -17,6 +17,7 @@ export class Sidebar {
       {
         title: 'Orders & Calculations',
         items: [
+          { id: 'writeup', label: 'Lab Write-Up (5.5"×8.5")', icon: 'file-text' },
           { id: 'eyeglass-job-note', label: 'Eyeglass Job Note', icon: 'file-text' },
           { id: 'prior-auth', label: 'Medicaid / Avesis Prior Auth', icon: 'file-text' },
           { id: 'price-quote', label: 'Eyewear Price Quote', icon: 'dollar-sign' },
