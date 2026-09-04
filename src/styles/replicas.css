@@ -1310,19 +1310,19 @@
 .job-note-card {
   width: 100%;
   max-width: 820px;
-  margin: 0 auto 40px auto;
+  margin: 0 auto 30px auto;
   background-color: #ffffff;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
-  padding: 36px 44px;
+  padding: 26px 36px;
   box-sizing: border-box;
   color: #0f172a;
   font-family: var(--font-family, 'Plus Jakarta Sans', sans-serif);
 }
 
 .job-note-header {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .job-note-title-wrap {
@@ -1343,7 +1343,7 @@
 }
 
 .job-note-subtitle {
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   color: #475569;
@@ -1352,17 +1352,17 @@
 .job-note-header-divider {
   height: 2.5px;
   background-color: #0f172a;
-  margin-top: 8px;
+  margin-top: 6px;
   width: 100%;
 }
 
 .job-note-meta-grid {
-  margin-bottom: 22px;
+  margin-bottom: 14px;
 }
 
 .job-note-meta-row {
   display: flex;
-  gap: 24px;
+  gap: 20px;
   align-items: center;
 }
 
@@ -1385,7 +1385,7 @@
 }
 
 .job-note-field-label {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   color: #0f172a;
@@ -1397,8 +1397,8 @@
   border-bottom: 1.5px solid #94a3b8;
   border-radius: 0;
   background: transparent;
-  padding: 3px 6px;
-  font-size: 0.95rem;
+  padding: 2px 6px;
+  font-size: 1.0rem;
   color: #0f172a;
   width: 100%;
   outline: none;
@@ -1410,21 +1410,21 @@
 }
 
 .job-note-section {
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
 .job-note-section-banner {
   background-color: #f1f5f9;
   border-left: 4px solid #1d4ed8;
-  padding: 6px 12px;
-  margin-bottom: 12px;
+  padding: 4px 10px;
+  margin-bottom: 8px;
   border-radius: 0 4px 4px 0;
   display: flex;
   align-items: center;
 }
 
 .job-note-banner-text {
-  font-size: 0.84rem;
+  font-size: 0.90rem;
   font-weight: 800;
   letter-spacing: 0.05em;
   color: #0f172a;
@@ -1434,22 +1434,22 @@
 .job-note-checkbox-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 28px;
-  row-gap: 7px;
+  column-gap: 24px;
+  row-gap: 5px;
   padding: 0 4px;
 }
 
 .job-note-checkbox-col {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 5px;
 }
 
 .job-note-check-label {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font-size: 0.84rem;
+  font-size: 0.92rem;
   font-weight: 500;
   color: #1e293b;
   cursor: pointer;
@@ -1462,8 +1462,8 @@
 }
 
 .job-note-checkbox {
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
   accent-color: #1d4ed8;
   margin: 0;
@@ -1471,12 +1471,12 @@
 }
 
 .job-note-other-block {
-  margin-top: 10px;
+  margin-top: 6px;
   padding: 0 4px;
 }
 
 .job-note-other-block .other-title-label {
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .job-note-ruled-area {
@@ -1489,21 +1489,21 @@
   box-sizing: border-box;
   background: transparent;
   border: none;
-  line-height: 26px;
-  font-size: 0.88rem;
+  line-height: 24px;
+  font-size: 0.92rem;
   font-family: inherit;
   color: #0f172a;
   outline: none;
   resize: vertical;
   padding: 0 4px;
-  background-image: linear-gradient(transparent, transparent 25px, #94a3b8 25px, #94a3b8 26px);
-  background-size: 100% 26px;
+  background-image: linear-gradient(transparent, transparent 23px, #94a3b8 23px, #94a3b8 24px);
+  background-size: 100% 24px;
   background-attachment: local;
 }
 
 .job-note-dotted-separator {
   border-top: 1.5px dotted #cbd5e1;
-  margin: 16px 0 12px 0;
+  margin: 10px 0 8px 0;
 }
 
 .job-note-action-row {
@@ -1513,19 +1513,19 @@
   flex-wrap: wrap;
   gap: 12px;
   padding: 0 4px;
-  margin: 10px 0 16px 0;
+  margin: 8px 0 10px 0;
 }
 
 .job-note-footer-divider {
   border-top: 1px solid #94a3b8;
-  margin: 12px 0 10px 0;
+  margin: 8px 0 6px 0;
 }
 
 .job-note-footer-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 24px;
+  gap: 20px;
   padding: 0 4px;
 }
 
@@ -1537,7 +1537,7 @@
 }
 
 .job-note-sig-label {
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   font-weight: 800;
   letter-spacing: 0.03em;
   color: #0f172a;
@@ -1563,7 +1563,7 @@
 }
 
 .job-note-sig-target-wrapper .signature-canvas-wrapper {
-  height: 48px;
+  height: 44px;
   border: none;
   border-bottom: 1.5px solid #94a3b8;
   border-radius: 0;
@@ -1571,7 +1571,7 @@
 }
 
 .job-note-sig-target-wrapper .signature-placeholder {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: #94a3b8;
 }
 
@@ -1593,7 +1593,7 @@
 }
 
 .job-note-status-label {
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   font-weight: 800;
   letter-spacing: 0.03em;
   color: #0f172a;
@@ -1603,5 +1603,6 @@
 
 .status-input {
   border-bottom: 1.5px solid #94a3b8;
+  font-size: 1.0rem;
 }
 

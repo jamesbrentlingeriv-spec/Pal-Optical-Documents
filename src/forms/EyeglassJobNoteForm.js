@@ -177,10 +177,8 @@ export class EyeglassJobNoteForm {
                 <span class="font-bold">OTHER (Please specify details below):</span>
               </label>
               <div class="job-note-ruled-area">
-                <textarea class="job-note-ruled-textarea" data-field="issueOtherDetails" rows="4" placeholder="Enter optical / frame issue notes here...">${this.escapeHtml(this.state.issueOtherDetails || '')}</textarea>
+                <textarea class="job-note-ruled-textarea" data-field="issueOtherDetails" rows="2" placeholder="Enter optical / frame issue notes here...">${this.escapeHtml(this.state.issueOtherDetails || '')}</textarea>
                 <div class="job-note-ruled-lines">
-                  <div class="rule-line"></div>
-                  <div class="rule-line"></div>
                   <div class="rule-line"></div>
                   <div class="rule-line"></div>
                 </div>
@@ -260,9 +258,8 @@ export class EyeglassJobNoteForm {
                 <span class="font-bold">OTHER PRE-MANUFACTURE NOTES (Specify below):</span>
               </label>
               <div class="job-note-ruled-area">
-                <textarea class="job-note-ruled-textarea" data-field="concernOtherDetails" rows="3" placeholder="Enter pre-manufacture lab notes here...">${this.escapeHtml(this.state.concernOtherDetails || '')}</textarea>
+                <textarea class="job-note-ruled-textarea" data-field="concernOtherDetails" rows="2" placeholder="Enter pre-manufacture lab notes here...">${this.escapeHtml(this.state.concernOtherDetails || '')}</textarea>
                 <div class="job-note-ruled-lines">
-                  <div class="rule-line"></div>
                   <div class="rule-line"></div>
                   <div class="rule-line"></div>
                 </div>

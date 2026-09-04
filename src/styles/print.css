@@ -938,13 +938,13 @@
   }
 
   /* ==========================================
-     EYEGLASS JOB NOTE PRINT RULES
+     EYEGLASS JOB NOTE PRINT RULES (HALF-PAGE FIT)
      ========================================== */
   body.active-form-eyeglass-job-note .job-note-card {
     border: none !important;
     box-shadow: none !important;
     margin: 0 !important;
-    padding: 0.15in 0.25in !important;
+    padding: 0.12in 0.22in !important;
     width: 100% !important;
     max-width: 100% !important;
     background-color: #fff !important;
@@ -954,49 +954,49 @@
   }
 
   body.active-form-eyeglass-job-note .job-note-header {
-    margin-bottom: 6px !important;
+    margin-bottom: 4px !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-main-title {
-    font-size: 14pt !important;
+    font-size: 15pt !important;
     color: #000 !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-subtitle {
-    font-size: 8pt !important;
+    font-size: 9pt !important;
     color: #333 !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-header-divider {
     height: 2px !important;
     background-color: #000 !important;
-    margin-top: 3px !important;
+    margin-top: 2px !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-meta-grid {
-    margin-bottom: 8px !important;
+    margin-bottom: 6px !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-meta-row {
-    gap: 16px !important;
+    gap: 14px !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-field-label {
-    font-size: 7.5pt !important;
+    font-size: 9pt !important;
     color: #000 !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-line-input {
     border: none !important;
     border-bottom: 1px solid #000 !important;
-    font-size: 8.5pt !important;
+    font-size: 9.5pt !important;
     padding: 1px 2px !important;
     height: 16px !important;
     color: #000 !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-section {
-    margin-bottom: 8px !important;
+    margin-bottom: 6px !important;
     page-break-inside: avoid !important;
   }
 
@@ -1004,13 +1004,13 @@
     background-color: #f1f5f9 !important;
     border-left: 3.5px solid #000 !important;
     padding: 2px 6px !important;
-    margin-bottom: 5px !important;
+    margin-bottom: 4px !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-banner-text {
-    font-size: 7pt !important;
+    font-size: 8.8pt !important;
     font-weight: 800 !important;
     color: #000 !important;
   }
@@ -1025,29 +1025,31 @@
   }
 
   body.active-form-eyeglass-job-note .job-note-check-label {
-    font-size: 6.8pt !important;
+    font-size: 8.8pt !important;
     line-height: 1.15 !important;
-    gap: 5px !important;
+    gap: 6px !important;
     color: #000 !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-checkbox {
-    width: 11px !important;
-    height: 11px !important;
+    width: 12px !important;
+    height: 12px !important;
     border: 1px solid #000 !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-other-block {
-    margin-top: 4px !important;
+    margin-top: 3px !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-other-block .other-title-label {
+    font-size: 8.8pt !important;
     margin-bottom: 2px !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-ruled-textarea {
     line-height: 18px !important;
-    font-size: 7.5pt !important;
+    font-size: 9pt !important;
+    height: 36px !important;
     color: #000 !important;
     background-image: linear-gradient(transparent, transparent 17px, #000 17px, #000 18px) !important;
     background-size: 100% 18px !important;
@@ -1057,37 +1059,37 @@
 
   body.active-form-eyeglass-job-note .job-note-dotted-separator {
     border-top: 1px dotted #444 !important;
-    margin: 6px 0 5px 0 !important;
+    margin: 4px 0 4px 0 !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-action-row {
-    margin: 3px 0 6px 0 !important;
+    margin: 2px 0 4px 0 !important;
     gap: 8px !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-footer-divider {
     border-top: 1px solid #000 !important;
-    margin: 5px 0 5px 0 !important;
+    margin: 4px 0 4px 0 !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-footer-row {
-    gap: 16px !important;
+    gap: 14px !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-sig-label,
   body.active-form-eyeglass-job-note .job-note-status-label {
-    font-size: 7pt !important;
+    font-size: 8.8pt !important;
     color: #000 !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-sig-target-wrapper .signature-canvas-wrapper {
-    height: 32px !important;
+    height: 30px !important;
     border-bottom: 1px solid #000 !important;
   }
 
   body.active-form-eyeglass-job-note .status-input {
     border-bottom: 1px solid #000 !important;
-    font-size: 8pt !important;
+    font-size: 9pt !important;
     height: 16px !important;
   }
 }
