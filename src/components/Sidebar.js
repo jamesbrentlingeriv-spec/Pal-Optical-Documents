@@ -17,6 +17,7 @@ export class Sidebar {
       {
         title: 'Orders & Calculations',
         items: [
+          { id: 'eyeglass-job-note', label: 'Eyeglass Job Note', icon: 'file-text' },
           { id: 'prior-auth', label: 'Medicaid / Avesis Prior Auth', icon: 'file-text' },
           { id: 'price-quote', label: 'Eyewear Price Quote', icon: 'dollar-sign' },
           { id: 'safety-order', label: 'Eagle Safety Order Form', icon: 'shield' },
