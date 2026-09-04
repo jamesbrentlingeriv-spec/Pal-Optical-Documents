@@ -10,7 +10,7 @@ export class EyeglassJobNoteForm {
     this.state = {
       patientName: '',
       date: today,
-      optician: '',
+      optician: 'James Brentlinger',
 
       // Section 1: Reported Optical & Frame Issues
       issueBlurryDistance: false,
@@ -52,7 +52,7 @@ export class EyeglassJobNoteForm {
       actionLabRemake: false,
       actionWarrantyReplace: false,
       status: '',
-      signature: '/default_signature.png',
+      signature: '/jamessig.png',
       ...state
     };
 
@@ -300,8 +300,11 @@ export class EyeglassJobNoteForm {
             <div class="job-note-footer-row">
               <div class="job-note-sig-block">
                 <span class="job-note-sig-label">Optician Sig:</span>
-                <div class="job-note-sig-target-wrapper" id="job-note-sig-target">
-                  <!-- SignaturePad mounts here -->
+                <div class="job-note-sig-col">
+                  <div class="job-note-sig-target-wrapper" id="job-note-sig-target">
+                    <!-- SignaturePad mounts here -->
+                  </div>
+                  <div class="job-note-sig-name">James Brentlinger ABOC, NCLEC</div>
                 </div>
               </div>
 
@@ -385,7 +388,7 @@ export class EyeglassJobNoteForm {
     this.state = {
       patientName: '',
       date: today,
-      optician: '',
+      optician: 'James Brentlinger',
       issueBlurryDistance: false,
       issueBlurryClose: false,
       issueNightDriving: false,
@@ -421,7 +424,7 @@ export class EyeglassJobNoteForm {
       actionLabRemake: false,
       actionWarrantyReplace: false,
       status: '',
-      signature: '/default_signature.png'
+      signature: '/jamessig.png'
     };
 
     this.render();

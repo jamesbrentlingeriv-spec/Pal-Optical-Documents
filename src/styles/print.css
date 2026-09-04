@@ -1076,10 +1076,35 @@
     gap: 14px !important;
   }
 
-  body.active-form-eyeglass-job-note .job-note-sig-label,
+  body.active-form-eyeglass-job-note .job-note-sig-block {
+    align-items: flex-start !important;
+  }
+
+  body.active-form-eyeglass-job-note .job-note-sig-label {
+    padding-top: 10px !important;
+    font-size: 8.8pt !important;
+    color: #000 !important;
+  }
+
   body.active-form-eyeglass-job-note .job-note-status-label {
     font-size: 8.8pt !important;
     color: #000 !important;
+  }
+
+  body.active-form-eyeglass-job-note .job-note-sig-col {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  body.active-form-eyeglass-job-note .job-note-sig-name {
+    font-size: 7.2pt !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+    text-align: center !important;
+    margin-top: 2px !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
   }
 
   body.active-form-eyeglass-job-note .job-note-sig-target-wrapper .signature-canvas-wrapper {

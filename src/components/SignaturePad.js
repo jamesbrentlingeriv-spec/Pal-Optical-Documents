@@ -192,7 +192,12 @@ export class SignaturePad {
     img.src = dataUrl;
     img.onload = () => {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
+      const hRatio = this.canvas.width / img.width;
+      const vRatio = this.canvas.height / img.height;
+      const ratio = Math.min(hRatio, vRatio);
+      const shiftX = (this.canvas.width - img.width * ratio) / 2;
+      const shiftY = (this.canvas.height - img.height * ratio) / 2;
+      this.ctx.drawImage(img, 0, 0, img.width, img.height, shiftX, shiftY, img.width * ratio, img.height * ratio);
       this.hasSignature = true;
       this.placeholder.style.display = 'none';
     };

@@ -1532,7 +1532,7 @@
 .job-note-sig-block {
   flex: 1.4;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 10px;
 }
 
@@ -1542,12 +1542,27 @@
   letter-spacing: 0.03em;
   color: #0f172a;
   white-space: nowrap;
-  padding-bottom: 4px;
+  padding-top: 18px;
+}
+
+.job-note-sig-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
 }
 
 .job-note-sig-target-wrapper {
-  flex: 1;
-  min-width: 220px;
+  width: 100%;
+}
+
+.job-note-sig-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1e293b;
+  text-align: center;
+  margin-top: 3px;
+  letter-spacing: 0.02em;
 }
 
 .job-note-sig-target-wrapper .signature-component {
