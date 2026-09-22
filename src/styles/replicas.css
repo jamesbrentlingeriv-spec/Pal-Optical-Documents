@@ -2134,6 +2134,36 @@
   min-width: 150px;
 }
 
+.ir-tax-rate-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+  padding: 1px 6px;
+  font-size: 7.5pt;
+  font-weight: 700;
+  border-radius: 3px;
+  border: 1px solid #cbd5e1;
+  background-color: #f1f5f9;
+  color: #475569;
+  cursor: pointer;
+  line-height: 1.2;
+  transition: all 0.15s ease-in-out;
+  vertical-align: middle;
+}
+
+.ir-tax-rate-btn:hover {
+  background-color: #e2e8f0;
+  border-color: #94a3b8;
+  color: #1e293b;
+}
+
+.ir-tax-rate-btn.active {
+  background-color: #0284c7;
+  border-color: #0284c7;
+  color: #ffffff;
+}
+
 .ir-fin-val-wrap {
   width: 80px;
   text-align: right;

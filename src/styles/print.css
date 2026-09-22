@@ -1391,6 +1391,10 @@
     min-width: 150px !important;
   }
 
+  body.active-form-itemized-receipt .ir-tax-rate-btn {
+    display: none !important;
+  }
+
   /* Blank print mode: hide entered data */
   .print-blank-active body.active-form-itemized-receipt .ir-input,
   .print-blank-active body.active-form-itemized-receipt .ir-table-input,

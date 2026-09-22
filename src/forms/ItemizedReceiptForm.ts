@@ -54,6 +54,8 @@ export interface ItemizedReceiptState {
   // Transactions
   items: ItemizedReceiptItem[];
   salesTax: number | string;
+  taxRate?: number;
+  autoCalculateTax?: boolean;
   insuranceDiscount?: number | string;
   insuranceDiscounts?: ItemizedReceiptDiscount[];
   otherOpenItems: number | string;
@@ -163,6 +165,8 @@ export class ItemizedReceiptForm {
       ],
 
       salesTax: '4.08',
+      taxRate: 0.06,
+      autoCalculateTax: false,
       insuranceDiscount: '0.00',
       insuranceDiscounts: [
         {
@@ -196,7 +200,8 @@ export class ItemizedReceiptForm {
         ? state.insuranceDiscounts
         : (state.insuranceDiscount && parseFloat(String(state.insuranceDiscount).replace(/[()$,]/g, '')) > 0
             ? [{ id: 'ins-1', label: 'Insurance Discount', amount: state.insuranceDiscount }]
-            : defaultState.insuranceDiscounts)
+            : defaultState.insuranceDiscounts),
+      autoCalculateTax: state.autoCalculateTax !== undefined ? state.autoCalculateTax : defaultState.autoCalculateTax
     };
 
     this.render();
@@ -361,16 +366,21 @@ export class ItemizedReceiptForm {
             </div>
           </div>
 
-          <!-- CHARGES SUB-TOTAL & SALES TAX BLOCK -->
+          <!-- CHARGES SUB-TOTAL, SALES TAX & INSURANCE DISCOUNT BLOCK -->
           <div class="ir-financials-block">
-            <div id="ir-ins-discounts-container" class="ir-discounts-container">
-              ${this.renderInsuranceDiscountRows()}
-            </div>
-            <div class="ir-financial-row">
-              <span class="ir-fin-label">Sales Tax</span>
+            <div class="ir-financial-row ir-fin-sales-tax">
+              <span class="ir-fin-label">
+                Sales Tax
+                <button type="button" class="ir-tax-rate-btn print:hidden ${this.state.autoCalculateTax ? 'active' : ''}" id="ir-btn-calc-tax" title="Click to auto-calculate 6% KY sales tax on charges before insurance discount">
+                  6%
+                </button>
+              </span>
               <span class="ir-fin-val-wrap">
                 <input type="text" class="ir-input ir-input-fin text-right" id="ir-input-tax" data-field="salesTax" value="${this.escapeHtml(this.state.salesTax)}">
               </span>
+            </div>
+            <div id="ir-ins-discounts-container" class="ir-discounts-container">
+              ${this.renderInsuranceDiscountRows()}
             </div>
             <div class="ir-financial-row ir-fin-total-charges">
               <span class="ir-fin-label">Total Current Charges</span>
@@ -655,6 +665,14 @@ export class ItemizedReceiptForm {
       btnClear.addEventListener('click', () => this.reset());
     }
 
+    const btnCalcTax = this.container.querySelector('#ir-btn-calc-tax');
+    if (btnCalcTax) {
+      btnCalcTax.addEventListener('click', () => {
+        this.state.autoCalculateTax = !this.state.autoCalculateTax;
+        this.calculateTotals(true);
+      });
+    }
+
     // Keyboard support: Pressing Enter on row inputs to add next line
     this.container.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
@@ -680,6 +698,10 @@ export class ItemizedReceiptForm {
       if (field && field in this.state) {
         // Direct state field
         (this.state as any)[field] = target.value;
+
+        if (field === 'salesTax') {
+          this.state.autoCalculateTax = false;
+        }
 
         // Synchronize twin fields (e.g., patient name / ID to remittance and envelope)
         if (field === 'patientName') {
@@ -977,6 +999,36 @@ export class ItemizedReceiptForm {
       }
     });
 
+    // Subtotal of line items before insurance discount
+    const subtotalBeforeIns = Math.max(0, grossCharges - itemDiscounts);
+
+    // Sales Tax: calculated before insurance discount
+    let taxVal = 0;
+    if (this.state.autoCalculateTax) {
+      const rate = this.state.taxRate !== undefined ? this.state.taxRate : 0.06;
+      taxVal = Math.round(subtotalBeforeIns * rate * 100) / 100;
+      this.state.salesTax = taxVal.toFixed(2);
+      const taxInput = this.container.querySelector('#ir-input-tax') as HTMLInputElement;
+      if (taxInput && document.activeElement !== taxInput) {
+        taxInput.value = taxVal.toFixed(2);
+      }
+    } else {
+      taxVal = parseFloat(String(this.state.salesTax || '').replace(/[()$,]/g, '').trim()) || 0;
+    }
+
+    // Toggle 6% tax button active state
+    const btnCalcTax = this.container.querySelector('#ir-btn-calc-tax');
+    if (btnCalcTax) {
+      if (this.state.autoCalculateTax) {
+        btnCalcTax.classList.add('active');
+      } else {
+        btnCalcTax.classList.remove('active');
+      }
+    }
+
+    // Charges with tax before insurance discount
+    const chargesWithTax = subtotalBeforeIns + taxVal;
+
     // Sum all insurance discounts off the total
     let totalInsDiscounts = 0;
     if (this.state.insuranceDiscounts && this.state.insuranceDiscounts.length > 0) {
@@ -990,8 +1042,8 @@ export class ItemizedReceiptForm {
     }
 
     const allDiscounts = itemDiscounts + totalInsDiscounts;
-    const taxVal = parseFloat(String(this.state.salesTax || '').replace(/[()$,]/g, '').trim()) || 0;
-    const totalCurrentCharges = Math.max(0, grossCharges - allDiscounts + taxVal);
+    // Total Current Charges: chargesWithTax minus insurance discounts
+    const totalCurrentCharges = Math.max(0, chargesWithTax - totalInsDiscounts);
 
     // Calculate payments
     let totalPayments = 0;
@@ -1008,7 +1060,7 @@ export class ItemizedReceiptForm {
     this.state.totalCurrentCharges = totalCurrentCharges;
     this.state.totalPayments = totalPayments;
     this.state.balanceDue = balanceDue;
-    this.state.totalChargesAll = grossCharges + taxVal;
+    this.state.totalChargesAll = chargesWithTax;
     this.state.totalDiscounts = allDiscounts;
 
     // Update DOM displays
@@ -1033,8 +1085,9 @@ export class ItemizedReceiptForm {
       }
     }
 
+    // Footnote displays Total Charges (Pat. Total + Ins. Total) = chargesWithTax (exact sample PDF: 109.95)
     const dispSumTotalCharges = this.container.querySelector('#ir-disp-sum-total-charges');
-    if (dispSumTotalCharges) dispSumTotalCharges.textContent = grossCharges.toFixed(2);
+    if (dispSumTotalCharges) dispSumTotalCharges.textContent = chargesWithTax.toFixed(2);
 
     const dispSumDiscounts = this.container.querySelector('#ir-disp-sum-discounts');
     if (dispSumDiscounts) {
@@ -1139,6 +1192,8 @@ export class ItemizedReceiptForm {
       ],
 
       salesTax: '4.08',
+      taxRate: 0.06,
+      autoCalculateTax: false,
       insuranceDiscount: '0.00',
       insuranceDiscounts: [
         {
@@ -1207,6 +1262,8 @@ export class ItemizedReceiptForm {
       ],
 
       salesTax: '0.00',
+      taxRate: 0.06,
+      autoCalculateTax: true,
       insuranceDiscount: '0.00',
       insuranceDiscounts: [
         {
