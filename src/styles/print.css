@@ -1350,9 +1350,22 @@
     border-bottom: 3px double #000 !important;
   }
 
-  body.active-form-itemized-receipt .ir-coupon-table,
-  body.active-form-itemized-receipt .ir-coupon-table td {
+  body.active-form-itemized-receipt .ir-coupon-top-line {
+    border-top: 1px solid #000 !important;
+  }
+
+  body.active-form-itemized-receipt .ir-coupon-box-val {
     border: 1px solid #000 !important;
+    background: transparent !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.active-form-itemized-receipt .ir-coupon-box-input {
+    border: none !important;
+    background: transparent !important;
+    color: #000 !important;
+    padding: 0 !important;
   }
 
   body.active-form-itemized-receipt .ir-fin-ins-discount.ir-zero-hidden {
@@ -1383,6 +1396,8 @@
   .print-blank-active body.active-form-itemized-receipt .ir-table-input,
   .print-blank-active body.active-form-itemized-receipt .ir-pmt-field,
   .print-blank-active body.active-form-itemized-receipt .ir-coupon-input,
+  .print-blank-active body.active-form-itemized-receipt .ir-coupon-box-input,
+  .print-blank-active body.active-form-itemized-receipt .ir-coupon-text,
   .print-blank-active body.active-form-itemized-receipt .ir-calculated-val,
   .print-blank-active body.active-form-itemized-receipt .ir-sum-val,
   .print-blank-active body.active-form-itemized-receipt .coupon-value {

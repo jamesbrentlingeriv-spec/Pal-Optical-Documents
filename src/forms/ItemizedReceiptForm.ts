@@ -438,48 +438,66 @@ export class ItemizedReceiptForm {
             If due, please detach and remit within 14 days. Thanks for choosing Pal Optical.
           </div>
 
-          <!-- DETACHABLE REMITTANCE COUPON BOX (3x3 Table) -->
-          <div class="ir-coupon-box">
-            <table class="ir-coupon-table">
-              <tbody>
-                <tr>
-                  <td class="coupon-cell">
-                    <span class="coupon-label">Total Due</span>
-                    <span class="coupon-value text-right" id="ir-coupon-total-due">0.00</span>
-                  </td>
-                  <td class="coupon-cell">
-                    <span class="coupon-label">Patient #</span>
-                    <span class="coupon-value" id="ir-coupon-patient-id">${this.escapeHtml(this.state.patientId)}</span>
-                  </td>
-                  <td class="coupon-cell">
-                    <span class="coupon-label">Statement Date</span>
-                    <span class="coupon-value" id="ir-coupon-date">${this.escapeHtml(this.state.datePrinted)}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="coupon-cell">
-                    <span class="coupon-label">Amount Enclosed</span>
-                    <input type="text" class="ir-coupon-input" data-field="amountEnclosed" value="${this.escapeHtml(this.state.amountEnclosed)}">
-                  </td>
-                  <td class="coupon-cell">
-                    <span class="coupon-label">Check #</span>
-                    <input type="text" class="ir-coupon-input" data-field="checkNumber" value="${this.escapeHtml(this.state.checkNumber)}">
-                  </td>
-                  <td class="coupon-cell">
-                    <span class="coupon-label">Patient</span>
-                    <span class="coupon-value uppercase" id="ir-coupon-patient-name">${this.escapeHtml(this.state.patientName)}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="coupon-cell coupon-cell-empty"></td>
-                  <td class="coupon-cell">
-                    <span class="coupon-label">Chart #</span>
-                    <span class="coupon-value" id="ir-coupon-chart">${this.escapeHtml(this.state.chartNumber)}</span>
-                  </td>
-                  <td class="coupon-cell coupon-cell-empty"></td>
-                </tr>
-              </tbody>
-            </table>
+          <!-- DETACHABLE REMITTANCE COUPON (Exact PDF replica) -->
+          <div class="ir-remittance-coupon-section">
+            <div class="ir-coupon-top-line"></div>
+            <div class="ir-coupon-grid">
+              
+              <!-- Column 1: Total Due & Amount Enclosed -->
+              <div class="ir-coupon-col ir-col-1">
+                <div class="ir-coupon-row">
+                  <span class="ir-coupon-lbl">Total Due</span>
+                  <div class="ir-coupon-box-val text-right">
+                    <span class="ir-coupon-text" id="ir-coupon-total-due">0.00</span>
+                  </div>
+                </div>
+                <div class="ir-coupon-row">
+                  <span class="ir-coupon-lbl">Amount Enclosed</span>
+                  <div class="ir-coupon-box-val text-right">
+                    <input type="text" class="ir-coupon-box-input text-right" data-field="amountEnclosed" value="${this.escapeHtml(this.state.amountEnclosed)}">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Column 2: Patient #, Check #, Chart # -->
+              <div class="ir-coupon-col ir-col-2">
+                <div class="ir-coupon-row">
+                  <span class="ir-coupon-lbl">Patient #</span>
+                  <div class="ir-coupon-box-val text-left">
+                    <span class="ir-coupon-text" id="ir-coupon-patient-id">${this.escapeHtml(this.state.patientId)}</span>
+                  </div>
+                </div>
+                <div class="ir-coupon-row">
+                  <span class="ir-coupon-lbl">Check #</span>
+                  <div class="ir-coupon-box-val text-left">
+                    <input type="text" class="ir-coupon-box-input text-left" data-field="checkNumber" value="${this.escapeHtml(this.state.checkNumber)}">
+                  </div>
+                </div>
+                <div class="ir-coupon-row">
+                  <span class="ir-coupon-lbl">Chart #</span>
+                  <div class="ir-coupon-box-val text-left">
+                    <input type="text" class="ir-coupon-box-input text-left" id="ir-coupon-chart" data-field="chartNumber" value="${this.escapeHtml(this.state.chartNumber)}">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Column 3: Statement Date & Patient -->
+              <div class="ir-coupon-col ir-col-3">
+                <div class="ir-coupon-row">
+                  <span class="ir-coupon-lbl">Statement Date</span>
+                  <div class="ir-coupon-box-val text-left">
+                    <span class="ir-coupon-text" id="ir-coupon-date">${this.escapeHtml(this.state.datePrinted)}</span>
+                  </div>
+                </div>
+                <div class="ir-coupon-row">
+                  <span class="ir-coupon-lbl">Patient</span>
+                  <div class="ir-coupon-box-val text-left">
+                    <span class="ir-coupon-text uppercase" id="ir-coupon-patient-name">${this.escapeHtml(this.state.patientName)}</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
 
           <!-- BOTTOM TWO-COLUMN ADDRESSES (Window Envelope Standard) -->
@@ -676,8 +694,18 @@ export class ItemizedReceiptForm {
           const couponDate = this.container.querySelector('#ir-coupon-date');
           if (couponDate) couponDate.textContent = target.value;
         } else if (field === 'chartNumber') {
-          const couponChart = this.container.querySelector('#ir-coupon-chart');
-          if (couponChart) couponChart.textContent = target.value;
+          const couponChart = this.container.querySelector('#ir-coupon-chart') as HTMLInputElement | HTMLElement;
+          if (couponChart && couponChart !== target) {
+            if ('value' in couponChart) {
+              (couponChart as HTMLInputElement).value = target.value;
+            } else {
+              couponChart.textContent = target.value;
+            }
+          }
+          const metaChart = this.container.querySelector('.ir-input-meta[data-field="chartNumber"]') as HTMLInputElement;
+          if (metaChart && metaChart !== target) {
+            metaChart.value = target.value;
+          }
         } else if (field === 'recipientName') {
           const envPat = this.container.querySelector('#ir-env-pat-name');
           if (envPat) envPat.textContent = target.value || this.state.patientName;
