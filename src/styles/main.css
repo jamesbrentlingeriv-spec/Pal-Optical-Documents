@@ -574,3 +574,29 @@ body {
 body.dark-mode canvas, body.dark-mode .signature-canvas-wrapper canvas {
   filter: invert(1) !important;
 }
+
+/* Embedded Standalone HTML Documents (Staff Schedule, Notes to Doctor) */
+body.active-form-staff-schedule .form-viewport,
+body.active-form-notes-to-dr .form-viewport {
+  padding: 0 !important;
+  overflow: hidden !important;
+  height: calc(100vh - var(--header-height)) !important;
+  width: 100% !important;
+  display: block !important;
+}
+
+.embedded-doc-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.embedded-doc-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  flex: 1;
+  background-color: #f8fafc;
+  display: block;
+}

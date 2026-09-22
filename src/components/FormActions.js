@@ -25,6 +25,19 @@ export class FormActions {
     if (descEl) descEl.textContent = newDesc;
   }
 
+  setOpenTabUrl(url) {
+    const openTabBtn = this.container.querySelector('#btn-open-tab');
+    if (openTabBtn) {
+      if (url) {
+        openTabBtn.href = url;
+        openTabBtn.style.display = 'inline-flex';
+      } else {
+        openTabBtn.href = '#';
+        openTabBtn.style.display = 'none';
+      }
+    }
+  }
+
   setControlsVisibility(showModeToggle, showActionBtns) {
     const toggleGroup = this.container.querySelector('.toggle-group');
     const resetBtn = this.container.querySelector('#btn-reset');
@@ -64,6 +77,16 @@ export class FormActions {
           </div>
         </div>
         
+        <!-- Open in New Tab Button (for standalone / embedded docs) -->
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="btn-open-tab" style="display: none;" title="Open document in a new tab">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          <span class="btn-text">Open in New Tab</span>
+        </a>
+
         <!-- Reset Button -->
         <button type="button" class="btn btn-secondary" id="btn-reset" title="Reset all fields to blank">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

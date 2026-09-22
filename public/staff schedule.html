@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule for Doc Side and Pal Front</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Inter:wght@400;600;700;800&display=swap');
+
+    :root {
+      --sheet-width: 8.5in;
+      --sheet-height: 11in;
+    }
+
+    body {
+      font-family: 'Inter', Arial, Helvetica, sans-serif;
+      background-color: #f1f5f9;
+      color: #111827;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Screen Preview Wrapper */
+    .page-preview-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 20px 10px 40px 10px;
+    }
+
+    /* Standard US Letter Page Container */
+    .printable-sheet {
+      width: var(--sheet-width);
+      height: var(--sheet-height);
+      max-height: var(--sheet-height);
+      background: #ffffff;
+      padding: 0.42in 0.5in 0.35in 0.5in;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow: hidden; /* Prevents overflow onto page 2 */
+    }
+
+    /* Exact layout table styles matching the original optical schedule */
+    .sched-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .sched-table th {
+      font-size: 11px;
+      font-weight: 700;
+      color: #111827;
+      text-align: center;
+      padding: 1px 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .sched-table td {
+      padding: 1px 1px;
+      text-align: center;
+      vertical-align: top;
+    }
+
+    /* Date row numbers */
+    .date-input {
+      width: 100%;
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #000;
+      border: none;
+      border-bottom: 1.5px solid #000;
+      background: transparent;
+      padding: 0 0 1px 0;
+      border-radius: 0;
+      line-height: 1.1;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Staff inputs */
+    .staff-cell-input {
+      width: 100%;
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.25;
+      font-weight: 500;
+      color: #111;
+      border: 1px solid #e2e8f0;
+      border-radius: 3px;
+      background-color: #f8fafc;
+      padding: 1.5px 0;
+      margin-top: 1px;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .staff-cell-input:focus {
+      outline: none;
+      background-color: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1.5px rgba(37, 99, 235, 0.25);
+    }
+
+    /* Week Range Header input */
+    .week-range-text {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.2px;
+      color: #000;
+      border: none;
+      background: transparent;
+      padding: 0;
+      margin: 0 0 3px 0;
+      width: 100%;
+      outline: none;
+    }
+
+    /* STRICT SINGLE-PAGE PRINT ENFORCEMENT */
+    @page {
+      size: letter portrait;
+      margin: 0.35in 0.45in 0.3in 0.45in;
+    }
+
+    @media print {
+      html, body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      .page-preview-wrapper {
+        padding: 0 !important;
+        display: block !important;
+      }
+
+      .printable-sheet {
+        box-shadow: none !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+      }
+
+      .staff-cell-input {
+        border: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin-top: 1px !important;
+        font-size: 10.5px !important;
+        color: #000000 !important;
+        -webkit-appearance: none !important;
+      }
+
+      .date-input {
+        border-bottom: 1.5px solid #000000 !important;
+        font-size: 11.5px !important;
+        color: #000000 !important;
+      }
+
+      .week-range-text {
+        border: none !important;
+        color: #000000 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="no-print bg-white border-b border-slate-200 shadow-sm sticky top-0 z-30 px-4 py-3">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <h1 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          Schedule for Doc Side and Pal Front
+        </h1>
+        <p class="text-xs text-slate-500">Pick any month to automatically calculate dates and align both columns for a 1-page printout.</p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="flex items-center gap-1.5 bg-slate-100 border border-slate-300 rounded-lg px-2.5 py-1">
+          <label for="monthSelect" class="text-xs font-bold text-slate-700 uppercase">Month:</label>
+          <input 
+            type="month" 
+            id="monthSelect" 
+            class="bg-white border border-slate-300 text-xs font-semibold rounded px-2 py-1 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          />
+        </div>
+
+        <button 
+          type="button" 
+          onclick="calculateAndFillDates()"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs px-3.5 py-1.5 rounded-lg shadow-sm transition-colors flex items-center gap-1.5"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Autofill Dates
+        </button>
+
+        <button 
+          type="button" 
+          onclick="loadSampleSchedule()" 
+          class="bg-slate-700 hover:bg-slate-800 text-white font-semibold text-xs px-3 py-1.5 rounded-lg shadow-sm transition-colors"
+        >
+          Load Sample Schedule
+        </button>
+
+        <button 
+          type="button" 
+          onclick="clearStaffOnly()" 
+          class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 font-semibold text-xs px-3 py-1.5 rounded-lg transition-colors"
+        >
+          Clear All Staff
+        </button>
+
+        <button 
+          type="button" 
+          onclick="window.print()" 
+          class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-1.5 rounded-lg shadow-sm transition-colors flex items-center gap-1.5 ml-1"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+          </svg>
+          Print Schedule
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Status Palette Chips -->
+    <div class="max-w-5xl mx-auto mt-2 pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5 text-xs text-slate-600">
+      <span class="font-semibold text-slate-500 mr-1">Quick Fill:</span>
+      <button type="button" onclick="insertStaff('OFF')" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded font-semibold text-slate-800">OFF</button>
+      <button type="button" onclick="insertStaff('Closed')" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded font-semibold text-slate-800">Closed</button>
+      <button type="button" onclick="insertStaff('DR Side')" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded font-semibold text-slate-800">DR Side</button>
+      <button type="button" onclick="insertStaff('April')" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded text-slate-800">April</button>
+      <button type="button" onclick="insertStaff('Lisa')" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded text-slate-800">Lisa</button>
+      <button type="button" onclick="insertStaff('Sabr')" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded text-slate-800">Sabr</button>
+      <button type="button" onclick="insertStaff('James')" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded text-slate-800">James</button>
+      <button type="button" onclick="insertStaff('Bobi')" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded text-slate-800">Bobi</button>
+      <button type="button" onclick="insertStaff('Carrib')" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded text-slate-800">Carrib</button>
+      <span class="text-[11px] text-slate-400 ml-auto">Click cell then click button to assign</span>
+    </div>
+  </header>
+
+  <div class="page-preview-wrapper">
+    <main class="printable-sheet" id="printArea">
+      <!-- Title Header -->
+      <div class="text-center mb-5">
+        <h2 class="text-[13px] font-bold tracking-wider uppercase underline underline-offset-4 decoration-1 text-black font-sans">
+          Schedule for Doc Side and Pal Front
+        </h2>
+      </div>
+
+      <!-- Two Side-by-Side Columns -->
+      <div class="grid grid-cols-2 gap-7 items-start w-full">
+        
+        <!-- Left Column: DOC SIDE -->
+        <section class="flex flex-col">
+          <div class="mb-3.5">
+            <h3 class="text-[12px] font-bold uppercase underline underline-offset-2 tracking-wide text-black">
+              DOC SIDE
+            </h3>
+          </div>
+          <!-- 4 Weeks Container (Doc Side) -->
+          <div id="docWeeksContainer" class="flex flex-col gap-[21px]">
+            <!-- Injected via JavaScript (exactly 4 weeks) -->
+          </div>
+        </section>
+
+        <!-- Right Column: PAL FRONT & SABR/JAMES (covering) -->
+        <section class="flex flex-col">
+          <div class="mb-3.5">
+            <h3 class="text-[12px] font-bold uppercase underline underline-offset-2 tracking-wide text-black">
+              PAL FRONT &amp; SABR/JAMES (covering)
+            </h3>
+          </div>
+          <!-- 4 Weeks Container (Pal Front Side) -->
+          <div id="palWeeksContainer" class="flex flex-col gap-[21px]">
+            <!-- Injected via JavaScript (exactly 4 weeks) -->
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <datalist id="staffOptions">
+    <option value="April"></option>
+    <option value="Lisa"></option>
+    <option value="Sabr"></option>
+    <option value="James"></option>
+    <option value="Bobi"></option>
+    <option value="Carrib"></option>
+    <option value="DR Side"></option>
+    <option value="Dr side"></option>
+    <option value="DR Side OFF"></option>
+    <option value="OFF"></option>
+    <option value="Closed"></option>
+    <option value="off@430"></option>
+  </datalist>
+
+  <script>
+    const DAYS_HEADER = ['M', 'TU', 'W', 'TH', 'FR', 'SAT'];
+    const MONTH_NAMES_SHORT = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'];
+    let activeInput = null;
+
+    // Track active input for quick-fill button insertion
+    document.addEventListener('focusin', (e) => {
+      if (e.target && e.target.classList.contains('staff-cell-input')) {
+        activeInput = e.target;
+      }
+    });
+
+    function insertStaff(name) {
+      if (activeInput) {
+        activeInput.value = name;
+        activeInput.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }
+
+    /**
+     * Compute EXACTLY 4 consecutive workweeks (Monday - Saturday)
+     * based on the chosen month input.
+     */
+    function calculateFourWeeks(year, monthIndex) {
+      const weeks = [];
+      const firstOfMonth = new Date(year, monthIndex, 1);
+      
+      // Sunday is 0, Monday is 1, ..., Saturday is 6
+      const dayOfWeek = firstOfMonth.getDay();
+      
+      // Calculate Monday of the first schedule week:
+      // If the 1st is Mon..Thu, week starts on Monday of that week.
+      // If Fri, Sat, or Sun, month starts towards the end of the week, so use next Monday,
+      // or start on the Monday leading directly into it.
+      let mondayOffset = 0;
+      if (dayOfWeek === 0) {
+        // Sunday: Previous Monday was 6 days ago
+        mondayOffset = -6;
+      } else if (dayOfWeek === 1) {
+        // Monday: Same day
+        mondayOffset = 0;
+      } else {
+        // Tue (2) to Sat (6): Monday of that same week
+        mondayOffset = 1 - dayOfWeek;
+      }
+
+      let currentMonday = new Date(year, monthIndex, 1 + mondayOffset);
+
+      // STRICT LOCK: Generate exactly 4 weeks
+      for (let w = 0; w < 4; w++) {
+        const weekDays = [];
+        for (let d = 0; d < 6; d++) {
+          const dateObj = new Date(currentMonday.getFullYear(), currentMonday.getMonth(), currentMonday.getDate() + d);
+          weekDays.push({
+            dayNum: String(dateObj.getDate()).padStart(2, '0'),
+            monthShort: MONTH_NAMES_SHORT[dateObj.getMonth()],
+            dateObj: dateObj
+          });
+        }
+
+        // Header format e.g. "SEPT 30- SEPT 05" or "SEPT 7-SEPT 12"
+        const startM = weekDays[0].monthShort;
+        const startD = weekDays[0].dayNum;
+        const endM = weekDays[5].monthShort;
+        const endD = weekDays[5].dayNum;
+
+        let rangeHeader = '';
+        if (startM === endM) {
+          // If in the same month, use clean single-month format like the photo (e.g. SEPT 7-SEPT 12)
+          rangeHeader = `${startM} ${parseInt(startD, 10)}-SEPT ${endD}`;
+        } else {
+          rangeHeader = `${startM} ${startD}- ${endM} ${endD}`;
+        }
+
+        weeks.push({
+          rangeTitle: rangeHeader,
+          days: weekDays
+        });
+
+        // Advance 7 days to next week's Monday
+        currentMonday = new Date(currentMonday.getFullYear(), currentMonday.getMonth(), currentMonday.getDate() + 7);
+      }
+
+      return weeks;
+    }
+
+    /**
+     * Build the week DOM element for a specific column
+     */
+    function createWeekElement(weekData, weekIndex, columnType) {
+      const isDoc = columnType === 'doc';
+      const staffRowCount = isDoc ? 3 : 4; // Doc side has 3 slots; Pal Front has 4 slots
+
+      const container = document.createElement('div');
+      container.className = 'week-block';
+      container.setAttribute('data-week', weekIndex);
+      container.setAttribute('data-col', columnType);
+
+      // Range header area
+      const headerDiv = document.createElement('div');
+      headerDiv.className = 'h-[18px] mb-1 flex items-center';
+
+      if (isDoc) {
+        const titleInput = document.createElement('input');
+        titleInput.type = 'text';
+        titleInput.value = weekData.rangeTitle;
+        titleInput.className = 'week-range-text';
+        titleInput.id = `title-week-${weekIndex}`;
+        titleInput.setAttribute('aria-label', `Week ${weekIndex + 1} Range`);
+        headerDiv.appendChild(titleInput);
+      } else {
+        // Empty spacer to ensure identical vertical rhythm with Doc side
+        headerDiv.innerHTML = '&nbsp;';
+      }
+      container.appendChild(headerDiv);
+
+      // Table for Days and Staff
+      const table = document.createElement('table');
+      table.className = 'sched-table';
+
+      // Table Head (M, TU, W, TH, FR, SAT)
+      const thead = document.createElement('thead');
+      const headRow = document.createElement('tr');
+      DAYS_HEADER.forEach(day => {
+        const th = document.createElement('th');
+        th.textContent = day;
+        headRow.appendChild(th);
+      });
+      thead.appendChild(headRow);
+      table.appendChild(thead);
+
+      // Table Body
+      const tbody = document.createElement('tbody');
+
+      // Date numbers row
+      const dateRow = document.createElement('tr');
+      weekData.days.forEach((dayInfo, dayIdx) => {
+        const td = document.createElement('td');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = dayInfo.dayNum;
+        input.maxLength = 2;
+        input.className = 'date-input';
+        input.id = `date-${columnType}-${weekIndex}-${dayIdx}`;
+        input.setAttribute('aria-label', `Date ${DAYS_HEADER[dayIdx]} Week ${weekIndex + 1}`);
+        
+        // Sync dates if user manually edits one
+        input.addEventListener('input', (e) => {
+          const siblingCol = isDoc ? 'pal' : 'doc';
+          const siblingInput = document.getElementById(`date-${siblingCol}-${weekIndex}-${dayIdx}`);
+          if (siblingInput) siblingInput.value = e.target.value;
+        });
+
+        td.appendChild(input);
+        dateRow.appendChild(td);
+      });
+      tbody.appendChild(dateRow);
+
+      // Staff slots rows
+      for (let r = 0; r < staffRowCount; r++) {
+        const staffRow = document.createElement('tr');
+        for (let d = 0; d < 6; d++) {
+          const td = document.createElement('td');
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.className = 'staff-cell-input';
+          input.setAttribute('list', 'staffOptions');
+          input.id = `staff-${columnType}-w${weekIndex}-r${r}-d${d}`;
+          td.appendChild(input);
+          staffRow.appendChild(td);
+        }
+        tbody.appendChild(staffRow);
+      }
+
+      table.appendChild(tbody);
+      container.appendChild(table);
+
+      return container;
+    }
+
+    /**
+     * Renders the 4 weeks onto the sheet
+     */
+    function renderFourWeeks(weeks) {
+      const docCol = document.getElementById('docWeeksContainer');
+      const palCol = document.getElementById('palWeeksContainer');
+
+      docCol.innerHTML = '';
+      palCol.innerHTML = '';
+
+      for (let w = 0; w < 4; w++) {
+        docCol.appendChild(createWeekElement(weeks[w], w, 'doc'));
+        palCol.appendChild(createWeekElement(weeks[w], w, 'pal'));
+      }
+    }
+
+    /**
+     * Reads the month picker and recalculates exactly 4 weeks
+     */
+    function calculateAndFillDates() {
+      const picker = document.getElementById('monthSelect');
+      if (!picker.value) return;
+
+      const [yearStr, monthStr] = picker.value.split('-');
+      const year = parseInt(yearStr, 10);
+      const monthIdx = parseInt(monthStr, 10) - 1;
+
+      // Preserve existing staff entries if any
+      const savedStaff = {};
+      document.querySelectorAll('.staff-cell-input').forEach(input => {
+        if (input.value) savedStaff[input.id] = input.value;
+      });
+
+      const weeks = calculateFourWeeks(year, monthIdx);
+      renderFourWeeks(weeks);
+
+      // Restore saved staff
+      Object.keys(savedStaff).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = savedStaff[id];
+      });
+    }
+
+    /**
+     * Clear all staff inputs without clearing dates
+     */
+    function clearStaffOnly() {
+      document.querySelectorAll('.staff-cell-input').forEach(input => {
+        input.value = '';
+      });
+    }
+
+    /**
+     * Load sample data where each week mirrors the 3rd week from the reference photo,
+     * with Thursdays on Doc Side set to 'April' instead of 'A-dent'.
+     */
+    function loadSampleSchedule() {
+      const picker = document.getElementById('monthSelect');
+      if (!picker.value) {
+        const today = new Date();
+        const yr = today.getFullYear();
+        const mo = String(today.getMonth() + 1).padStart(2, '0');
+        picker.value = `${yr}-${mo}`;
+      }
+
+      const [yearStr, monthStr] = picker.value.split('-');
+      const weeks = calculateFourWeeks(parseInt(yearStr, 10), parseInt(monthStr, 10) - 1);
+      renderFourWeeks(weeks);
+
+      // Quick helper
+      const fill = (col, w, r, d, val) => {
+        const el = document.getElementById(`staff-${col}-w${w}-r${r}-d${d}`);
+        if (el) el.value = val;
+      };
+
+      // Apply Week 3 template to ALL 4 weeks (w = 0, 1, 2, 3)
+      for (let w = 0; w < 4; w++) {
+        // DOC SIDE (3 slots):
+        // Mon (0): April, Lisa, ''
+        // Tue (1): April, Lisa, ''
+        // Wed (2): April, Lisa, ''
+        // Thu (3): April, Lisa, Sabr  (Thursday updated to 'April')
+        // Fri (4): OFF, Lisa, ''
+        // Sat (5): OFF, OFF, James
+        ['April', 'April', 'April', 'April', 'OFF', 'OFF'].forEach((v, d) => fill('doc', w, 0, d, v));
+        ['Lisa', 'Lisa', 'Lisa', 'Lisa', 'Lisa', 'OFF'].forEach((v, d) => fill('doc', w, 1, d, v));
+        ['', '', '', 'Sabr', '', 'James'].forEach((v, d) => fill('doc', w, 2, d, v));
+
+        // PAL FRONT & SABR/JAMES (covering) (4 slots):
+        // Mon (0): OFF, Sabr, Bobi, Carrib
+        // Tue (1): James, Sabr, OFF, Carrib
+        // Wed (2): James, Sabr, Bobi, OFF
+        // Thu (3): James, Sabr, OFF, Carrib
+        // Fri (4): James, DR Side OFF, Bobi, Carrib
+        // Sat (5): Dr side, OFF, Bobi, Carrib
+        ['OFF', 'James', 'James', 'James', 'James', 'Dr side'].forEach((v, d) => fill('pal', w, 0, d, v));
+        ['Sabr', 'Sabr', 'Sabr', 'Sabr', 'DR Side OFF', 'OFF'].forEach((v, d) => fill('pal', w, 1, d, v));
+        ['Bobi', 'OFF', 'Bobi', 'OFF', 'Bobi', 'Bobi'].forEach((v, d) => fill('pal', w, 2, d, v));
+        ['Carrib', 'Carrib', 'OFF', 'Carrib', 'Carrib', 'Carrib'].forEach((v, d) => fill('pal', w, 3, d, v));
+      }
+    }
+
+    // Initialize default month on load and pre-load sample template
+    window.addEventListener('DOMContentLoaded', () => {
+      const today = new Date();
+      const yr = today.getFullYear();
+      const mo = String(today.getMonth() + 1).padStart(2, '0');
+      const picker = document.getElementById('monthSelect');
+      picker.value = `${yr}-${mo}`;
+
+      picker.addEventListener('change', calculateAndFillDates);
+
+      // Pre-fill automatically with the sample schedule on initial load
+      loadSampleSchedule();
+    });
+  </script>
+</body>
+</html>

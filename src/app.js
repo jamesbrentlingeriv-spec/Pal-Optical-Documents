@@ -23,6 +23,7 @@ import { SemiRimlessWaiverForm } from './forms/SemiRimlessWaiverForm.js';
 import { SingleVisionConsentForm } from './forms/SingleVisionConsentForm.js';
 import { SchoolExcuseForm } from './forms/SchoolExcuseForm.js';
 import { WellcareSpendablesForm } from './forms/WellcareSpendablesForm.js';
+import { EmbeddedDocForm } from './forms/EmbeddedDocForm.js';
 
 class App {
   constructor() {
@@ -150,6 +151,8 @@ class App {
       case 'school-excuse-james': return 'School Excuse (James)';
       case 'school-excuse-carribyan': return 'School Excuse (Carribyan)';
       case 'wellcare-spendables': return 'Wellcare Spendable Card Auth';
+      case 'staff-schedule': return 'Staff Schedule (Doc Side & Pal Front)';
+      case 'notes-to-dr': return 'Important Notes to Doctor (Dr. Robbins)';
       default: return 'Pal Optical Form';
     }
   }
@@ -251,6 +254,12 @@ class App {
       case 'wellcare-spendables':
         this.currentFormInstance = new WellcareSpendablesForm(renderTarget, formState, callback);
         break;
+      case 'staff-schedule':
+        this.currentFormInstance = new EmbeddedDocForm(renderTarget, '/staff%20schedule.html', 'Staff Schedule');
+        break;
+      case 'notes-to-dr':
+        this.currentFormInstance = new EmbeddedDocForm(renderTarget, '/Note%20to%20Dr.html', 'Important Notes to Doctor');
+        break;
       default:
         renderTarget.innerHTML = '<div class="form-card">Select a form from the menu.</div>';
     }
@@ -263,8 +272,19 @@ class App {
     const title = this.getFormTitle(this.activeFormId);
     this.formActions.updateTitle(title);
     
-    this.formActions.updateDescription('Choose fill option or print directly');
-    this.formActions.setControlsVisibility(true, true);
+    if (this.activeFormId === 'staff-schedule') {
+      this.formActions.updateDescription('Interactive 4-week staff schedule & single-page printout');
+      this.formActions.setControlsVisibility(false, true);
+      this.formActions.setOpenTabUrl('/staff%20schedule.html');
+    } else if (this.activeFormId === 'notes-to-dr') {
+      this.formActions.updateDescription('Patient communication notes for Dr. Robbins');
+      this.formActions.setControlsVisibility(false, true);
+      this.formActions.setOpenTabUrl('/Note%20to%20Dr.html');
+    } else {
+      this.formActions.updateDescription('Choose fill option or print directly');
+      this.formActions.setControlsVisibility(true, true);
+      this.formActions.setOpenTabUrl(null);
+    }
   }
   
   saveFormState(formId, state) {
@@ -279,9 +299,11 @@ class App {
   }
   
   printForm() {
-    // If we want to print blank, we make sure the viewport classes are active,
-    // then trigger browser print. Print stylesheet handles layout adjustments.
-    window.print();
+    if (this.currentFormInstance && typeof this.currentFormInstance.print === 'function') {
+      this.currentFormInstance.print();
+    } else {
+      window.print();
+    }
   }
   
   // State Storage Helpers

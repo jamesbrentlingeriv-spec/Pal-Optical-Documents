@@ -50,6 +50,13 @@ export class Sidebar {
           { id: 'school-excuse-james', label: 'School Excuse (James)', icon: 'file-text' },
           { id: 'school-excuse-carribyan', label: 'School Excuse (Carribyan)', icon: 'file-text' }
         ]
+      },
+      {
+        title: 'Office & Staff',
+        items: [
+          { id: 'staff-schedule', label: 'Staff Schedule', icon: 'calendar' },
+          { id: 'notes-to-dr', label: 'Notes to Doctor', icon: 'file-text' }
+        ]
       }
     ];
     
@@ -152,6 +159,9 @@ export class Sidebar {
     }
     if (iconName === 'activity') {
       return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`;
+    }
+    if (iconName === 'calendar') {
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
     }
     return '';
   }

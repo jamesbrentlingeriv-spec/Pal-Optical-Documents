@@ -1262,5 +1262,20 @@
     visibility: hidden !important;
     opacity: 0 !important;
   }
+
+  /* Embedded Standalone HTML Documents Print Handling */
+  body.active-form-staff-schedule aside.sidebar,
+  body.active-form-staff-schedule header.actions-header,
+  body.active-form-notes-to-dr aside.sidebar,
+  body.active-form-notes-to-dr header.actions-header {
+    display: none !important;
+  }
+
+  body.active-form-staff-schedule .embedded-doc-iframe,
+  body.active-form-notes-to-dr .embedded-doc-iframe {
+    width: 100vw !important;
+    height: 100vh !important;
+    border: none !important;
+  }
 }
 
