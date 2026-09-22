@@ -1277,5 +1277,92 @@
     height: 100vh !important;
     border: none !important;
   }
+
+  /* =========================================================
+     PAL OPTICAL ITEMIZED RECEIPT PRINT STYLES
+     ========================================================= */
+  body.active-form-itemized-receipt {
+    background-color: #fff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.active-form-itemized-receipt .itemized-receipt-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    display: block !important;
+  }
+
+  body.active-form-itemized-receipt .itemized-receipt-toolbar {
+    display: none !important;
+  }
+
+  body.active-form-itemized-receipt .itemized-receipt-container {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0.35in 0.45in !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 10.5in !important;
+    height: 10.5in !important;
+    box-sizing: border-box !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  body.active-form-itemized-receipt .ir-input,
+  body.active-form-itemized-receipt .ir-table-input,
+  body.active-form-itemized-receipt .ir-pmt-field,
+  body.active-form-itemized-receipt .ir-coupon-input {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    color: #000 !important;
+    padding: 0 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.active-form-itemized-receipt .ir-row-delete-btn,
+  body.active-form-itemized-receipt .col-action,
+  body.active-form-itemized-receipt .ir-pmt-action {
+    display: none !important;
+  }
+
+  body.active-form-itemized-receipt .ir-table {
+    border-top: 1.5px solid #000 !important;
+  }
+
+  body.active-form-itemized-receipt .ir-table-header-row {
+    border-bottom: 2.5px solid #000 !important;
+  }
+
+  body.active-form-itemized-receipt .ir-line-above {
+    border-top: 1px solid #000 !important;
+  }
+
+  body.active-form-itemized-receipt .ir-double-underline {
+    border-bottom: 3px double #000 !important;
+  }
+
+  body.active-form-itemized-receipt .ir-coupon-table,
+  body.active-form-itemized-receipt .ir-coupon-table td {
+    border: 1px solid #000 !important;
+  }
+
+  /* Blank print mode: hide entered data */
+  .print-blank-active body.active-form-itemized-receipt .ir-input,
+  .print-blank-active body.active-form-itemized-receipt .ir-table-input,
+  .print-blank-active body.active-form-itemized-receipt .ir-pmt-field,
+  .print-blank-active body.active-form-itemized-receipt .ir-coupon-input,
+  .print-blank-active body.active-form-itemized-receipt .ir-calculated-val,
+  .print-blank-active body.active-form-itemized-receipt .ir-sum-val,
+  .print-blank-active body.active-form-itemized-receipt .coupon-value {
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
 }
 

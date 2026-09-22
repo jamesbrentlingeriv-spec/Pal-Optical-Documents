@@ -9,6 +9,7 @@ import { PriceQuoteForm } from './forms/PriceQuoteForm.js';
 import { SafetyOrderForm } from './forms/SafetyOrderForm.js';
 import { CMS1500Form } from './forms/CMS1500Form.js';
 import { FeeSlipForm } from './forms/FeeSlipForm.js';
+import { ItemizedReceiptForm } from './forms/ItemizedReceiptForm.js';
 import { DrSideNewPatientForm } from './forms/DrSideNewPatientForm.js';
 import { PDForm } from './forms/PDForm.js';
 import { EyeglassJobNoteForm } from './forms/EyeglassJobNoteForm.js';
@@ -142,6 +143,7 @@ class App {
       case 'eyeglass-job-note': return 'Eyeglass Job Note';
       case 'cms1500': return 'CMS-1500 Claim Worksheet';
       case 'fee-slip': return 'Office Fee Slip / Superbill';
+      case 'itemized-receipt': return 'Pal Optical Itemized Receipt';
       case 'child-no-poly': return 'Refusal of Polycarbonate';
       case 'expired-rx': return 'Expired Rx Consent';
       case 'frame-no-child': return 'Frame Selection w/o Child';
@@ -226,6 +228,9 @@ class App {
         break;
       case 'fee-slip':
         this.currentFormInstance = new FeeSlipForm(renderTarget, formState, callback);
+        break;
+      case 'itemized-receipt':
+        this.currentFormInstance = new ItemizedReceiptForm(renderTarget, formState, callback);
         break;
       case 'child-no-poly':
         this.currentFormInstance = new ChildNoPolyForm(renderTarget, formState, callback);
