@@ -1355,6 +1355,29 @@
     border: 1px solid #000 !important;
   }
 
+  body.active-form-itemized-receipt .ir-fin-ins-discount.ir-zero-hidden {
+    display: none !important;
+  }
+
+  body.active-form-itemized-receipt .ir-fin-ins-discount {
+    color: #000 !important;
+  }
+
+  body.active-form-itemized-receipt .ir-fin-ins-discount .ir-input-fin {
+    color: #000 !important;
+  }
+
+  body.active-form-itemized-receipt .ir-fin-label-input {
+    border: none !important;
+    background: transparent !important;
+    color: #000 !important;
+    padding: 0 !important;
+    font-size: 8.5pt !important;
+    font-weight: 700 !important;
+    text-align: right !important;
+    min-width: 150px !important;
+  }
+
   /* Blank print mode: hide entered data */
   .print-blank-active body.active-form-itemized-receipt .ir-input,
   .print-blank-active body.active-form-itemized-receipt .ir-table-input,

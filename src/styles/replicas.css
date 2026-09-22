@@ -2056,6 +2056,58 @@
   transform: translateY(1px);
 }
 
+.ir-add-discount-btn {
+  color: #059669;
+  border-color: #059669;
+  background-color: #f0fdf4;
+}
+
+.ir-add-discount-btn:hover {
+  background-color: #dcfce7;
+  border-color: #047857;
+  color: #047857;
+}
+
+.ir-discounts-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.ir-fin-ins-discount {
+  color: #047857;
+}
+
+.ir-fin-ins-discount .ir-input-fin {
+  color: #047857;
+}
+
+.ir-fin-label-input {
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: inherit;
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: #047857;
+  text-align: right;
+  min-width: 150px;
+  outline: none;
+  padding: 1px 4px;
+  border-radius: 2px;
+  cursor: text;
+}
+
+.ir-fin-label-input:hover,
+.ir-fin-label-input:focus {
+  background-color: #f0fdf4;
+  border-color: #86efac;
+}
+
+.ir-fin-ins-discount .ir-row-delete-btn {
+  margin-left: -12px;
+}
+
 /* Financials Block */
 .ir-financials-block {
   display: flex;

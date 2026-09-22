@@ -20,6 +20,12 @@ export interface ItemizedReceiptPayment {
   amount: number | string;
 }
 
+export interface ItemizedReceiptDiscount {
+  id: string;
+  label: string;
+  amount: number | string;
+}
+
 export interface ItemizedReceiptState {
   // Practice info
   practiceName: string;
@@ -48,6 +54,8 @@ export interface ItemizedReceiptState {
   // Transactions
   items: ItemizedReceiptItem[];
   salesTax: number | string;
+  insuranceDiscount?: number | string;
+  insuranceDiscounts?: ItemizedReceiptDiscount[];
   otherOpenItems: number | string;
 
   // Payments
@@ -155,6 +163,14 @@ export class ItemizedReceiptForm {
       ],
 
       salesTax: '4.08',
+      insuranceDiscount: '0.00',
+      insuranceDiscounts: [
+        {
+          id: 'ins-1',
+          label: 'Insurance Discount',
+          amount: '0.00'
+        }
+      ],
       otherOpenItems: '0.00',
 
       payments: [
@@ -175,7 +191,12 @@ export class ItemizedReceiptForm {
       ...defaultState,
       ...state,
       items: state.items && state.items.length > 0 ? state.items : defaultState.items,
-      payments: state.payments && state.payments.length > 0 ? state.payments : defaultState.payments
+      payments: state.payments && state.payments.length > 0 ? state.payments : defaultState.payments,
+      insuranceDiscounts: state.insuranceDiscounts && state.insuranceDiscounts.length > 0
+        ? state.insuranceDiscounts
+        : (state.insuranceDiscount && parseFloat(String(state.insuranceDiscount).replace(/[()$,]/g, '')) > 0
+            ? [{ id: 'ins-1', label: 'Insurance Discount', amount: state.insuranceDiscount }]
+            : defaultState.insuranceDiscounts)
     };
 
     this.render();
@@ -218,6 +239,10 @@ export class ItemizedReceiptForm {
             <button type="button" class="btn btn-primary btn-sm" id="ir-btn-add-item">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               + Add Line
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="ir-btn-add-discount">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              + Add Insurance Discount
             </button>
             <button type="button" class="btn btn-secondary btn-sm" id="ir-btn-add-payment">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -329,11 +354,18 @@ export class ItemizedReceiptForm {
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 + Add Line
               </button>
+              <button type="button" class="ir-add-line-btn ir-add-discount-btn" id="ir-btn-add-discount-table">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                + Add Insurance Discount
+              </button>
             </div>
           </div>
 
           <!-- CHARGES SUB-TOTAL & SALES TAX BLOCK -->
           <div class="ir-financials-block">
+            <div id="ir-ins-discounts-container" class="ir-discounts-container">
+              ${this.renderInsuranceDiscountRows()}
+            </div>
             <div class="ir-financial-row">
               <span class="ir-fin-label">Sales Tax</span>
               <span class="ir-fin-val-wrap">
@@ -473,9 +505,15 @@ export class ItemizedReceiptForm {
   renderItemRows(): string {
     return this.state.items
       .map((item, idx) => {
-        const isDiscount = String(item.description).toLowerCase().includes('discount') ||
+        const desc = String(item.description || '').toLowerCase();
+        const isDiscount = desc.includes('discount') ||
+          desc.includes('ins') ||
+          desc.includes('allowance') ||
+          desc.includes('adjustment') ||
+          desc.includes('write-off') ||
           (typeof item.amount === 'number' && item.amount < 0) ||
-          String(item.amount).includes('-');
+          String(item.amount).includes('-') ||
+          String(item.amount).includes('(');
 
         const rawAmount = String(item.amount).replace(/[()$,]/g, '').trim();
         const amtDisplay = isDiscount && rawAmount ? `(${Math.abs(parseFloat(rawAmount) || 0).toFixed(2)})` : rawAmount;
@@ -531,6 +569,32 @@ export class ItemizedReceiptForm {
       .join('');
   }
 
+  renderInsuranceDiscountRows(): string {
+    const discounts = this.state.insuranceDiscounts && this.state.insuranceDiscounts.length > 0
+      ? this.state.insuranceDiscounts
+      : [{ id: 'ins-1', label: 'Insurance Discount', amount: this.state.insuranceDiscount || '0.00' }];
+
+    return discounts
+      .map((disc, idx) => {
+        const amt = parseFloat(String(disc.amount || '').replace(/[()$,]/g, '')) || 0;
+        const isZero = amt === 0;
+        const displayVal = amt > 0 ? `(${amt.toFixed(2)})` : '';
+
+        return `
+          <div class="ir-financial-row ir-fin-ins-discount ${isZero ? 'ir-zero-hidden' : ''}" data-discount-id="${disc.id}" data-index="${idx}">
+            <input type="text" class="ir-fin-label-input" data-discount-field="label" value="${this.escapeHtml(disc.label || 'Insurance Discount')}" title="Click to edit label">
+            <span class="ir-fin-val-wrap">
+              <input type="text" class="ir-input ir-input-fin text-right" data-discount-field="amount" placeholder="(0.00)" value="${this.escapeHtml(displayVal)}">
+            </span>
+            <button type="button" class="ir-row-delete-btn print:hidden" data-action="delete-ins-discount" data-index="${idx}" title="Remove Discount">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        `;
+      })
+      .join('');
+  }
+
   bindEvents(): void {
     // Toolbar buttons
     const btnSample = this.container.querySelector('#ir-btn-sample');
@@ -543,6 +607,11 @@ export class ItemizedReceiptForm {
       btnAddItem.addEventListener('click', () => this.addItemRow());
     }
 
+    const btnAddDiscount = this.container.querySelector('#ir-btn-add-discount');
+    if (btnAddDiscount) {
+      btnAddDiscount.addEventListener('click', () => this.addInsuranceDiscount(true));
+    }
+
     const btnAddPayment = this.container.querySelector('#ir-btn-add-payment');
     if (btnAddPayment) {
       btnAddPayment.addEventListener('click', () => this.addPaymentRow(true));
@@ -551,6 +620,11 @@ export class ItemizedReceiptForm {
     const btnAddLineTable = this.container.querySelector('#ir-btn-add-line-table');
     if (btnAddLineTable) {
       btnAddLineTable.addEventListener('click', () => this.addItemRow(true));
+    }
+
+    const btnAddDiscountTable = this.container.querySelector('#ir-btn-add-discount-table');
+    if (btnAddDiscountTable) {
+      btnAddDiscountTable.addEventListener('click', () => this.addInsuranceDiscount(true));
     }
 
     const btnAddPmtTable = this.container.querySelector('#ir-btn-add-pmt-table');
@@ -619,6 +693,19 @@ export class ItemizedReceiptForm {
         return;
       }
 
+      // Check for insurance discount fields
+      const discField = target.getAttribute('data-discount-field') as keyof ItemizedReceiptDiscount | null;
+      if (discField) {
+        const row = target.closest('[data-discount-id]');
+        const idx = row ? parseInt(row.getAttribute('data-index') || '-1', 10) : -1;
+        if (idx >= 0 && this.state.insuranceDiscounts && this.state.insuranceDiscounts[idx]) {
+          (this.state.insuranceDiscounts[idx] as any)[discField] = target.value;
+          this.state.insuranceDiscount = this.state.insuranceDiscounts[0]?.amount || '0.00';
+          this.calculateTotals(true);
+        }
+        return;
+      }
+
       // Check for item fields
       const itemField = target.getAttribute('data-item-field') as keyof ItemizedReceiptItem | null;
       if (itemField) {
@@ -643,6 +730,50 @@ export class ItemizedReceiptForm {
       }
     });
 
+    // Format amounts on blur
+    this.container.addEventListener('focusout', (e: FocusEvent) => {
+      const target = e.target as HTMLInputElement;
+      if (!target) return;
+
+      if (target.hasAttribute('data-discount-field') && target.getAttribute('data-discount-field') === 'amount') {
+        const raw = target.value.replace(/[()$,]/g, '').trim();
+        const num = parseFloat(raw);
+        if (!isNaN(num) && num > 0) {
+          target.value = `(${num.toFixed(2)})`;
+        } else if (raw === '' || num === 0) {
+          target.value = '';
+        }
+        this.calculateTotals(true);
+      } else if (target.hasAttribute('data-item-field') && target.getAttribute('data-item-field') === 'amount') {
+        const row = target.closest('tr');
+        const descInput = row ? row.querySelector('input[data-item-field="description"]') as HTMLInputElement : null;
+        const desc = descInput ? descInput.value.toLowerCase() : '';
+        const isDiscount = desc.includes('discount') || desc.includes('ins') || desc.includes('allowance') || desc.includes('write-off');
+        const raw = target.value.replace(/[()$,]/g, '').trim();
+        const num = parseFloat(raw);
+        if (!isNaN(num)) {
+          target.value = isDiscount || target.value.includes('-') || target.value.includes('(')
+            ? `(${Math.abs(num).toFixed(2)})`
+            : num.toFixed(2);
+        }
+        this.calculateTotals(true);
+      } else if (target.hasAttribute('data-pmt-field') && target.getAttribute('data-pmt-field') === 'amount') {
+        const raw = target.value.replace(/[()$,]/g, '').trim();
+        const num = parseFloat(raw);
+        if (!isNaN(num)) {
+          target.value = `(${Math.abs(num).toFixed(2)})`;
+        }
+        this.calculateTotals(true);
+      } else if (target.getAttribute('data-field') === 'salesTax') {
+        const raw = target.value.replace(/[()$,]/g, '').trim();
+        const num = parseFloat(raw);
+        if (!isNaN(num)) {
+          target.value = num.toFixed(2);
+        }
+        this.calculateTotals(true);
+      }
+    });
+
     // Click actions (delete rows)
     this.container.addEventListener('click', (e: Event) => {
       const target = (e.target as HTMLElement).closest('button');
@@ -661,6 +792,18 @@ export class ItemizedReceiptForm {
         if (idx >= 0) {
           this.state.payments.splice(idx, 1);
           this.refreshPaymentsList();
+          this.calculateTotals(true);
+        }
+      } else if (action === 'delete-ins-discount') {
+        const idx = parseInt(target.getAttribute('data-index') || '-1', 10);
+        if (idx >= 0 && this.state.insuranceDiscounts) {
+          if (this.state.insuranceDiscounts.length <= 1) {
+            this.state.insuranceDiscounts[0].amount = '0.00';
+            this.refreshInsuranceDiscounts();
+          } else {
+            this.state.insuranceDiscounts.splice(idx, 1);
+            this.refreshInsuranceDiscounts();
+          }
           this.calculateTotals(true);
         }
       }
@@ -733,9 +876,56 @@ export class ItemizedReceiptForm {
     }
   }
 
+  refreshInsuranceDiscounts(): void {
+    const container = this.container.querySelector('#ir-ins-discounts-container');
+    if (container) {
+      container.innerHTML = this.renderInsuranceDiscountRows();
+    }
+  }
+
+  addInsuranceDiscount(focus = true): void {
+    if (!this.state.insuranceDiscounts) {
+      this.state.insuranceDiscounts = [];
+    }
+
+    const existingZero = this.state.insuranceDiscounts.find((d) => {
+      const amt = parseFloat(String(d.amount || '').replace(/[()$,]/g, '')) || 0;
+      return amt === 0;
+    });
+
+    let targetId: string;
+    if (existingZero) {
+      targetId = existingZero.id;
+    } else {
+      targetId = 'ins-' + Date.now();
+      this.state.insuranceDiscounts.push({
+        id: targetId,
+        label: 'Insurance Discount',
+        amount: ''
+      });
+      this.refreshInsuranceDiscounts();
+    }
+
+    this.calculateTotals(true);
+
+    if (focus) {
+      setTimeout(() => {
+        const row = this.container.querySelector(`[data-discount-id="${targetId}"]`);
+        if (row) {
+          row.classList.remove('ir-zero-hidden');
+          const amtInput = row.querySelector('input[data-discount-field="amount"]') as HTMLInputElement;
+          if (amtInput) {
+            amtInput.focus();
+            amtInput.select();
+          }
+        }
+      }, 50);
+    }
+  }
+
   calculateTotals(triggerSave = true): void {
     let grossCharges = 0;
-    let discounts = 0;
+    let itemDiscounts = 0;
 
     // Calculate sum of line items
     this.state.items.forEach((item) => {
@@ -743,16 +933,37 @@ export class ItemizedReceiptForm {
       const raw = String(item.amount || '').replace(/[()$,]/g, '').trim();
       const val = parseFloat(raw) || 0;
 
-      // Identify discount items
-      if (desc.includes('discount') || String(item.amount).includes('-') || String(item.amount).includes('(')) {
-        discounts += Math.abs(val);
+      // Identify discount items in the table
+      if (
+        desc.includes('discount') ||
+        desc.includes('ins') ||
+        desc.includes('allowance') ||
+        desc.includes('adjustment') ||
+        desc.includes('write-off') ||
+        String(item.amount).includes('-') ||
+        String(item.amount).includes('(')
+      ) {
+        itemDiscounts += Math.abs(val);
       } else {
         grossCharges += val;
       }
     });
 
+    // Sum all insurance discounts off the total
+    let totalInsDiscounts = 0;
+    if (this.state.insuranceDiscounts && this.state.insuranceDiscounts.length > 0) {
+      this.state.insuranceDiscounts.forEach((disc) => {
+        const raw = String(disc.amount || '').replace(/[()$,]/g, '').trim();
+        totalInsDiscounts += Math.abs(parseFloat(raw) || 0);
+      });
+    } else if (this.state.insuranceDiscount) {
+      const raw = String(this.state.insuranceDiscount).replace(/[()$,]/g, '').trim();
+      totalInsDiscounts += Math.abs(parseFloat(raw) || 0);
+    }
+
+    const allDiscounts = itemDiscounts + totalInsDiscounts;
     const taxVal = parseFloat(String(this.state.salesTax || '').replace(/[()$,]/g, '').trim()) || 0;
-    const totalCurrentCharges = grossCharges - discounts + taxVal;
+    const totalCurrentCharges = Math.max(0, grossCharges - allDiscounts + taxVal);
 
     // Calculate payments
     let totalPayments = 0;
@@ -770,7 +981,7 @@ export class ItemizedReceiptForm {
     this.state.totalPayments = totalPayments;
     this.state.balanceDue = balanceDue;
     this.state.totalChargesAll = grossCharges + taxVal;
-    this.state.totalDiscounts = discounts;
+    this.state.totalDiscounts = allDiscounts;
 
     // Update DOM displays
     const dispTotalCharges = this.container.querySelector('#ir-disp-total-charges');
@@ -795,13 +1006,30 @@ export class ItemizedReceiptForm {
     }
 
     const dispSumTotalCharges = this.container.querySelector('#ir-disp-sum-total-charges');
-    if (dispSumTotalCharges) dispSumTotalCharges.textContent = totalCurrentCharges.toFixed(2);
+    if (dispSumTotalCharges) dispSumTotalCharges.textContent = grossCharges.toFixed(2);
 
     const dispSumDiscounts = this.container.querySelector('#ir-disp-sum-discounts');
-    if (dispSumDiscounts) dispSumDiscounts.textContent = `(${discounts.toFixed(2)})`;
+    if (dispSumDiscounts) {
+      dispSumDiscounts.textContent = allDiscounts > 0 ? `(${allDiscounts.toFixed(2)})` : '(0.00)';
+    }
 
     const couponTotalDue = this.container.querySelector('#ir-coupon-total-due');
     if (couponTotalDue) couponTotalDue.textContent = finalBalance.toFixed(2);
+
+    // Update print-visibility of insurance discount rows
+    if (this.state.insuranceDiscounts) {
+      this.state.insuranceDiscounts.forEach((disc) => {
+        const amt = parseFloat(String(disc.amount || '').replace(/[()$,]/g, '')) || 0;
+        const row = this.container.querySelector(`[data-discount-id="${disc.id}"]`);
+        if (row) {
+          if (amt === 0) {
+            row.classList.add('ir-zero-hidden');
+          } else {
+            row.classList.remove('ir-zero-hidden');
+          }
+        }
+      });
+    }
 
     if (triggerSave && typeof this.onStateChange === 'function') {
       this.onStateChange(this.state);
@@ -883,6 +1111,14 @@ export class ItemizedReceiptForm {
       ],
 
       salesTax: '4.08',
+      insuranceDiscount: '0.00',
+      insuranceDiscounts: [
+        {
+          id: 'ins-1',
+          label: 'Insurance Discount',
+          amount: '0.00'
+        }
+      ],
       otherOpenItems: '0.00',
 
       payments: [
@@ -943,6 +1179,14 @@ export class ItemizedReceiptForm {
       ],
 
       salesTax: '0.00',
+      insuranceDiscount: '0.00',
+      insuranceDiscounts: [
+        {
+          id: 'ins-1',
+          label: 'Insurance Discount',
+          amount: '0.00'
+        }
+      ],
       otherOpenItems: '0.00',
 
       payments: [],

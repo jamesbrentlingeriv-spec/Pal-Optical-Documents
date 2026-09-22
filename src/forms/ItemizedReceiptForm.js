@@ -1,135 +1,135 @@
 /* Pal Optical Forms Web App - Pal Optical Itemized Receipt ("Statement of Charges and Payments") */
-
 export class ItemizedReceiptForm {
-  constructor(container, state = {}, onStateChange) {
-    this.container = container;
-    this.onStateChange = onStateChange;
-
-    const today = new Date().toLocaleDateString('en-US');
-
-    // Default state based on uploaded Pal Optical PDF format
-    const defaultState = {
-      practiceName: 'Pal Optical',
-      practiceAddress1: '1555 E. New Circle Road',
-      practiceAddress2: 'Suite 146',
-      practiceCityStateZip: 'Lexington, KY 405091044',
-      practicePhone: '859-266-3003',
-
-      feeSlipNumber: '56205',
-      datePrinted: today,
-      provider: 'Pal Optical',
-      officePhone: '859-266-3003',
-      npiNumber: '1609930791',
-      patientId: '36817',
-      patientName: 'SHAUN GATEWOOD',
-      chartNumber: '',
-      homePhone: '(859) 618-0211',
-      nextAppt: '',
-
-      recipientName: 'SHAUN GATEWOOD',
-      recipientAddress1: '166 GARNETTE DR',
-      recipientCityStateZip: 'NICHOLASVILLE, KY 40356',
-
-      items: [
-        {
-          id: 'item-1',
-          dateOfService: '03/19/2012',
-          ordNumber: '0',
-          sku: '',
-          qty: '1',
-          description: 'PHAT FARM FRAME',
-          cpt: '',
-          diagnosis: '',
-          amount: '26.00',
-          patientBalance: ''
-        },
-        {
-          id: 'item-2',
-          dateOfService: '03/16/2012',
-          ordNumber: '0',
-          sku: '',
-          qty: '1',
-          description: 'SV POLYCARBONATE LENSES',
-          cpt: '',
-          diagnosis: '',
-          amount: '85.00',
-          patientBalance: ''
-        },
-        {
-          id: 'item-3',
-          dateOfService: '03/16/2012',
-          ordNumber: '',
-          sku: '',
-          qty: '',
-          description: '20% Discount',
-          cpt: '',
-          diagnosis: '',
-          amount: '-17.00',
-          patientBalance: ''
-        },
-        {
-          id: 'item-4',
-          dateOfService: '03/19/2012',
-          ordNumber: '0',
-          sku: '',
-          qty: '1',
-          description: 'OVER POWER',
-          cpt: '',
-          diagnosis: '',
-          amount: '11.87',
-          patientBalance: ''
-        }
-      ],
-
-      salesTax: '4.08',
-      otherOpenItems: '0.00',
-
-      payments: [
-        {
-          id: 'pmt-1',
-          date: '03/16/2012',
-          description: 'Payment Applied by Cash at Pal Optical',
-          amount: '109.95'
-        }
-      ],
-
-      amountEnclosed: '',
-      checkNumber: ''
-    };
-
-    // Merge supplied state with defaults
-    this.state = {
-      ...defaultState,
-      ...state,
-      items: state.items && state.items.length > 0 ? state.items : defaultState.items,
-      payments: state.payments && state.payments.length > 0 ? state.payments : defaultState.payments
-    };
-
-    this.render();
-    this.bindEvents();
-    this.calculateTotals(false);
-  }
-
-  escapeHtml(str) {
-    if (str === undefined || str === null) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
-  }
-
-  formatAmountDisplay(amount, forceParentheses = false) {
-    const num = typeof amount === 'number' ? amount : parseFloat(String(amount).replace(/[()$,]/g, '').trim()) || 0;
-    if (forceParentheses || num < 0) {
-      return `(${Math.abs(num).toFixed(2)})`;
+    constructor(container, state = {}, onStateChange) {
+        this.container = container;
+        this.onStateChange = onStateChange;
+        const today = new Date().toLocaleDateString('en-US');
+        // Default state based on uploaded Pal Optical PDF format
+        const defaultState = {
+            practiceName: 'Pal Optical',
+            practiceAddress1: '1555 E. New Circle Road',
+            practiceAddress2: 'Suite 146',
+            practiceCityStateZip: 'Lexington, KY 405091044',
+            practicePhone: '859-266-3003',
+            feeSlipNumber: '56205',
+            datePrinted: today,
+            provider: 'Pal Optical',
+            officePhone: '859-266-3003',
+            npiNumber: '1609930791',
+            patientId: '36817',
+            patientName: 'SHAUN GATEWOOD',
+            chartNumber: '',
+            homePhone: '(859) 618-0211',
+            nextAppt: '',
+            recipientName: 'SHAUN GATEWOOD',
+            recipientAddress1: '166 GARNETTE DR',
+            recipientCityStateZip: 'NICHOLASVILLE, KY 40356',
+            items: [
+                {
+                    id: 'item-1',
+                    dateOfService: '03/19/2012',
+                    ordNumber: '0',
+                    sku: '',
+                    qty: '1',
+                    description: 'PHAT FARM FRAME',
+                    cpt: '',
+                    diagnosis: '',
+                    amount: '26.00',
+                    patientBalance: ''
+                },
+                {
+                    id: 'item-2',
+                    dateOfService: '03/16/2012',
+                    ordNumber: '0',
+                    sku: '',
+                    qty: '1',
+                    description: 'SV POLYCARBONATE LENSES',
+                    cpt: '',
+                    diagnosis: '',
+                    amount: '85.00',
+                    patientBalance: ''
+                },
+                {
+                    id: 'item-3',
+                    dateOfService: '03/16/2012',
+                    ordNumber: '',
+                    sku: '',
+                    qty: '',
+                    description: '20% Discount',
+                    cpt: '',
+                    diagnosis: '',
+                    amount: '-17.00',
+                    patientBalance: ''
+                },
+                {
+                    id: 'item-4',
+                    dateOfService: '03/19/2012',
+                    ordNumber: '0',
+                    sku: '',
+                    qty: '1',
+                    description: 'OVER POWER',
+                    cpt: '',
+                    diagnosis: '',
+                    amount: '11.87',
+                    patientBalance: ''
+                }
+            ],
+            salesTax: '4.08',
+            insuranceDiscount: '0.00',
+            insuranceDiscounts: [
+                {
+                    id: 'ins-1',
+                    label: 'Insurance Discount',
+                    amount: '0.00'
+                }
+            ],
+            otherOpenItems: '0.00',
+            payments: [
+                {
+                    id: 'pmt-1',
+                    date: '03/16/2012',
+                    description: 'Payment Applied by Cash at Pal Optical',
+                    amount: '109.95'
+                }
+            ],
+            amountEnclosed: '',
+            checkNumber: ''
+        };
+        // Merge supplied state with defaults
+        this.state = {
+            ...defaultState,
+            ...state,
+            items: state.items && state.items.length > 0 ? state.items : defaultState.items,
+            payments: state.payments && state.payments.length > 0 ? state.payments : defaultState.payments,
+            insuranceDiscounts: state.insuranceDiscounts && state.insuranceDiscounts.length > 0
+                ? state.insuranceDiscounts
+                : (state.insuranceDiscount && parseFloat(String(state.insuranceDiscount).replace(/[()$,]/g, '')) > 0
+                    ? [{ id: 'ins-1', label: 'Insurance Discount', amount: state.insuranceDiscount }]
+                    : defaultState.insuranceDiscounts)
+        };
+        this.render();
+        this.bindEvents();
+        this.calculateTotals(false);
     }
-    return num.toFixed(2);
-  }
-
-  render() {
-    this.container.innerHTML = `
+    escapeHtml(str) {
+        if (str === undefined || str === null)
+            return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+    formatAmountDisplay(amount, forceParentheses = false) {
+        const num = typeof amount === 'number' ? amount : parseFloat(String(amount).replace(/[()$,]/g, '').trim()) || 0;
+        if (forceParentheses || num < 0) {
+            return `(${Math.abs(num).toFixed(2)})`;
+        }
+        return num.toFixed(2);
+    }
+    render() {
+        this.container.innerHTML = `
       <div class="itemized-receipt-wrapper">
         <!-- Interactive Controls Bar (Hidden during Print) -->
         <div class="itemized-receipt-toolbar print:hidden">
@@ -145,6 +145,10 @@ export class ItemizedReceiptForm {
             <button type="button" class="btn btn-primary btn-sm" id="ir-btn-add-item">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               + Add Line
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="ir-btn-add-discount">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              + Add Insurance Discount
             </button>
             <button type="button" class="btn btn-secondary btn-sm" id="ir-btn-add-payment">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -256,11 +260,18 @@ export class ItemizedReceiptForm {
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 + Add Line
               </button>
+              <button type="button" class="ir-add-line-btn ir-add-discount-btn" id="ir-btn-add-discount-table">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                + Add Insurance Discount
+              </button>
             </div>
           </div>
 
           <!-- CHARGES SUB-TOTAL & SALES TAX BLOCK -->
           <div class="ir-financials-block">
+            <div id="ir-ins-discounts-container" class="ir-discounts-container">
+              ${this.renderInsuranceDiscountRows()}
+            </div>
             <div class="ir-financial-row">
               <span class="ir-fin-label">Sales Tax</span>
               <span class="ir-fin-val-wrap">
@@ -395,19 +406,22 @@ export class ItemizedReceiptForm {
         </div>
       </div>
     `;
-  }
-
-  renderItemRows() {
-    return this.state.items
-      .map((item, idx) => {
-        const isDiscount = String(item.description).toLowerCase().includes('discount') ||
-          (typeof item.amount === 'number' && item.amount < 0) ||
-          String(item.amount).includes('-');
-
-        const rawAmount = String(item.amount).replace(/[()$,]/g, '').trim();
-        const amtDisplay = isDiscount && rawAmount ? `(${Math.abs(parseFloat(rawAmount) || 0).toFixed(2)})` : rawAmount;
-
-        return `
+    }
+    renderItemRows() {
+        return this.state.items
+            .map((item, idx) => {
+            const desc = String(item.description || '').toLowerCase();
+            const isDiscount = desc.includes('discount') ||
+                desc.includes('ins') ||
+                desc.includes('allowance') ||
+                desc.includes('adjustment') ||
+                desc.includes('write-off') ||
+                (typeof item.amount === 'number' && item.amount < 0) ||
+                String(item.amount).includes('-') ||
+                String(item.amount).includes('(');
+            const rawAmount = String(item.amount).replace(/[()$,]/g, '').trim();
+            const amtDisplay = isDiscount && rawAmount ? `(${Math.abs(parseFloat(rawAmount) || 0).toFixed(2)})` : rawAmount;
+            return `
           <tr class="ir-table-row" data-id="${item.id}" data-index="${idx}">
             <td class="col-dos"><input type="text" class="ir-table-input ir-item-field" data-item-field="dateOfService" value="${this.escapeHtml(item.dateOfService)}"></td>
             <td class="col-ord"><input type="text" class="ir-table-input ir-item-field text-center" data-item-field="ordNumber" value="${this.escapeHtml(item.ordNumber)}"></td>
@@ -425,18 +439,16 @@ export class ItemizedReceiptForm {
             </td>
           </tr>
         `;
-      })
-      .join('');
-  }
-
-  renderPaymentRows() {
-    return this.state.payments
-      .map((pmt, idx) => {
-        const rawAmount = String(pmt.amount).replace(/[()$,]/g, '').trim();
-        const amtNum = parseFloat(rawAmount) || 0;
-        const amtDisplay = `(${amtNum.toFixed(2)})`;
-
-        return `
+        })
+            .join('');
+    }
+    renderPaymentRows() {
+        return this.state.payments
+            .map((pmt, idx) => {
+            const rawAmount = String(pmt.amount).replace(/[()$,]/g, '').trim();
+            const amtNum = parseFloat(rawAmount) || 0;
+            const amtDisplay = `(${amtNum.toFixed(2)})`;
+            return `
           <div class="ir-payment-row" data-id="${pmt.id}" data-index="${idx}">
             <div class="ir-pmt-date">
               <input type="text" class="ir-input ir-pmt-field" data-pmt-field="date" value="${this.escapeHtml(pmt.date)}">
@@ -454,436 +466,608 @@ export class ItemizedReceiptForm {
             </div>
           </div>
         `;
-      })
-      .join('');
-  }
-
-  bindEvents() {
-    // Toolbar buttons
-    const btnSample = this.container.querySelector('#ir-btn-sample');
-    if (btnSample) {
-      btnSample.addEventListener('click', () => this.autofillSample());
+        })
+            .join('');
     }
-
-    const btnAddItem = this.container.querySelector('#ir-btn-add-item');
-    if (btnAddItem) {
-      btnAddItem.addEventListener('click', () => this.addItemRow(true));
+    renderInsuranceDiscountRows() {
+        const discounts = this.state.insuranceDiscounts && this.state.insuranceDiscounts.length > 0
+            ? this.state.insuranceDiscounts
+            : [{ id: 'ins-1', label: 'Insurance Discount', amount: this.state.insuranceDiscount || '0.00' }];
+        return discounts
+            .map((disc, idx) => {
+            const amt = parseFloat(String(disc.amount || '').replace(/[()$,]/g, '')) || 0;
+            const isZero = amt === 0;
+            const displayVal = amt > 0 ? `(${amt.toFixed(2)})` : '';
+            return `
+          <div class="ir-financial-row ir-fin-ins-discount ${isZero ? 'ir-zero-hidden' : ''}" data-discount-id="${disc.id}" data-index="${idx}">
+            <input type="text" class="ir-fin-label-input" data-discount-field="label" value="${this.escapeHtml(disc.label || 'Insurance Discount')}" title="Click to edit label">
+            <span class="ir-fin-val-wrap">
+              <input type="text" class="ir-input ir-input-fin text-right" data-discount-field="amount" placeholder="(0.00)" value="${this.escapeHtml(displayVal)}">
+            </span>
+            <button type="button" class="ir-row-delete-btn print:hidden" data-action="delete-ins-discount" data-index="${idx}" title="Remove Discount">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        `;
+        })
+            .join('');
     }
-
-    const btnAddPayment = this.container.querySelector('#ir-btn-add-payment');
-    if (btnAddPayment) {
-      btnAddPayment.addEventListener('click', () => this.addPaymentRow(true));
-    }
-
-    const btnAddLineTable = this.container.querySelector('#ir-btn-add-line-table');
-    if (btnAddLineTable) {
-      btnAddLineTable.addEventListener('click', () => this.addItemRow(true));
-    }
-
-    const btnAddPmtTable = this.container.querySelector('#ir-btn-add-pmt-table');
-    if (btnAddPmtTable) {
-      btnAddPmtTable.addEventListener('click', () => this.addPaymentRow(true));
-    }
-
-    const btnClear = this.container.querySelector('#ir-btn-clear');
-    if (btnClear) {
-      btnClear.addEventListener('click', () => this.reset());
-    }
-
-    // Keyboard support: Pressing Enter on row inputs to add next line
-    this.container.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const target = e.target;
-        if (!target) return;
-        if (target.hasAttribute('data-item-field')) {
-          const row = target.closest('tr');
-          const isLastRow = row && !row.nextElementSibling;
-          if (isLastRow) {
-            e.preventDefault();
-            this.addItemRow(true);
-          }
+    bindEvents() {
+        // Toolbar buttons
+        const btnSample = this.container.querySelector('#ir-btn-sample');
+        if (btnSample) {
+            btnSample.addEventListener('click', () => this.autofillSample());
         }
-      }
-    });
-
-    // Direct input bindings (delegated)
-    this.container.addEventListener('input', (e) => {
-      const target = e.target;
-      if (!target) return;
-
-      const field = target.getAttribute('data-field');
-      if (field && field in this.state) {
-        // Direct state field
-        this.state[field] = target.value;
-
-        // Synchronize twin fields (e.g., patient name / ID to remittance and envelope)
-        if (field === 'patientName') {
-          const couponPat = this.container.querySelector('#ir-coupon-patient-name');
-          if (couponPat) couponPat.textContent = target.value;
-          const envPat = this.container.querySelector('#ir-env-pat-name');
-          if (envPat && !this.state.recipientName) envPat.textContent = target.value;
-        } else if (field === 'patientId') {
-          const couponPatId = this.container.querySelector('#ir-coupon-patient-id');
-          if (couponPatId) couponPatId.textContent = target.value;
-        } else if (field === 'datePrinted') {
-          const couponDate = this.container.querySelector('#ir-coupon-date');
-          if (couponDate) couponDate.textContent = target.value;
-        } else if (field === 'chartNumber') {
-          const couponChart = this.container.querySelector('#ir-coupon-chart');
-          if (couponChart) couponChart.textContent = target.value;
-        } else if (field === 'recipientName') {
-          const envPat = this.container.querySelector('#ir-env-pat-name');
-          if (envPat) envPat.textContent = target.value || this.state.patientName;
-        } else if (field === 'recipientAddress1') {
-          const envAddr1 = this.container.querySelector('#ir-env-pat-addr1');
-          if (envAddr1) envAddr1.textContent = target.value;
-        } else if (field === 'recipientCityStateZip') {
-          const envAddr2 = this.container.querySelector('#ir-env-pat-addr2');
-          if (envAddr2) envAddr2.textContent = target.value;
+        const btnAddItem = this.container.querySelector('#ir-btn-add-item');
+        if (btnAddItem) {
+            btnAddItem.addEventListener('click', () => this.addItemRow());
         }
-
+        const btnAddDiscount = this.container.querySelector('#ir-btn-add-discount');
+        if (btnAddDiscount) {
+            btnAddDiscount.addEventListener('click', () => this.addInsuranceDiscount(true));
+        }
+        const btnAddPayment = this.container.querySelector('#ir-btn-add-payment');
+        if (btnAddPayment) {
+            btnAddPayment.addEventListener('click', () => this.addPaymentRow(true));
+        }
+        const btnAddLineTable = this.container.querySelector('#ir-btn-add-line-table');
+        if (btnAddLineTable) {
+            btnAddLineTable.addEventListener('click', () => this.addItemRow(true));
+        }
+        const btnAddDiscountTable = this.container.querySelector('#ir-btn-add-discount-table');
+        if (btnAddDiscountTable) {
+            btnAddDiscountTable.addEventListener('click', () => this.addInsuranceDiscount(true));
+        }
+        const btnAddPmtTable = this.container.querySelector('#ir-btn-add-pmt-table');
+        if (btnAddPmtTable) {
+            btnAddPmtTable.addEventListener('click', () => this.addPaymentRow(true));
+        }
+        const btnClear = this.container.querySelector('#ir-btn-clear');
+        if (btnClear) {
+            btnClear.addEventListener('click', () => this.reset());
+        }
+        // Keyboard support: Pressing Enter on row inputs to add next line
+        this.container.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const target = e.target;
+                if (!target)
+                    return;
+                if (target.hasAttribute('data-item-field')) {
+                    const row = target.closest('tr');
+                    const isLastRow = row && !row.nextElementSibling;
+                    if (isLastRow) {
+                        e.preventDefault();
+                        this.addItemRow(true);
+                    }
+                }
+            }
+        });
+        // Direct input bindings (delegated)
+        this.container.addEventListener('input', (e) => {
+            const target = e.target;
+            if (!target)
+                return;
+            const field = target.getAttribute('data-field');
+            if (field && field in this.state) {
+                // Direct state field
+                this.state[field] = target.value;
+                // Synchronize twin fields (e.g., patient name / ID to remittance and envelope)
+                if (field === 'patientName') {
+                    const couponPat = this.container.querySelector('#ir-coupon-patient-name');
+                    if (couponPat)
+                        couponPat.textContent = target.value;
+                    const envPat = this.container.querySelector('#ir-env-pat-name');
+                    if (envPat && !this.state.recipientName)
+                        envPat.textContent = target.value;
+                }
+                else if (field === 'patientId') {
+                    const couponPatId = this.container.querySelector('#ir-coupon-patient-id');
+                    if (couponPatId)
+                        couponPatId.textContent = target.value;
+                }
+                else if (field === 'datePrinted') {
+                    const couponDate = this.container.querySelector('#ir-coupon-date');
+                    if (couponDate)
+                        couponDate.textContent = target.value;
+                }
+                else if (field === 'chartNumber') {
+                    const couponChart = this.container.querySelector('#ir-coupon-chart');
+                    if (couponChart)
+                        couponChart.textContent = target.value;
+                }
+                else if (field === 'recipientName') {
+                    const envPat = this.container.querySelector('#ir-env-pat-name');
+                    if (envPat)
+                        envPat.textContent = target.value || this.state.patientName;
+                }
+                else if (field === 'recipientAddress1') {
+                    const envAddr1 = this.container.querySelector('#ir-env-pat-addr1');
+                    if (envAddr1)
+                        envAddr1.textContent = target.value;
+                }
+                else if (field === 'recipientCityStateZip') {
+                    const envAddr2 = this.container.querySelector('#ir-env-pat-addr2');
+                    if (envAddr2)
+                        envAddr2.textContent = target.value;
+                }
+                this.calculateTotals(true);
+                return;
+            }
+            // Check for insurance discount fields
+            const discField = target.getAttribute('data-discount-field');
+            if (discField) {
+                const row = target.closest('[data-discount-id]');
+                const idx = row ? parseInt(row.getAttribute('data-index') || '-1', 10) : -1;
+                if (idx >= 0 && this.state.insuranceDiscounts && this.state.insuranceDiscounts[idx]) {
+                    this.state.insuranceDiscounts[idx][discField] = target.value;
+                    this.state.insuranceDiscount = this.state.insuranceDiscounts[0]?.amount || '0.00';
+                    this.calculateTotals(true);
+                }
+                return;
+            }
+            // Check for item fields
+            const itemField = target.getAttribute('data-item-field');
+            if (itemField) {
+                const row = target.closest('tr');
+                const idx = row ? parseInt(row.getAttribute('data-index') || '-1', 10) : -1;
+                if (idx >= 0 && this.state.items[idx]) {
+                    this.state.items[idx][itemField] = target.value;
+                    this.calculateTotals(true);
+                }
+                return;
+            }
+            // Check for payment fields
+            const pmtField = target.getAttribute('data-pmt-field');
+            if (pmtField) {
+                const row = target.closest('.ir-payment-row');
+                const idx = row ? parseInt(row.getAttribute('data-index') || '-1', 10) : -1;
+                if (idx >= 0 && this.state.payments[idx]) {
+                    this.state.payments[idx][pmtField] = target.value;
+                    this.calculateTotals(true);
+                }
+            }
+        });
+        // Format amounts on blur
+        this.container.addEventListener('focusout', (e) => {
+            const target = e.target;
+            if (!target)
+                return;
+            if (target.hasAttribute('data-discount-field') && target.getAttribute('data-discount-field') === 'amount') {
+                const raw = target.value.replace(/[()$,]/g, '').trim();
+                const num = parseFloat(raw);
+                if (!isNaN(num) && num > 0) {
+                    target.value = `(${num.toFixed(2)})`;
+                }
+                else if (raw === '' || num === 0) {
+                    target.value = '';
+                }
+                this.calculateTotals(true);
+            }
+            else if (target.hasAttribute('data-item-field') && target.getAttribute('data-item-field') === 'amount') {
+                const row = target.closest('tr');
+                const descInput = row ? row.querySelector('input[data-item-field="description"]') : null;
+                const desc = descInput ? descInput.value.toLowerCase() : '';
+                const isDiscount = desc.includes('discount') || desc.includes('ins') || desc.includes('allowance') || desc.includes('write-off');
+                const raw = target.value.replace(/[()$,]/g, '').trim();
+                const num = parseFloat(raw);
+                if (!isNaN(num)) {
+                    target.value = isDiscount || target.value.includes('-') || target.value.includes('(')
+                        ? `(${Math.abs(num).toFixed(2)})`
+                        : num.toFixed(2);
+                }
+                this.calculateTotals(true);
+            }
+            else if (target.hasAttribute('data-pmt-field') && target.getAttribute('data-pmt-field') === 'amount') {
+                const raw = target.value.replace(/[()$,]/g, '').trim();
+                const num = parseFloat(raw);
+                if (!isNaN(num)) {
+                    target.value = `(${Math.abs(num).toFixed(2)})`;
+                }
+                this.calculateTotals(true);
+            }
+            else if (target.getAttribute('data-field') === 'salesTax') {
+                const raw = target.value.replace(/[()$,]/g, '').trim();
+                const num = parseFloat(raw);
+                if (!isNaN(num)) {
+                    target.value = num.toFixed(2);
+                }
+                this.calculateTotals(true);
+            }
+        });
+        // Click actions (delete rows)
+        this.container.addEventListener('click', (e) => {
+            const target = e.target.closest('button');
+            if (!target)
+                return;
+            const action = target.getAttribute('data-action');
+            if (action === 'delete-item') {
+                const idx = parseInt(target.getAttribute('data-index') || '-1', 10);
+                if (idx >= 0 && this.state.items.length > 1) {
+                    this.state.items.splice(idx, 1);
+                    this.refreshItemsTable();
+                    this.calculateTotals(true);
+                }
+            }
+            else if (action === 'delete-payment') {
+                const idx = parseInt(target.getAttribute('data-index') || '-1', 10);
+                if (idx >= 0) {
+                    this.state.payments.splice(idx, 1);
+                    this.refreshPaymentsList();
+                    this.calculateTotals(true);
+                }
+            }
+            else if (action === 'delete-ins-discount') {
+                const idx = parseInt(target.getAttribute('data-index') || '-1', 10);
+                if (idx >= 0 && this.state.insuranceDiscounts) {
+                    if (this.state.insuranceDiscounts.length <= 1) {
+                        this.state.insuranceDiscounts[0].amount = '0.00';
+                        this.refreshInsuranceDiscounts();
+                    }
+                    else {
+                        this.state.insuranceDiscounts.splice(idx, 1);
+                        this.refreshInsuranceDiscounts();
+                    }
+                    this.calculateTotals(true);
+                }
+            }
+        });
+    }
+    refreshItemsTable() {
+        const tbody = this.container.querySelector('#ir-items-body');
+        if (tbody) {
+            tbody.innerHTML = this.renderItemRows();
+        }
+    }
+    refreshPaymentsList() {
+        const pmtBody = this.container.querySelector('#ir-payments-body');
+        if (pmtBody) {
+            pmtBody.innerHTML = this.renderPaymentRows();
+        }
+    }
+    addItemRow(focus = true) {
+        const today = new Date().toLocaleDateString('en-US');
+        const newId = 'item-' + Date.now();
+        this.state.items.push({
+            id: newId,
+            dateOfService: today,
+            ordNumber: '0',
+            sku: '',
+            qty: '1',
+            description: '',
+            cpt: '',
+            diagnosis: '',
+            amount: '0.00',
+            patientBalance: ''
+        });
+        this.refreshItemsTable();
         this.calculateTotals(true);
-        return;
-      }
-
-      // Check for item fields
-      const itemField = target.getAttribute('data-item-field');
-      if (itemField) {
-        const row = target.closest('tr');
-        const idx = row ? parseInt(row.getAttribute('data-index') || '-1', 10) : -1;
-        if (idx >= 0 && this.state.items[idx]) {
-          this.state.items[idx][itemField] = target.value;
-          this.calculateTotals(true);
+        if (focus) {
+            setTimeout(() => {
+                const lastRow = this.container.querySelector(`tr[data-id="${newId}"]`);
+                if (lastRow) {
+                    const descInput = lastRow.querySelector('input[data-item-field="description"]');
+                    if (descInput)
+                        descInput.focus();
+                }
+            }, 50);
         }
-        return;
-      }
-
-      // Check for payment fields
-      const pmtField = target.getAttribute('data-pmt-field');
-      if (pmtField) {
-        const row = target.closest('.ir-payment-row');
-        const idx = row ? parseInt(row.getAttribute('data-index') || '-1', 10) : -1;
-        if (idx >= 0 && this.state.payments[idx]) {
-          this.state.payments[idx][pmtField] = target.value;
-          this.calculateTotals(true);
-        }
-      }
-    });
-
-    // Click actions (delete rows)
-    this.container.addEventListener('click', (e) => {
-      const target = e.target.closest('button');
-      if (!target) return;
-
-      const action = target.getAttribute('data-action');
-      if (action === 'delete-item') {
-        const idx = parseInt(target.getAttribute('data-index') || '-1', 10);
-        if (idx >= 0 && this.state.items.length > 1) {
-          this.state.items.splice(idx, 1);
-          this.refreshItemsTable();
-          this.calculateTotals(true);
-        }
-      } else if (action === 'delete-payment') {
-        const idx = parseInt(target.getAttribute('data-index') || '-1', 10);
-        if (idx >= 0) {
-          this.state.payments.splice(idx, 1);
-          this.refreshPaymentsList();
-          this.calculateTotals(true);
-        }
-      }
-    });
-  }
-
-  refreshItemsTable() {
-    const tbody = this.container.querySelector('#ir-items-body');
-    if (tbody) {
-      tbody.innerHTML = this.renderItemRows();
     }
-  }
-
-  refreshPaymentsList() {
-    const pmtBody = this.container.querySelector('#ir-payments-body');
-    if (pmtBody) {
-      pmtBody.innerHTML = this.renderPaymentRows();
-    }
-  }
-
-  addItemRow(focus = true) {
-    const today = new Date().toLocaleDateString('en-US');
-    const newId = 'item-' + Date.now();
-    this.state.items.push({
-      id: newId,
-      dateOfService: today,
-      ordNumber: '0',
-      sku: '',
-      qty: '1',
-      description: '',
-      cpt: '',
-      diagnosis: '',
-      amount: '0.00',
-      patientBalance: ''
-    });
-    this.refreshItemsTable();
-    this.calculateTotals(true);
-
-    if (focus) {
-      setTimeout(() => {
-        const lastRow = this.container.querySelector(`tr[data-id="${newId}"]`);
-        if (lastRow) {
-          const descInput = lastRow.querySelector('input[data-item-field="description"]');
-          if (descInput) descInput.focus();
+    addPaymentRow(focus = true) {
+        const today = new Date().toLocaleDateString('en-US');
+        const newId = 'pmt-' + Date.now();
+        this.state.payments.push({
+            id: newId,
+            date: today,
+            description: 'Payment Applied by Card at Pal Optical',
+            amount: '0.00'
+        });
+        this.refreshPaymentsList();
+        this.calculateTotals(true);
+        if (focus) {
+            setTimeout(() => {
+                const lastRow = this.container.querySelector(`.ir-payment-row[data-id="${newId}"]`);
+                if (lastRow) {
+                    const descInput = lastRow.querySelector('input[data-pmt-field="description"]');
+                    if (descInput)
+                        descInput.focus();
+                }
+            }, 50);
         }
-      }, 50);
     }
-  }
-
-  addPaymentRow(focus = true) {
-    const today = new Date().toLocaleDateString('en-US');
-    const newId = 'pmt-' + Date.now();
-    this.state.payments.push({
-      id: newId,
-      date: today,
-      description: 'Payment Applied by Card at Pal Optical',
-      amount: '0.00'
-    });
-    this.refreshPaymentsList();
-    this.calculateTotals(true);
-
-    if (focus) {
-      setTimeout(() => {
-        const lastRow = this.container.querySelector(`.ir-payment-row[data-id="${newId}"]`);
-        if (lastRow) {
-          const descInput = lastRow.querySelector('input[data-pmt-field="description"]');
-          if (descInput) descInput.focus();
+    refreshInsuranceDiscounts() {
+        const container = this.container.querySelector('#ir-ins-discounts-container');
+        if (container) {
+            container.innerHTML = this.renderInsuranceDiscountRows();
         }
-      }, 50);
     }
-  }
-
-  calculateTotals(triggerSave = true) {
-    let grossCharges = 0;
-    let discounts = 0;
-
-    // Calculate sum of line items
-    this.state.items.forEach((item) => {
-      const desc = String(item.description || '').toLowerCase();
-      const raw = String(item.amount || '').replace(/[()$,]/g, '').trim();
-      const val = parseFloat(raw) || 0;
-
-      // Identify discount items
-      if (desc.includes('discount') || String(item.amount).includes('-') || String(item.amount).includes('(')) {
-        discounts += Math.abs(val);
-      } else {
-        grossCharges += val;
-      }
-    });
-
-    const taxVal = parseFloat(String(this.state.salesTax || '').replace(/[()$,]/g, '').trim()) || 0;
-    const totalCurrentCharges = grossCharges - discounts + taxVal;
-
-    // Calculate payments
-    let totalPayments = 0;
-    this.state.payments.forEach((pmt) => {
-      const raw = String(pmt.amount || '').replace(/[()$,]/g, '').trim();
-      totalPayments += Math.abs(parseFloat(raw) || 0);
-    });
-
-    const otherOpen = parseFloat(String(this.state.otherOpenItems || '').replace(/[()$,]/g, '').trim()) || 0;
-    const balanceDue = Math.max(0, totalCurrentCharges - totalPayments);
-    const finalBalance = balanceDue + otherOpen;
-
-    // Store in state
-    this.state.totalCurrentCharges = totalCurrentCharges;
-    this.state.totalPayments = totalPayments;
-    this.state.balanceDue = balanceDue;
-    this.state.totalChargesAll = grossCharges + taxVal;
-    this.state.totalDiscounts = discounts;
-
-    // Update DOM displays
-    const dispTotalCharges = this.container.querySelector('#ir-disp-total-charges');
-    if (dispTotalCharges) dispTotalCharges.textContent = totalCurrentCharges.toFixed(2);
-
-    const dispTotalPayments = this.container.querySelector('#ir-disp-total-payments');
-    if (dispTotalPayments) dispTotalPayments.textContent = `(${totalPayments.toFixed(2)})`;
-
-    const dispBalanceDue = this.container.querySelector('#ir-disp-balance-due');
-    if (dispBalanceDue) dispBalanceDue.textContent = balanceDue.toFixed(2);
-
-    const dispFinalBalance = this.container.querySelector('#ir-disp-final-balance');
-    if (dispFinalBalance) dispFinalBalance.textContent = finalBalance.toFixed(2);
-
-    const statusBanner = this.container.querySelector('#ir-status-banner-text');
-    if (statusBanner) {
-      if (finalBalance <= 0) {
-        statusBanner.textContent = 'NO PAYMENT NECESSARY';
-      } else {
-        statusBanner.textContent = 'TOTAL BALANCE DUE';
-      }
+    addInsuranceDiscount(focus = true) {
+        if (!this.state.insuranceDiscounts) {
+            this.state.insuranceDiscounts = [];
+        }
+        const existingZero = this.state.insuranceDiscounts.find((d) => {
+            const amt = parseFloat(String(d.amount || '').replace(/[()$,]/g, '')) || 0;
+            return amt === 0;
+        });
+        let targetId;
+        if (existingZero) {
+            targetId = existingZero.id;
+        }
+        else {
+            targetId = 'ins-' + Date.now();
+            this.state.insuranceDiscounts.push({
+                id: targetId,
+                label: 'Insurance Discount',
+                amount: ''
+            });
+            this.refreshInsuranceDiscounts();
+        }
+        this.calculateTotals(true);
+        if (focus) {
+            setTimeout(() => {
+                const row = this.container.querySelector(`[data-discount-id="${targetId}"]`);
+                if (row) {
+                    row.classList.remove('ir-zero-hidden');
+                    const amtInput = row.querySelector('input[data-discount-field="amount"]');
+                    if (amtInput) {
+                        amtInput.focus();
+                        amtInput.select();
+                    }
+                }
+            }, 50);
+        }
     }
-
-    const dispSumTotalCharges = this.container.querySelector('#ir-disp-sum-total-charges');
-    if (dispSumTotalCharges) dispSumTotalCharges.textContent = totalCurrentCharges.toFixed(2);
-
-    const dispSumDiscounts = this.container.querySelector('#ir-disp-sum-discounts');
-    if (dispSumDiscounts) dispSumDiscounts.textContent = `(${discounts.toFixed(2)})`;
-
-    const couponTotalDue = this.container.querySelector('#ir-coupon-total-due');
-    if (couponTotalDue) couponTotalDue.textContent = finalBalance.toFixed(2);
-
-    if (triggerSave && typeof this.onStateChange === 'function') {
-      this.onStateChange(this.state);
+    calculateTotals(triggerSave = true) {
+        let grossCharges = 0;
+        let itemDiscounts = 0;
+        // Calculate sum of line items
+        this.state.items.forEach((item) => {
+            const desc = String(item.description || '').toLowerCase();
+            const raw = String(item.amount || '').replace(/[()$,]/g, '').trim();
+            const val = parseFloat(raw) || 0;
+            // Identify discount items in the table
+            if (desc.includes('discount') ||
+                desc.includes('ins') ||
+                desc.includes('allowance') ||
+                desc.includes('adjustment') ||
+                desc.includes('write-off') ||
+                String(item.amount).includes('-') ||
+                String(item.amount).includes('(')) {
+                itemDiscounts += Math.abs(val);
+            }
+            else {
+                grossCharges += val;
+            }
+        });
+        // Sum all insurance discounts off the total
+        let totalInsDiscounts = 0;
+        if (this.state.insuranceDiscounts && this.state.insuranceDiscounts.length > 0) {
+            this.state.insuranceDiscounts.forEach((disc) => {
+                const raw = String(disc.amount || '').replace(/[()$,]/g, '').trim();
+                totalInsDiscounts += Math.abs(parseFloat(raw) || 0);
+            });
+        }
+        else if (this.state.insuranceDiscount) {
+            const raw = String(this.state.insuranceDiscount).replace(/[()$,]/g, '').trim();
+            totalInsDiscounts += Math.abs(parseFloat(raw) || 0);
+        }
+        const allDiscounts = itemDiscounts + totalInsDiscounts;
+        const taxVal = parseFloat(String(this.state.salesTax || '').replace(/[()$,]/g, '').trim()) || 0;
+        const totalCurrentCharges = Math.max(0, grossCharges - allDiscounts + taxVal);
+        // Calculate payments
+        let totalPayments = 0;
+        this.state.payments.forEach((pmt) => {
+            const raw = String(pmt.amount || '').replace(/[()$,]/g, '').trim();
+            totalPayments += Math.abs(parseFloat(raw) || 0);
+        });
+        const otherOpen = parseFloat(String(this.state.otherOpenItems || '').replace(/[()$,]/g, '').trim()) || 0;
+        const balanceDue = Math.max(0, totalCurrentCharges - totalPayments);
+        const finalBalance = balanceDue + otherOpen;
+        // Store in state
+        this.state.totalCurrentCharges = totalCurrentCharges;
+        this.state.totalPayments = totalPayments;
+        this.state.balanceDue = balanceDue;
+        this.state.totalChargesAll = grossCharges + taxVal;
+        this.state.totalDiscounts = allDiscounts;
+        // Update DOM displays
+        const dispTotalCharges = this.container.querySelector('#ir-disp-total-charges');
+        if (dispTotalCharges)
+            dispTotalCharges.textContent = totalCurrentCharges.toFixed(2);
+        const dispTotalPayments = this.container.querySelector('#ir-disp-total-payments');
+        if (dispTotalPayments)
+            dispTotalPayments.textContent = `(${totalPayments.toFixed(2)})`;
+        const dispBalanceDue = this.container.querySelector('#ir-disp-balance-due');
+        if (dispBalanceDue)
+            dispBalanceDue.textContent = balanceDue.toFixed(2);
+        const dispFinalBalance = this.container.querySelector('#ir-disp-final-balance');
+        if (dispFinalBalance)
+            dispFinalBalance.textContent = finalBalance.toFixed(2);
+        const statusBanner = this.container.querySelector('#ir-status-banner-text');
+        if (statusBanner) {
+            if (finalBalance <= 0) {
+                statusBanner.textContent = 'NO PAYMENT NECESSARY';
+            }
+            else {
+                statusBanner.textContent = 'TOTAL BALANCE DUE';
+            }
+        }
+        const dispSumTotalCharges = this.container.querySelector('#ir-disp-sum-total-charges');
+        if (dispSumTotalCharges)
+            dispSumTotalCharges.textContent = grossCharges.toFixed(2);
+        const dispSumDiscounts = this.container.querySelector('#ir-disp-sum-discounts');
+        if (dispSumDiscounts) {
+            dispSumDiscounts.textContent = allDiscounts > 0 ? `(${allDiscounts.toFixed(2)})` : '(0.00)';
+        }
+        const couponTotalDue = this.container.querySelector('#ir-coupon-total-due');
+        if (couponTotalDue)
+            couponTotalDue.textContent = finalBalance.toFixed(2);
+        // Update print-visibility of insurance discount rows
+        if (this.state.insuranceDiscounts) {
+            this.state.insuranceDiscounts.forEach((disc) => {
+                const amt = parseFloat(String(disc.amount || '').replace(/[()$,]/g, '')) || 0;
+                const row = this.container.querySelector(`[data-discount-id="${disc.id}"]`);
+                if (row) {
+                    if (amt === 0) {
+                        row.classList.add('ir-zero-hidden');
+                    }
+                    else {
+                        row.classList.remove('ir-zero-hidden');
+                    }
+                }
+            });
+        }
+        if (triggerSave && typeof this.onStateChange === 'function') {
+            this.onStateChange(this.state);
+        }
     }
-  }
-
-  autofillSample() {
-    this.state = {
-      practiceName: 'Pal Optical',
-      practiceAddress1: '1555 E. New Circle Road',
-      practiceAddress2: 'Suite 146',
-      practiceCityStateZip: 'Lexington, KY 405091044',
-      practicePhone: '859-266-3003',
-
-      feeSlipNumber: '56205',
-      datePrinted: '9/22/2026',
-      provider: 'Pal Optical',
-      officePhone: '859-266-3003',
-      npiNumber: '1609930791',
-      patientId: '36817',
-      patientName: 'SHAUN GATEWOOD',
-      chartNumber: '',
-      homePhone: '(859) 618-0211',
-      nextAppt: '',
-
-      recipientName: 'SHAUN GATEWOOD',
-      recipientAddress1: '166 GARNETTE DR',
-      recipientCityStateZip: 'NICHOLASVILLE, KY 40356',
-
-      items: [
-        {
-          id: 'item-1',
-          dateOfService: '03/19/2012',
-          ordNumber: '0',
-          sku: '',
-          qty: '1',
-          description: 'PHAT FARM FRAME',
-          cpt: '',
-          diagnosis: '',
-          amount: '26.00',
-          patientBalance: ''
-        },
-        {
-          id: 'item-2',
-          dateOfService: '03/16/2012',
-          ordNumber: '0',
-          sku: '',
-          qty: '1',
-          description: 'SV POLYCARBONATE LENSES',
-          cpt: '',
-          diagnosis: '',
-          amount: '85.00',
-          patientBalance: ''
-        },
-        {
-          id: 'item-3',
-          dateOfService: '03/16/2012',
-          ordNumber: '',
-          sku: '',
-          qty: '',
-          description: '20% Discount',
-          cpt: '',
-          diagnosis: '',
-          amount: '-17.00',
-          patientBalance: ''
-        },
-        {
-          id: 'item-4',
-          dateOfService: '03/19/2012',
-          ordNumber: '0',
-          sku: '',
-          qty: '1',
-          description: 'OVER POWER',
-          cpt: '',
-          diagnosis: '',
-          amount: '11.87',
-          patientBalance: ''
-        }
-      ],
-
-      salesTax: '4.08',
-      otherOpenItems: '0.00',
-
-      payments: [
-        {
-          id: 'pmt-1',
-          date: '03/16/2012',
-          description: 'Payment Applied by Cash at Pal Optical',
-          amount: '109.95'
-        }
-      ],
-
-      amountEnclosed: '',
-      checkNumber: ''
-    };
-
-    this.render();
-    this.bindEvents();
-    this.calculateTotals(true);
-  }
-
-  reset() {
-    const today = new Date().toLocaleDateString('en-US');
-    this.state = {
-      practiceName: 'Pal Optical',
-      practiceAddress1: '1555 E. New Circle Road',
-      practiceAddress2: 'Suite 146',
-      practiceCityStateZip: 'Lexington, KY 405091044',
-      practicePhone: '859-266-3003',
-
-      feeSlipNumber: '',
-      datePrinted: today,
-      provider: 'Pal Optical',
-      officePhone: '859-266-3003',
-      npiNumber: '1609930791',
-      patientId: '',
-      patientName: '',
-      chartNumber: '',
-      homePhone: '',
-      nextAppt: '',
-
-      recipientName: '',
-      recipientAddress1: '',
-      recipientCityStateZip: '',
-
-      items: [
-        {
-          id: 'item-1',
-          dateOfService: today,
-          ordNumber: '0',
-          sku: '',
-          qty: '1',
-          description: '',
-          cpt: '',
-          diagnosis: '',
-          amount: '0.00',
-          patientBalance: ''
-        }
-      ],
-
-      salesTax: '0.00',
-      otherOpenItems: '0.00',
-
-      payments: [],
-
-      amountEnclosed: '',
-      checkNumber: ''
-    };
-
-    this.render();
-    this.bindEvents();
-    this.calculateTotals(true);
-  }
-
-  destroy() {
-    // Cleanup if necessary
-  }
+    autofillSample() {
+        this.state = {
+            practiceName: 'Pal Optical',
+            practiceAddress1: '1555 E. New Circle Road',
+            practiceAddress2: 'Suite 146',
+            practiceCityStateZip: 'Lexington, KY 405091044',
+            practicePhone: '859-266-3003',
+            feeSlipNumber: '56205',
+            datePrinted: '9/22/2026',
+            provider: 'Pal Optical',
+            officePhone: '859-266-3003',
+            npiNumber: '1609930791',
+            patientId: '36817',
+            patientName: 'SHAUN GATEWOOD',
+            chartNumber: '',
+            homePhone: '(859) 618-0211',
+            nextAppt: '',
+            recipientName: 'SHAUN GATEWOOD',
+            recipientAddress1: '166 GARNETTE DR',
+            recipientCityStateZip: 'NICHOLASVILLE, KY 40356',
+            items: [
+                {
+                    id: 'item-1',
+                    dateOfService: '03/19/2012',
+                    ordNumber: '0',
+                    sku: '',
+                    qty: '1',
+                    description: 'PHAT FARM FRAME',
+                    cpt: '',
+                    diagnosis: '',
+                    amount: '26.00',
+                    patientBalance: ''
+                },
+                {
+                    id: 'item-2',
+                    dateOfService: '03/16/2012',
+                    ordNumber: '0',
+                    sku: '',
+                    qty: '1',
+                    description: 'SV POLYCARBONATE LENSES',
+                    cpt: '',
+                    diagnosis: '',
+                    amount: '85.00',
+                    patientBalance: ''
+                },
+                {
+                    id: 'item-3',
+                    dateOfService: '03/16/2012',
+                    ordNumber: '',
+                    sku: '',
+                    qty: '',
+                    description: '20% Discount',
+                    cpt: '',
+                    diagnosis: '',
+                    amount: '-17.00',
+                    patientBalance: ''
+                },
+                {
+                    id: 'item-4',
+                    dateOfService: '03/19/2012',
+                    ordNumber: '0',
+                    sku: '',
+                    qty: '1',
+                    description: 'OVER POWER',
+                    cpt: '',
+                    diagnosis: '',
+                    amount: '11.87',
+                    patientBalance: ''
+                }
+            ],
+            salesTax: '4.08',
+            insuranceDiscount: '0.00',
+            insuranceDiscounts: [
+                {
+                    id: 'ins-1',
+                    label: 'Insurance Discount',
+                    amount: '0.00'
+                }
+            ],
+            otherOpenItems: '0.00',
+            payments: [
+                {
+                    id: 'pmt-1',
+                    date: '03/16/2012',
+                    description: 'Payment Applied by Cash at Pal Optical',
+                    amount: '109.95'
+                }
+            ],
+            amountEnclosed: '',
+            checkNumber: ''
+        };
+        this.render();
+        this.bindEvents();
+        this.calculateTotals(true);
+    }
+    reset() {
+        const today = new Date().toLocaleDateString('en-US');
+        this.state = {
+            practiceName: 'Pal Optical',
+            practiceAddress1: '1555 E. New Circle Road',
+            practiceAddress2: 'Suite 146',
+            practiceCityStateZip: 'Lexington, KY 405091044',
+            practicePhone: '859-266-3003',
+            feeSlipNumber: '',
+            datePrinted: today,
+            provider: 'Pal Optical',
+            officePhone: '859-266-3003',
+            npiNumber: '1609930791',
+            patientId: '',
+            patientName: '',
+            chartNumber: '',
+            homePhone: '',
+            nextAppt: '',
+            recipientName: '',
+            recipientAddress1: '',
+            recipientCityStateZip: '',
+            items: [
+                {
+                    id: 'item-1',
+                    dateOfService: today,
+                    ordNumber: '0',
+                    sku: '',
+                    qty: '1',
+                    description: '',
+                    cpt: '',
+                    diagnosis: '',
+                    amount: '0.00',
+                    patientBalance: ''
+                }
+            ],
+            salesTax: '0.00',
+            insuranceDiscount: '0.00',
+            insuranceDiscounts: [
+                {
+                    id: 'ins-1',
+                    label: 'Insurance Discount',
+                    amount: '0.00'
+                }
+            ],
+            otherOpenItems: '0.00',
+            payments: [],
+            amountEnclosed: '',
+            checkNumber: ''
+        };
+        this.render();
+        this.bindEvents();
+        this.calculateTotals(true);
+    }
+    destroy() {
+        // Cleanup if necessary
+    }
 }
