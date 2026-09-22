@@ -2024,6 +2024,38 @@
   background: #fee2e2;
 }
 
+.ir-table-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+  margin-bottom: 8px;
+}
+
+.ir-add-line-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background-color: #f8fafc;
+  color: #0284c7;
+  border: 1.5px dashed #0284c7;
+  border-radius: 4px;
+  font-size: 8.5pt;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ir-add-line-btn:hover {
+  background-color: #e0f2fe;
+  border-color: #0369a1;
+  color: #0369a1;
+}
+
+.ir-add-line-btn:active {
+  transform: translateY(1px);
+}
+
 /* Financials Block */
 .ir-financials-block {
   display: flex;

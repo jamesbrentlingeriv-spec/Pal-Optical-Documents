@@ -1328,7 +1328,9 @@
 
   body.active-form-itemized-receipt .ir-row-delete-btn,
   body.active-form-itemized-receipt .col-action,
-  body.active-form-itemized-receipt .ir-pmt-action {
+  body.active-form-itemized-receipt .ir-pmt-action,
+  body.active-form-itemized-receipt .ir-table-actions,
+  body.active-form-itemized-receipt .ir-add-line-btn {
     display: none !important;
   }
 

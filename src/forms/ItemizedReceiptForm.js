@@ -17,7 +17,7 @@ export class ItemizedReceiptForm {
 
       feeSlipNumber: '56205',
       datePrinted: today,
-      provider: 'STELLA BAILEY',
+      provider: 'Pal Optical',
       officePhone: '859-266-3003',
       npiNumber: '1609930791',
       patientId: '36817',
@@ -142,13 +142,13 @@ export class ItemizedReceiptForm {
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               Autofill Sample (Shaun Gatewood)
             </button>
-            <button type="button" class="btn btn-secondary btn-sm" id="ir-btn-add-item">
+            <button type="button" class="btn btn-primary btn-sm" id="ir-btn-add-item">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Add Item Row
+              + Add Line
             </button>
             <button type="button" class="btn btn-secondary btn-sm" id="ir-btn-add-payment">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Add Payment
+              + Add Payment
             </button>
             <button type="button" class="btn btn-secondary btn-sm" id="ir-btn-clear">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
@@ -250,6 +250,13 @@ export class ItemizedReceiptForm {
                 ${this.renderItemRows()}
               </tbody>
             </table>
+            <!-- Action to add line items directly on the table -->
+            <div class="ir-table-actions print:hidden">
+              <button type="button" class="ir-add-line-btn" id="ir-btn-add-line-table">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                + Add Line
+              </button>
+            </div>
           </div>
 
           <!-- CHARGES SUB-TOTAL & SALES TAX BLOCK -->
@@ -272,6 +279,12 @@ export class ItemizedReceiptForm {
           <div class="ir-payments-block">
             <div class="ir-payments-list" id="ir-payments-body">
               ${this.renderPaymentRows()}
+            </div>
+            <div class="ir-table-actions print:hidden" style="margin-top: 4px;">
+              <button type="button" class="ir-add-line-btn" id="ir-btn-add-pmt-table">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                + Add Payment Line
+              </button>
             </div>
             <div class="ir-financial-row ir-fin-total-payments">
               <span class="ir-fin-label">Total Payments</span>
@@ -454,18 +467,44 @@ export class ItemizedReceiptForm {
 
     const btnAddItem = this.container.querySelector('#ir-btn-add-item');
     if (btnAddItem) {
-      btnAddItem.addEventListener('click', () => this.addItemRow());
+      btnAddItem.addEventListener('click', () => this.addItemRow(true));
     }
 
     const btnAddPayment = this.container.querySelector('#ir-btn-add-payment');
     if (btnAddPayment) {
-      btnAddPayment.addEventListener('click', () => this.addPaymentRow());
+      btnAddPayment.addEventListener('click', () => this.addPaymentRow(true));
+    }
+
+    const btnAddLineTable = this.container.querySelector('#ir-btn-add-line-table');
+    if (btnAddLineTable) {
+      btnAddLineTable.addEventListener('click', () => this.addItemRow(true));
+    }
+
+    const btnAddPmtTable = this.container.querySelector('#ir-btn-add-pmt-table');
+    if (btnAddPmtTable) {
+      btnAddPmtTable.addEventListener('click', () => this.addPaymentRow(true));
     }
 
     const btnClear = this.container.querySelector('#ir-btn-clear');
     if (btnClear) {
       btnClear.addEventListener('click', () => this.reset());
     }
+
+    // Keyboard support: Pressing Enter on row inputs to add next line
+    this.container.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const target = e.target;
+        if (!target) return;
+        if (target.hasAttribute('data-item-field')) {
+          const row = target.closest('tr');
+          const isLastRow = row && !row.nextElementSibling;
+          if (isLastRow) {
+            e.preventDefault();
+            this.addItemRow(true);
+          }
+        }
+      }
+    });
 
     // Direct input bindings (delegated)
     this.container.addEventListener('input', (e) => {
@@ -569,10 +608,11 @@ export class ItemizedReceiptForm {
     }
   }
 
-  addItemRow() {
+  addItemRow(focus = true) {
     const today = new Date().toLocaleDateString('en-US');
+    const newId = 'item-' + Date.now();
     this.state.items.push({
-      id: 'item-' + Date.now(),
+      id: newId,
       dateOfService: today,
       ordNumber: '0',
       sku: '',
@@ -585,18 +625,39 @@ export class ItemizedReceiptForm {
     });
     this.refreshItemsTable();
     this.calculateTotals(true);
+
+    if (focus) {
+      setTimeout(() => {
+        const lastRow = this.container.querySelector(`tr[data-id="${newId}"]`);
+        if (lastRow) {
+          const descInput = lastRow.querySelector('input[data-item-field="description"]');
+          if (descInput) descInput.focus();
+        }
+      }, 50);
+    }
   }
 
-  addPaymentRow() {
+  addPaymentRow(focus = true) {
     const today = new Date().toLocaleDateString('en-US');
+    const newId = 'pmt-' + Date.now();
     this.state.payments.push({
-      id: 'pmt-' + Date.now(),
+      id: newId,
       date: today,
       description: 'Payment Applied by Card at Pal Optical',
       amount: '0.00'
     });
     this.refreshPaymentsList();
     this.calculateTotals(true);
+
+    if (focus) {
+      setTimeout(() => {
+        const lastRow = this.container.querySelector(`.ir-payment-row[data-id="${newId}"]`);
+        if (lastRow) {
+          const descInput = lastRow.querySelector('input[data-pmt-field="description"]');
+          if (descInput) descInput.focus();
+        }
+      }, 50);
+    }
   }
 
   calculateTotals(triggerSave = true) {
@@ -684,7 +745,7 @@ export class ItemizedReceiptForm {
 
       feeSlipNumber: '56205',
       datePrinted: '9/22/2026',
-      provider: 'STELLA BAILEY',
+      provider: 'Pal Optical',
       officePhone: '859-266-3003',
       npiNumber: '1609930791',
       patientId: '36817',
@@ -780,7 +841,7 @@ export class ItemizedReceiptForm {
 
       feeSlipNumber: '',
       datePrinted: today,
-      provider: 'STELLA BAILEY',
+      provider: 'Pal Optical',
       officePhone: '859-266-3003',
       npiNumber: '1609930791',
       patientId: '',
