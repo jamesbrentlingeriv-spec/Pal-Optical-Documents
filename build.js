@@ -100,6 +100,7 @@ console.log("\n📄 Copying standalone HTML documents...");
 const htmlFiles = [
   "Note to Dr.html",
   "staff schedule.html",
+  "Itemized Statement Request.html",
 ];
 
 htmlFiles.forEach((file) => {

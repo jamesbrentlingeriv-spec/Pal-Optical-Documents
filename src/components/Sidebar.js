@@ -28,6 +28,7 @@ export class Sidebar {
       {
         title: 'Billing & Claims',
         items: [
+          { id: 'itemized-statement-request', label: 'Itemized Statement Request (Tracy)', icon: 'file-text' },
           { id: 'itemized-receipt', label: 'Itemized Receipt (Statement)', icon: 'file-text' },
           { id: 'cms1500', label: 'CMS-1500 Claim Worksheet', icon: 'activity' },
           { id: 'fee-slip', label: 'Office Fee Slip / Superbill', icon: 'file-text' },

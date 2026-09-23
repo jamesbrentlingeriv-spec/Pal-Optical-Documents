@@ -10,6 +10,7 @@ import { SafetyOrderForm } from './forms/SafetyOrderForm.js';
 import { CMS1500Form } from './forms/CMS1500Form.js';
 import { FeeSlipForm } from './forms/FeeSlipForm.js';
 import { ItemizedReceiptForm } from './forms/ItemizedReceiptForm.js';
+import { ItemizedStatementRequestForm } from './forms/ItemizedStatementRequestForm.js';
 import { DrSideNewPatientForm } from './forms/DrSideNewPatientForm.js';
 import { PDForm } from './forms/PDForm.js';
 import { EyeglassJobNoteForm } from './forms/EyeglassJobNoteForm.js';
@@ -144,6 +145,7 @@ class App {
       case 'cms1500': return 'CMS-1500 Claim Worksheet';
       case 'fee-slip': return 'Office Fee Slip / Superbill';
       case 'itemized-receipt': return 'Pal Optical Itemized Receipt';
+      case 'itemized-statement-request': return 'Itemized Statement Request (Tracy)';
       case 'child-no-poly': return 'Refusal of Polycarbonate';
       case 'expired-rx': return 'Expired Rx Consent';
       case 'frame-no-child': return 'Frame Selection w/o Child';
@@ -232,6 +234,9 @@ class App {
       case 'itemized-receipt':
         this.currentFormInstance = new ItemizedReceiptForm(renderTarget, formState, callback);
         break;
+      case 'itemized-statement-request':
+        this.currentFormInstance = new ItemizedStatementRequestForm(renderTarget, formState, callback);
+        break;
       case 'child-no-poly':
         this.currentFormInstance = new ChildNoPolyForm(renderTarget, formState, callback);
         break;
@@ -285,6 +290,10 @@ class App {
       this.formActions.updateDescription('Patient communication notes for Dr. Robbins');
       this.formActions.setControlsVisibility(false, true);
       this.formActions.setOpenTabUrl('/Note%20to%20Dr.html');
+    } else if (this.activeFormId === 'itemized-statement-request') {
+      this.formActions.updateDescription('Routing request for file clerk Tracy with mandatory attachments disclaimer');
+      this.formActions.setControlsVisibility(true, true);
+      this.formActions.setOpenTabUrl('/Itemized%20Statement%20Request.html');
     } else {
       this.formActions.updateDescription('Choose fill option or print directly');
       this.formActions.setControlsVisibility(true, true);

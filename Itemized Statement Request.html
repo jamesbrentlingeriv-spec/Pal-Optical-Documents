@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pal Optical - Itemized Statement Request Form (Tracy)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --slate-900: #0f172a;
+      --slate-700: #334155;
+      --slate-500: #64748b;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --amber-500: #f59e0b;
+      --amber-800: #92400e;
+      --amber-50: #fffbeb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f1f5f9;
+      color: var(--slate-900);
+      line-height: 1.4;
+      padding: 24px 16px 40px;
+    }
+
+    /* Screen Action Toolbar */
+    .screen-toolbar {
+      max-width: 860px;
+      margin: 0 auto 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--slate-200);
+    }
+
+    .toolbar-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7 0%, #0d9488 100%);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--slate-100);
+      color: var(--slate-700);
+      border: 1px solid var(--slate-200);
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+      color: var(--slate-900);
+    }
+
+    /* Form Card Container */
+    .form-card {
+      max-width: 860px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: 10px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      padding: 32px 40px;
+      box-sizing: border-box;
+    }
+
+    /* Top Brand & Header */
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand-block .brand-name {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: var(--slate-900);
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+
+    .brand-block .brand-sub {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--slate-500);
+      margin-top: 4px;
+    }
+
+    .badge-block {
+      text-align: right;
+      background: #f0f9ff;
+      border: 1.5px solid var(--primary);
+      border-radius: 8px;
+      padding: 8px 16px;
+    }
+
+    .badge-block .badge-title {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .badge-block .badge-attn {
+      font-size: 0.825rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+    }
+
+    .header-divider {
+      height: 3px;
+      background: linear-gradient(90deg, #0284c7 0%, #0d9488 100%);
+      margin: 12px 0 16px;
+      border-radius: 2px;
+    }
+
+    /* Meta Bar */
+    .meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 6px;
+      padding: 8px 14px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--slate-700);
+    }
+
+    .meta-label {
+      white-space: nowrap;
+    }
+
+    .meta-input {
+      border: 1px solid var(--slate-200);
+      background: #fff;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--slate-900);
+      outline: none;
+    }
+
+    .meta-select {
+      border: 1px solid var(--slate-200);
+      background: #fff;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--slate-900);
+    }
+
+    /* Section Panels */
+    .section-panel {
+      border: 1px solid var(--slate-200);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      background: #fff;
+    }
+
+    .section-header {
+      font-size: 0.825rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--slate-100);
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+
+    /* Grid layout */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px 14px;
+    }
+
+    .col-12 { grid-column: span 12; }
+    .col-8  { grid-column: span 8; }
+    .col-7  { grid-column: span 7; }
+    .col-6  { grid-column: span 6; }
+    .col-5  { grid-column: span 5; }
+    .col-4  { grid-column: span 4; }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      letter-spacing: 0.02em;
+    }
+
+    .req {
+      color: #ef4444;
+      font-weight: 800;
+    }
+
+    .field-hint {
+      font-size: 0.72rem;
+      color: var(--slate-500);
+      font-style: italic;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 7px 10px;
+      font-size: 0.88rem;
+      font-family: inherit;
+      color: var(--slate-900);
+      border: 1px solid var(--slate-200);
+      border-radius: 5px;
+      outline: none;
+      background: #fff;
+      transition: border-color 0.15s;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+    }
+
+    .font-bold {
+      font-weight: 700;
+    }
+
+    .sublabel-toggle {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .currency-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .currency-symbol {
+      position: absolute;
+      left: 10px;
+      font-weight: 800;
+      color: var(--slate-900);
+      font-size: 1rem;
+    }
+
+    .currency-input {
+      padding-left: 24px !important;
+      font-size: 1rem !important;
+    }
+
+    /* Cards Checkbox/Radio Grid */
+    .card-types-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .card-radio-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1e293b;
+      cursor: pointer;
+    }
+
+    .card-other-field {
+      border: 1px solid var(--slate-200);
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 0.825rem;
+      width: 150px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    /* Prominent Disclaimer Box */
+    .disclaimer-box {
+      background: var(--amber-50);
+      border: 2px solid var(--amber-500);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+    }
+
+    .disclaimer-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #b45309;
+      font-size: 0.825rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .disclaimer-quote {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--amber-800);
+      margin: 6px 0 10px;
+      line-height: 1.4;
+    }
+
+    .disclaimer-checks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px dashed var(--amber-500);
+      border-radius: 6px;
+      padding: 8px 12px;
+    }
+
+    .disclaimer-check-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #78350f;
+      cursor: pointer;
+    }
+
+    .disclaimer-check-label input {
+      width: 16px;
+      height: 16px;
+      accent-color: #d97706;
+      cursor: pointer;
+    }
+
+    /* Delivery options */
+    .delivery-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      padding: 4px 0;
+    }
+
+    .delivery-check {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1e293b;
+      cursor: pointer;
+    }
+
+    .notes-box {
+      min-height: 52px;
+      resize: vertical;
+    }
+
+    /* Tracy Processing Box */
+    .clerk-box {
+      background: var(--slate-50);
+      border: 1.5px solid var(--slate-900);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-top: 10px;
+    }
+
+    .clerk-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--slate-200);
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .clerk-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      letter-spacing: 0.06em;
+    }
+
+    .clerk-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .clerk-select {
+      border: 1px solid var(--slate-500);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-family: inherit;
+    }
+
+    .clerk-row {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 10px;
+      align-items: center;
+    }
+
+    .clerk-item {
+      grid-column: span 4;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--slate-700);
+    }
+
+    .clerk-notes-item {
+      grid-column: span 12;
+      margin-top: 2px;
+    }
+
+    .clerk-line {
+      border: none;
+      border-bottom: 1px solid var(--slate-500);
+      background: transparent;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--slate-900);
+      flex: 1;
+      padding: 2px 4px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .clerk-initials {
+      max-width: 60px;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    /* Print Styles */
+    @media print {
+      @page {
+        size: letter portrait;
+        margin: 0.3in 0.35in;
+      }
+
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        color: #000000 !important;
+      }
+
+      .screen-toolbar, .print-hidden {
+        display: none !important;
+      }
+
+      .form-card {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      .header-divider {
+        background: #000000 !important;
+        height: 2px !important;
+        margin: 6px 0 10px !important;
+      }
+
+      .badge-block {
+        border: 1.5px solid #000000 !important;
+        background: #f8fafc !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .badge-block .badge-title {
+        color: #000000 !important;
+      }
+
+      .meta-bar {
+        border: 1px solid #000000 !important;
+        background: #f8fafc !important;
+        padding: 5px 8px !important;
+        margin-bottom: 10px !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .meta-input {
+        border: none !important;
+        border-bottom: 1px solid #000000 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        padding: 1px 4px !important;
+      }
+
+      .section-panel {
+        border: 1px solid #94a3b8 !important;
+        padding: 8px 10px !important;
+        margin-bottom: 8px !important;
+      }
+
+      .section-header {
+        color: #000000 !important;
+        border-bottom: 1px solid #000000 !important;
+        margin-bottom: 6px !important;
+      }
+
+      .form-control {
+        border: none !important;
+        border-bottom: 1px solid #000000 !important;
+        border-radius: 0 !important;
+        padding: 2px 4px !important;
+        height: 20px !important;
+        font-size: 0.88rem !important;
+        color: #000000 !important;
+      }
+
+      .notes-box {
+        border: 1px solid #000000 !important;
+        border-radius: 4px !important;
+        height: 40px !important;
+      }
+
+      .disclaimer-box {
+        border: 2px solid #000000 !important;
+        background: #ffffff !important;
+        padding: 8px 10px !important;
+        margin-bottom: 8px !important;
+      }
+
+      .disclaimer-head {
+        color: #000000 !important;
+      }
+
+      .disclaimer-quote {
+        color: #000000 !important;
+        font-size: 0.85rem !important;
+        margin: 4px 0 6px !important;
+      }
+
+      .disclaimer-checks {
+        border: 1px dashed #000000 !important;
+        background: #f8fafc !important;
+        padding: 5px 8px !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .disclaimer-check-label {
+        color: #000000 !important;
+      }
+
+      .clerk-box {
+        border: 1.5px solid #000000 !important;
+        background: #ffffff !important;
+        padding: 6px 10px !important;
+        margin-top: 6px !important;
+      }
+
+      .clerk-header {
+        border-bottom: 1px solid #000000 !important;
+        padding-bottom: 4px !important;
+        margin-bottom: 5px !important;
+      }
+
+      .clerk-line {
+        border-bottom: 1px solid #000000 !important;
+      }
+
+      /* Print Blank Mode */
+      body.print-blank input[type="text"],
+      body.print-blank input[type="tel"],
+      body.print-blank input[type="email"],
+      body.print-blank textarea {
+        color: transparent !important;
+      }
+
+      body.print-blank input[type="checkbox"],
+      body.print-blank input[type="radio"] {
+        accent-color: transparent !important;
+        opacity: 0.3 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Action Toolbar -->
+  <div class="screen-toolbar">
+    <div class="toolbar-title">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #0284c7;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <span>Itemized Statement Request Form &bull; Tracy</span>
+    </div>
+    <div class="toolbar-actions">
+      <button type="button" class="btn btn-secondary" onclick="resetForm()">Clear Form</button>
+      <button type="button" class="btn btn-secondary" onclick="printBlank()">Print Blank</button>
+      <button type="button" class="btn btn-primary" onclick="printFilled()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Print Request
+      </button>
+    </div>
+  </div>
+
+  <!-- Form Document Sheet -->
+  <div class="form-card" id="form-card-sheet">
+    <form id="request-form">
+      <!-- Header -->
+      <div class="form-header">
+        <div class="brand-block">
+          <div class="brand-name">PAL OPTICAL</div>
+          <div class="brand-sub">1555 E. New Circle Rd, Suite 146 &bull; Lexington, KY 40509 &bull; Phone: (859) 266-3003</div>
+        </div>
+        <div class="badge-block">
+          <div class="badge-title">ITEMIZED STATEMENT REQUEST</div>
+          <div class="badge-attn">ATTN: FILE CLERK TRACY</div>
+        </div>
+      </div>
+
+      <div class="header-divider"></div>
+
+      <!-- Meta Bar -->
+      <div class="meta-bar">
+        <div class="meta-item">
+          <span class="meta-label">DATE OF REQUEST:</span>
+          <input type="text" class="meta-input" id="meta-date" placeholder="MM/DD/YYYY">
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">REQUESTED BY:</span>
+          <input type="text" class="meta-input" id="meta-staff" value="James Brentlinger" placeholder="Optician / Staff">
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">PRIORITY:</span>
+          <select class="meta-select" id="meta-priority">
+            <option value="Routine" selected>Routine</option>
+            <option value="Urgent">Urgent</option>
+            <option value="Same Day / Rush">Same Day / Rush</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Section 1: Patient Information & Demographics -->
+      <div class="section-panel">
+        <div class="section-header">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>1. PATIENT DEMOGRAPHICS &amp; CONTACT INFORMATION</span>
+        </div>
+        <div class="form-grid">
+          <div class="form-group col-7">
+            <label for="p-name">PATIENT FULL NAME <span class="req">*</span></label>
+            <input type="text" class="form-control font-bold" id="p-name" placeholder="Last, First Middle">
+          </div>
+          <div class="form-group col-5">
+            <label for="p-dob">DATE OF BIRTH (DOB) <span class="req">*</span></label>
+            <input type="text" class="form-control" id="p-dob" placeholder="MM/DD/YYYY">
+          </div>
+
+          <div class="form-group col-6">
+            <label for="p-phone">PATIENT PHONE NUMBER <span class="req">*</span></label>
+            <input type="tel" class="form-control" id="p-phone" placeholder="(859) 000-0000">
+          </div>
+          <div class="form-group col-6">
+            <label for="p-email">PATIENT EMAIL ADDRESS</label>
+            <input type="email" class="form-control" id="p-email" placeholder="patient@example.com">
+          </div>
+
+          <div class="form-group col-8">
+            <label for="p-address">PATIENT MAILING ADDRESS (STREET)</label>
+            <input type="text" class="form-control" id="p-address" placeholder="Street Address, Apt / Suite #">
+          </div>
+          <div class="form-group col-4">
+            <label for="p-citystate">CITY, STATE, ZIP</label>
+            <input type="text" class="form-control" id="p-citystate" placeholder="Lexington, KY 40509">
+          </div>
+
+          <div class="form-group col-12">
+            <label for="p-fax">PATIENT FAX NUMBER (IF APPLICABLE)</label>
+            <input type="text" class="form-control" id="p-fax" placeholder="(859) 000-0000 (Optional)">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Service & Payment Details -->
+      <div class="section-panel">
+        <div class="section-header">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>2. SERVICE &amp; PAYMENT DETAILS</span>
+        </div>
+        <div class="form-grid">
+          <div class="form-group col-6">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <label for="p-dos">DATE OF SERVICE (DOS)</label>
+              <label class="sublabel-toggle print-hidden">
+                <input type="checkbox" id="dos-same" onchange="toggleDosSame(this)">
+                <span>Same as Request Date</span>
+              </label>
+            </div>
+            <input type="text" class="form-control" id="p-dos" placeholder="MM/DD/YYYY (if different from Request Date)">
+            <span class="field-hint">Specify if different from the Date of Request</span>
+          </div>
+
+          <div class="form-group col-6">
+            <label for="p-amount">AMOUNT OF PAYMENT <span class="req">*</span></label>
+            <div class="currency-wrap">
+              <span class="currency-symbol">$</span>
+              <input type="text" class="form-control currency-input font-bold" id="p-amount" placeholder="0.00">
+            </div>
+            <span class="field-hint">Total dollar amount charged / paid by patient</span>
+          </div>
+
+          <div class="form-group col-8">
+            <label>TYPE OF CARD PAID WITH <span class="req">*</span></label>
+            <div class="card-types-list">
+              <label class="card-radio-item">
+                <input type="radio" name="cardType" value="Visa" checked onchange="toggleCardOther()">
+                <span>Visa</span>
+              </label>
+              <label class="card-radio-item">
+                <input type="radio" name="cardType" value="MasterCard" onchange="toggleCardOther()">
+                <span>MasterCard</span>
+              </label>
+              <label class="card-radio-item">
+                <input type="radio" name="cardType" value="Discover" onchange="toggleCardOther()">
+                <span>Discover</span>
+              </label>
+              <label class="card-radio-item">
+                <input type="radio" name="cardType" value="Amex" onchange="toggleCardOther()">
+                <span>Amex</span>
+              </label>
+              <label class="card-radio-item">
+                <input type="radio" name="cardType" value="FSA/HSA" onchange="toggleCardOther()">
+                <span>FSA / HSA Card</span>
+              </label>
+              <label class="card-radio-item">
+                <input type="radio" name="cardType" value="CareCredit" onchange="toggleCardOther()">
+                <span>CareCredit</span>
+              </label>
+              <label class="card-radio-item">
+                <input type="radio" name="cardType" value="Other" onchange="toggleCardOther()">
+                <span>Other:</span>
+              </label>
+              <input type="text" class="card-other-field" id="card-other-input" placeholder="Specify card type" style="display:none;">
+            </div>
+          </div>
+
+          <div class="form-group col-4">
+            <label for="p-cardlast4">CARD LAST 4 DIGITS</label>
+            <input type="text" class="form-control" id="p-cardlast4" maxlength="4" placeholder="e.g. 1234">
+            <span class="field-hint">Matches merchant receipt / terminal log</span>
+          </div>
+
+          <div class="form-group col-6">
+            <label for="p-order">ORDER / TRAY / FEE SLIP # (IF KNOWN)</label>
+            <input type="text" class="form-control" id="p-order" placeholder="e.g. 56205 or Lab Tray #">
+          </div>
+
+          <div class="form-group col-6">
+            <label for="p-purpose">PURPOSE / STATEMENT REASON</label>
+            <input type="text" class="form-control" id="p-purpose" value="FSA / HSA Reimbursement" placeholder="e.g. FSA, Insurance Claim, Tax">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Prominent Disclaimer Box -->
+      <div class="disclaimer-box">
+        <div class="disclaimer-head">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>IMPORTANT DISCLAIMER / MANDATORY ATTACHMENTS FOR TRACY:</span>
+        </div>
+        <p class="disclaimer-quote">
+          <strong>DISCLAIMER: PLEASE INCLUDE A COPY OF THE RX (PRESCRIPTION), JOB WRITE-UP SHEET, AND CREDIT CARD RECEIPT (IF POSSIBLE).</strong>
+        </p>
+        <div class="disclaimer-checks">
+          <label class="disclaimer-check-label">
+            <input type="checkbox" id="check-rx" checked>
+            <span>Copy of Rx (Prescription) Attached</span>
+          </label>
+          <label class="disclaimer-check-label">
+            <input type="checkbox" id="check-writeup" checked>
+            <span>Job Write-Up Sheet Attached</span>
+          </label>
+          <label class="disclaimer-check-label">
+            <input type="checkbox" id="check-receipt" checked>
+            <span>Credit Card Receipt Attached (if possible)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Section 4: Delivery Options & Instructions -->
+      <div class="section-panel">
+        <div class="section-header">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>3. HOW SHOULD TRACY DELIVER THE STATEMENT?</span>
+        </div>
+        <div class="delivery-options">
+          <label class="delivery-check">
+            <input type="checkbox" id="deliv-email" checked>
+            <span>Email to Patient</span>
+          </label>
+          <label class="delivery-check">
+            <input type="checkbox" id="deliv-mail">
+            <span>Mail to Address</span>
+          </label>
+          <label class="delivery-check">
+            <input type="checkbox" id="deliv-fax">
+            <span>Fax to Patient</span>
+          </label>
+          <label class="delivery-check">
+            <input type="checkbox" id="deliv-pickup">
+            <span>Patient Will Pick Up</span>
+          </label>
+        </div>
+        <div class="form-group col-12" style="margin-top: 10px;">
+          <label for="p-notes">SPECIAL INSTRUCTIONS / NOTES FOR TRACY</label>
+          <textarea class="form-control notes-box" id="p-notes" rows="2" placeholder="e.g. Include specific CPT codes, itemize frame and AR lenses separately, patient needs urgently for FSA deadline..."></textarea>
+        </div>
+      </div>
+
+      <!-- Section 5: Tracy's Completion Block -->
+      <div class="clerk-box">
+        <div class="clerk-header">
+          <div class="clerk-title">FILE CLERK PROCESSING (FOR TRACY USE ONLY)</div>
+          <div class="clerk-status">
+            <span>STATUS:</span>
+            <select class="clerk-select" id="clerk-status">
+              <option value="Pending" selected>Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed & Sent">Completed &amp; Sent</option>
+              <option value="On Hold">On Hold / Need Info</option>
+            </select>
+          </div>
+        </div>
+        <div class="clerk-row">
+          <div class="clerk-item">
+            <span>DATE RECEIVED:</span>
+            <input type="text" class="clerk-line" id="clerk-received" placeholder="MM/DD/YYYY">
+          </div>
+          <div class="clerk-item">
+            <span>DATE COMPLETED &amp; SENT:</span>
+            <input type="text" class="clerk-line" id="clerk-completed" placeholder="MM/DD/YYYY">
+          </div>
+          <div class="clerk-item">
+            <span>TRACY'S INITIALS:</span>
+            <input type="text" class="clerk-line clerk-initials" id="clerk-initials" placeholder="TL">
+          </div>
+          <div class="clerk-item clerk-notes-item">
+            <span>PROCESSING NOTES:</span>
+            <input type="text" class="clerk-line" id="clerk-notes" placeholder="Statement emailed to patient / filed in chart">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Initialize date of request to today
+    window.addEventListener('DOMContentLoaded', () => {
+      const today = new Date().toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric'
+      });
+      document.getElementById('meta-date').value = today;
+    });
+
+    function toggleDosSame(checkbox) {
+      const dosField = document.getElementById('p-dos');
+      const reqDate = document.getElementById('meta-date').value;
+      if (checkbox.checked) {
+        dosField.value = reqDate;
+      }
+    }
+
+    function toggleCardOther() {
+      const otherRadio = document.querySelector('input[name="cardType"][value="Other"]');
+      const otherInput = document.getElementById('card-other-input');
+      if (otherRadio.checked) {
+        otherInput.style.display = '';
+        otherInput.focus();
+      } else {
+        otherInput.style.display = 'none';
+      }
+    }
+
+    function resetForm() {
+      if (confirm('Clear this request form?')) {
+        document.getElementById('request-form').reset();
+        const today = new Date().toLocaleDateString('en-US', {
+          month: '2-digit',
+          day: '2-digit',
+          year: 'numeric'
+        });
+        document.getElementById('meta-date').value = today;
+        document.getElementById('meta-staff').value = 'James Brentlinger';
+        document.getElementById('p-purpose').value = 'FSA / HSA Reimbursement';
+        document.getElementById('check-rx').checked = true;
+        document.getElementById('check-writeup').checked = true;
+        document.getElementById('check-receipt').checked = true;
+        document.getElementById('deliv-email').checked = true;
+        toggleCardOther();
+      }
+    }
+
+    function printFilled() {
+      document.body.classList.remove('print-blank');
+      window.print();
+    }
+
+    function printBlank() {
+      document.body.classList.add('print-blank');
+      window.print();
+      document.body.classList.remove('print-blank');
+    }
+  </script>
+</body>
+</html>
