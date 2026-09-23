@@ -119,20 +119,20 @@ export class ItemizedStatementRequestForm {
               <span>1. PATIENT DEMOGRAPHICS &amp; CONTACT INFORMATION</span>
             </div>
             <div class="form-grid">
-              <div class="form-group col-7">
+              <div class="form-group col-12">
                 <label>PATIENT FULL NAME <span class="req">*</span></label>
-                <input type="text" class="form-control font-bold" data-field="patientName" placeholder="Last, First Middle" value="${this.escapeHtml(this.state.patientName || '')}">
+                <input type="text" class="form-control font-bold" style="font-size: 1.05rem;" data-field="patientName" placeholder="Last, First Middle / Suffix" value="${this.escapeHtml(this.state.patientName || '')}">
               </div>
-              <div class="form-group col-5">
+
+              <div class="form-group col-3">
                 <label>DATE OF BIRTH (DOB) <span class="req">*</span></label>
                 <input type="text" class="form-control" data-field="patientDob" placeholder="MM/DD/YYYY" value="${this.escapeHtml(this.state.patientDob || '')}">
               </div>
-
-              <div class="form-group col-6">
+              <div class="form-group col-4">
                 <label>PATIENT PHONE NUMBER <span class="req">*</span></label>
                 <input type="tel" class="form-control" data-field="patientPhone" placeholder="(859) 000-0000" value="${this.escapeHtml(this.state.patientPhone || '')}">
               </div>
-              <div class="form-group col-6">
+              <div class="form-group col-5">
                 <label>PATIENT EMAIL ADDRESS</label>
                 <input type="email" class="form-control" data-field="patientEmail" placeholder="patient@example.com" value="${this.escapeHtml(this.state.patientEmail || '')}">
               </div>
