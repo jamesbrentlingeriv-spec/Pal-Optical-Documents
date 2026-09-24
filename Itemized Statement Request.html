@@ -531,14 +531,17 @@
     @media print {
       @page {
         size: letter portrait;
-        margin: 0.3in 0.35in;
+        margin: 0.25in;
       }
 
-      body {
+      html, body {
         background: #ffffff !important;
         padding: 0 !important;
         margin: 0 !important;
         color: #000000 !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        overflow: hidden !important;
       }
 
       .screen-toolbar, .print-hidden {
@@ -552,32 +555,52 @@
         margin: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
+        page-break-inside: avoid !important;
+        page-break-after: avoid !important;
       }
 
-      .header-divider {
-        background: #000000 !important;
-        height: 2px !important;
-        margin: 6px 0 10px !important;
+      .brand-block .brand-name {
+        font-size: 1.45rem !important;
+      }
+
+      .brand-block .brand-sub {
+        font-size: 0.72rem !important;
       }
 
       .badge-block {
         border: 1.5px solid #000000 !important;
         background: #f8fafc !important;
+        padding: 4px 10px !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
 
       .badge-block .badge-title {
         color: #000000 !important;
+        font-size: 0.85rem !important;
+      }
+
+      .badge-block .badge-attn {
+        font-size: 0.72rem !important;
+      }
+
+      .header-divider {
+        background: #000000 !important;
+        height: 2px !important;
+        margin: 4px 0 6px !important;
       }
 
       .meta-bar {
         border: 1px solid #000000 !important;
         background: #f8fafc !important;
-        padding: 5px 8px !important;
-        margin-bottom: 10px !important;
+        padding: 3px 6px !important;
+        margin-bottom: 6px !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+      }
+
+      .meta-item {
+        font-size: 0.72rem !important;
       }
 
       .meta-input {
@@ -585,28 +608,55 @@
         border-bottom: 1px solid #000000 !important;
         border-radius: 0 !important;
         background: transparent !important;
-        padding: 1px 4px !important;
+        padding: 1px 3px !important;
+        font-size: 0.78rem !important;
+      }
+
+      .meta-select {
+        border: none !important;
+        border-bottom: 1px solid #000000 !important;
+        background: transparent !important;
+        font-size: 0.78rem !important;
+        padding: 0 2px !important;
+      }
+
+      .form-grid {
+        gap: 3px 8px !important;
+      }
+
+      .form-group {
+        gap: 1px !important;
+      }
+
+      .form-group label {
+        font-size: 0.68rem !important;
+      }
+
+      .field-hint {
+        display: none !important;
       }
 
       .section-panel {
         border: 1px solid #94a3b8 !important;
-        padding: 8px 10px !important;
-        margin-bottom: 8px !important;
+        padding: 4px 8px !important;
+        margin-bottom: 5px !important;
       }
 
       .section-header {
         color: #000000 !important;
         border-bottom: 1px solid #000000 !important;
-        margin-bottom: 6px !important;
+        margin-bottom: 3px !important;
+        padding-bottom: 2px !important;
+        font-size: 0.72rem !important;
       }
 
       .form-control {
         border: none !important;
         border-bottom: 1px solid #000000 !important;
         border-radius: 0 !important;
-        padding: 2px 4px !important;
-        height: 20px !important;
-        font-size: 0.88rem !important;
+        padding: 1px 3px !important;
+        height: 18px !important;
+        font-size: 0.82rem !important;
         color: #000000 !important;
       }
 
@@ -619,10 +669,10 @@
 
       .currency-symbol {
         position: absolute !important;
-        left: 4px !important;
+        left: 3px !important;
         top: 50% !important;
         transform: translateY(-50%) !important;
-        font-size: 0.95rem !important;
+        font-size: 0.88rem !important;
         font-weight: 800 !important;
         color: #000000 !important;
         line-height: 1 !important;
@@ -632,56 +682,107 @@
       }
 
       .currency-input {
-        padding-left: 24px !important;
-        font-size: 0.95rem !important;
+        padding-left: 20px !important;
+        font-size: 0.85rem !important;
+      }
+
+      .card-types-list {
+        gap: 4px 10px !important;
+        margin-top: 1px !important;
+      }
+
+      .card-radio-item {
+        font-size: 0.75rem !important;
+      }
+
+      .delivery-options {
+        gap: 12px !important;
+        padding: 1px 0 !important;
+      }
+
+      .delivery-check {
+        font-size: 0.75rem !important;
       }
 
       .notes-box {
         border: 1px solid #000000 !important;
-        border-radius: 4px !important;
-        height: 40px !important;
+        border-radius: 3px !important;
+        height: 28px !important;
+        font-size: 0.78rem !important;
       }
 
       .disclaimer-box {
-        border: 2px solid #000000 !important;
+        border: 1.5px solid #000000 !important;
         background: #ffffff !important;
-        padding: 8px 10px !important;
-        margin-bottom: 8px !important;
+        padding: 4px 8px !important;
+        margin-bottom: 5px !important;
       }
 
       .disclaimer-head {
         color: #000000 !important;
+        font-size: 0.72rem !important;
       }
 
       .disclaimer-quote {
         color: #000000 !important;
-        font-size: 0.85rem !important;
-        margin: 4px 0 6px !important;
+        font-size: 0.75rem !important;
+        margin: 2px 0 3px !important;
+        line-height: 1.2 !important;
       }
 
       .disclaimer-checks {
         border: 1px dashed #000000 !important;
         background: #f8fafc !important;
-        padding: 5px 8px !important;
+        padding: 3px 6px !important;
+        gap: 8px !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
 
       .disclaimer-check-label {
         color: #000000 !important;
+        font-size: 0.74rem !important;
       }
 
       .clerk-box {
         border: 1.5px solid #000000 !important;
         background: #ffffff !important;
-        padding: 6px 10px !important;
-        margin-top: 6px !important;
+        padding: 4px 8px !important;
+        margin-top: 4px !important;
       }
 
       .clerk-header {
         border-bottom: 1px solid #000000 !important;
-        padding-bottom: 4px !important;
-        margin-bottom: 5px !important;
+        padding-bottom: 2px !important;
+        margin-bottom: 3px !important;
+      }
+
+      .clerk-title {
+        font-size: 0.72rem !important;
+      }
+
+      .clerk-status {
+        font-size: 0.7rem !important;
+      }
+
+      .clerk-select {
+        font-size: 0.7rem !important;
+        border: 1px solid #000 !important;
+        padding: 1px 3px !important;
+      }
+
+      .clerk-row {
+        gap: 6px !important;
+      }
+
+      .clerk-item {
+        font-size: 0.68rem !important;
+      }
+
+      .clerk-line {
+        border-bottom: 1px solid #000000 !important;
+        font-size: 0.75rem !important;
+        padding: 1px 2px !important;
       }
 
       .clerk-line {
