@@ -1481,6 +1481,32 @@
     font-size: 0.88rem !important;
   }
 
+  body.active-form-itemized-statement-request .currency-input-wrap {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  body.active-form-itemized-statement-request .currency-prefix {
+    position: absolute !important;
+    left: 4px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
+    color: #000 !important;
+    line-height: 1 !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    z-index: 2 !important;
+  }
+
+  body.active-form-itemized-statement-request .currency-input {
+    padding-left: 24px !important;
+    font-size: 0.95rem !important;
+  }
+
   body.active-form-itemized-statement-request .notes-textarea {
     border: 1px solid #000 !important;
     border-radius: 4px !important;

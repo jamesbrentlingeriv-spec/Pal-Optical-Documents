@@ -2587,18 +2587,25 @@
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .currency-prefix {
   position: absolute;
-  left: 10px;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
   font-weight: 800;
   color: #0f172a;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
 }
 
 .currency-input {
-  padding-left: 24px !important;
+  padding-left: 32px !important;
   font-size: 1.05rem !important;
 }
 

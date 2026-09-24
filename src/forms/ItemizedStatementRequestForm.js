@@ -175,7 +175,7 @@ export class ItemizedStatementRequestForm {
               <div class="form-group col-6">
                 <label>AMOUNT OF PAYMENT <span class="req">*</span></label>
                 <div class="currency-input-wrap">
-                  <span class="currency-prefix">$</span>
+                  <span class="currency-prefix" aria-hidden="true">$</span>
                   <input type="text" class="form-control currency-input font-bold" data-field="paymentAmount" placeholder="0.00" value="${this.escapeHtml(this.state.paymentAmount || '')}">
                 </div>
                 <span class="field-hint">Total dollar amount charged / paid by patient</span>
@@ -341,6 +341,9 @@ export class ItemizedStatementRequestForm {
     form.addEventListener('input', (e) => {
       const field = e.target.getAttribute('data-field');
       if (field) {
+        if (field === 'paymentAmount' && typeof e.target.value === 'string' && e.target.value.startsWith('$')) {
+          e.target.value = e.target.value.replace(/^\$+/, '').trim();
+        }
         this.state[field] = e.target.value;
         this.onStateChange(this.state);
       }
