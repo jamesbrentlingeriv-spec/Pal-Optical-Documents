@@ -1330,8 +1330,20 @@
   body.active-form-itemized-receipt .col-action,
   body.active-form-itemized-receipt .ir-pmt-action,
   body.active-form-itemized-receipt .ir-table-actions,
-  body.active-form-itemized-receipt .ir-add-line-btn {
+  body.active-form-itemized-receipt .ir-add-line-btn,
+  body.active-form-itemized-receipt .ir-row-action-group,
+  body.active-form-itemized-receipt .ir-row-btn,
+  body.active-form-itemized-receipt .ir-disc-pill {
     display: none !important;
+  }
+
+  body.active-form-itemized-receipt .ir-discount-row {
+    background: transparent !important;
+  }
+
+  body.active-form-itemized-receipt .ir-disc-amt {
+    color: #000 !important;
+    font-weight: normal !important;
   }
 
   body.active-form-itemized-receipt .ir-table {

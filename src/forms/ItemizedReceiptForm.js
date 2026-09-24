@@ -149,6 +149,10 @@ export class ItemizedReceiptForm {
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               + Add Line
             </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="ir-btn-add-line-disc" title="Add a discount line to transactions table">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+              + Add Line Discount
+            </button>
             <button type="button" class="btn btn-secondary btn-sm" id="ir-btn-add-discount">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
               + Add Insurance Discount
@@ -262,6 +266,10 @@ export class ItemizedReceiptForm {
               <button type="button" class="ir-add-line-btn" id="ir-btn-add-line-table">
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 + Add Line
+              </button>
+              <button type="button" class="ir-add-line-btn ir-add-disc-table-btn" id="ir-btn-add-disc-table" title="Add a discount line to transactions table">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+                + Add Discount Line
               </button>
               <button type="button" class="ir-add-line-btn ir-add-discount-btn" id="ir-btn-add-discount-table">
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -437,31 +445,48 @@ export class ItemizedReceiptForm {
         return this.state.items
             .map((item, idx) => {
             const desc = String(item.description || '').toLowerCase();
-            const isDiscount = desc.includes('discount') ||
+            const isDiscount = Boolean(item.isDiscount) ||
+                desc.includes('discount') ||
                 desc.includes('ins') ||
                 desc.includes('allowance') ||
                 desc.includes('adjustment') ||
                 desc.includes('write-off') ||
+                desc.includes('coupon') ||
+                desc.includes('promo') ||
                 (typeof item.amount === 'number' && item.amount < 0) ||
                 String(item.amount).includes('-') ||
                 String(item.amount).includes('(');
-            const rawAmount = String(item.amount).replace(/[()$,]/g, '').trim();
-            const amtDisplay = isDiscount && rawAmount ? `(${Math.abs(parseFloat(rawAmount) || 0).toFixed(2)})` : rawAmount;
+            const rawAmount = String(item.amount || '').replace(/[()$,]/g, '').trim();
+            const amtNum = parseFloat(rawAmount) || 0;
+            const amtDisplay = rawAmount === '' ? '' : (isDiscount ? `(${amtNum.toFixed(2)})` : amtNum.toFixed(2));
             return `
-          <tr class="ir-table-row" data-id="${item.id}" data-index="${idx}">
+          <tr class="ir-table-row ${isDiscount ? 'ir-discount-row' : ''}" data-id="${item.id}" data-index="${idx}">
             <td class="col-dos"><input type="text" class="ir-table-input ir-item-field" data-item-field="dateOfService" value="${this.escapeHtml(item.dateOfService)}"></td>
             <td class="col-ord"><input type="text" class="ir-table-input ir-item-field text-center" data-item-field="ordNumber" value="${this.escapeHtml(item.ordNumber)}"></td>
             <td class="col-sku"><input type="text" class="ir-table-input ir-item-field text-center" data-item-field="sku" value="${this.escapeHtml(item.sku)}"></td>
             <td class="col-qty"><input type="text" class="ir-table-input ir-item-field text-center" data-item-field="qty" value="${this.escapeHtml(item.qty)}"></td>
-            <td class="col-desc"><input type="text" class="ir-table-input ir-item-field uppercase" data-item-field="description" value="${this.escapeHtml(item.description)}"></td>
+            <td class="col-desc">
+              <div class="ir-desc-cell-wrap">
+                ${isDiscount ? `<span class="ir-disc-pill print:hidden" data-action="toggle-discount" data-index="${idx}" title="Discount line (click to toggle)">DISC</span>` : ''}
+                <input type="text" class="ir-table-input ir-item-field uppercase ${isDiscount ? 'ir-disc-desc' : ''}" data-item-field="description" value="${this.escapeHtml(item.description)}" placeholder="${isDiscount ? 'Discount Description' : 'Item Description'}">
+              </div>
+            </td>
             <td class="col-cpt"><input type="text" class="ir-table-input ir-item-field text-center" data-item-field="cpt" value="${this.escapeHtml(item.cpt)}"></td>
             <td class="col-diag"><input type="text" class="ir-table-input ir-item-field text-center" data-item-field="diagnosis" value="${this.escapeHtml(item.diagnosis)}"></td>
-            <td class="col-amt"><input type="text" class="ir-table-input ir-item-field text-right" data-item-field="amount" value="${this.escapeHtml(amtDisplay)}"></td>
+            <td class="col-amt"><input type="text" class="ir-table-input ir-item-field text-right ${isDiscount ? 'ir-disc-amt' : ''}" data-item-field="amount" value="${this.escapeHtml(amtDisplay)}" placeholder="${isDiscount ? '(0.00)' : '0.00'}"></td>
             <td class="col-patbal"><input type="text" class="ir-table-input ir-item-field text-right" data-item-field="patientBalance" value="${this.escapeHtml(item.patientBalance)}"></td>
             <td class="col-action print:hidden">
-              <button type="button" class="ir-row-delete-btn" title="Remove Row" data-action="delete-item" data-index="${idx}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              </button>
+              <div class="ir-row-action-group">
+                <button type="button" class="ir-row-btn ir-btn-add-disc" title="Add Discount underneath this item" data-action="add-discount-below" data-index="${idx}">
+                  +Disc
+                </button>
+                <button type="button" class="ir-row-btn ir-btn-add-line" title="Add Line below" data-action="add-item-below" data-index="${idx}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                <button type="button" class="ir-row-btn ir-btn-delete" title="Remove Row" data-action="delete-item" data-index="${idx}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
             </td>
           </tr>
         `;
@@ -532,6 +557,10 @@ export class ItemizedReceiptForm {
         if (btnAddDiscount) {
             btnAddDiscount.addEventListener('click', () => this.addInsuranceDiscount(true));
         }
+        const btnAddLineDisc = this.container.querySelector('#ir-btn-add-line-disc');
+        if (btnAddLineDisc) {
+            btnAddLineDisc.addEventListener('click', () => this.addDiscountRow(-1, true));
+        }
         const btnAddPayment = this.container.querySelector('#ir-btn-add-payment');
         if (btnAddPayment) {
             btnAddPayment.addEventListener('click', () => this.addPaymentRow(true));
@@ -539,6 +568,10 @@ export class ItemizedReceiptForm {
         const btnAddLineTable = this.container.querySelector('#ir-btn-add-line-table');
         if (btnAddLineTable) {
             btnAddLineTable.addEventListener('click', () => this.addItemRow(true));
+        }
+        const btnAddDiscTable = this.container.querySelector('#ir-btn-add-disc-table');
+        if (btnAddDiscTable) {
+            btnAddDiscTable.addEventListener('click', () => this.addDiscountRow(-1, true));
         }
         const btnAddDiscountTable = this.container.querySelector('#ir-btn-add-discount-table');
         if (btnAddDiscountTable) {
@@ -559,7 +592,7 @@ export class ItemizedReceiptForm {
                 this.calculateTotals(true);
             });
         }
-        // Keyboard support: Pressing Enter on row inputs to add next line
+        // Keyboard support: Pressing Enter on row inputs to add next line; Shift+Enter for discount line
         this.container.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 const target = e.target;
@@ -567,10 +600,16 @@ export class ItemizedReceiptForm {
                     return;
                 if (target.hasAttribute('data-item-field')) {
                     const row = target.closest('tr');
-                    const isLastRow = row && !row.nextElementSibling;
-                    if (isLastRow) {
+                    const idx = row ? parseInt(row.getAttribute('data-index') || '-1', 10) : -1;
+                    if (e.shiftKey) {
                         e.preventDefault();
-                        this.addItemRow(true);
+                        this.addDiscountRow(idx, true);
+                    } else {
+                        const isLastRow = row && !row.nextElementSibling;
+                        if (isLastRow) {
+                            e.preventDefault();
+                            this.addItemRow(true);
+                        }
                     }
                 }
             }
@@ -658,6 +697,12 @@ export class ItemizedReceiptForm {
                 const idx = row ? parseInt(row.getAttribute('data-index') || '-1', 10) : -1;
                 if (idx >= 0 && this.state.items[idx]) {
                     this.state.items[idx][itemField] = target.value;
+                    if (itemField === 'description') {
+                        const low = target.value.toLowerCase();
+                        if (low.includes('discount') || low.includes('allowance') || low.includes('coupon') || low.includes('write-off') || low.includes('promo')) {
+                            this.state.items[idx].isDiscount = true;
+                        }
+                    }
                     this.calculateTotals(true);
                 }
                 return;
@@ -691,15 +736,62 @@ export class ItemizedReceiptForm {
             }
             else if (target.hasAttribute('data-item-field') && target.getAttribute('data-item-field') === 'amount') {
                 const row = target.closest('tr');
+                const idx = row ? parseInt(row.getAttribute('data-index') || '-1', 10) : -1;
+                const item = idx >= 0 ? this.state.items[idx] : null;
                 const descInput = row ? row.querySelector('input[data-item-field="description"]') : null;
-                const desc = descInput ? descInput.value.toLowerCase() : '';
-                const isDiscount = desc.includes('discount') || desc.includes('ins') || desc.includes('allowance') || desc.includes('write-off');
-                const raw = target.value.replace(/[()$,]/g, '').trim();
-                const num = parseFloat(raw);
-                if (!isNaN(num)) {
-                    target.value = isDiscount || target.value.includes('-') || target.value.includes('(')
-                        ? `(${Math.abs(num).toFixed(2)})`
-                        : num.toFixed(2);
+                let desc = descInput ? descInput.value.toLowerCase() : '';
+                let raw = target.value.trim();
+
+                // Percentage support e.g. "20%" or "15%"
+                if (raw.includes('%')) {
+                    const pctVal = parseFloat(raw.replace(/[%]/g, '').trim());
+                    if (!isNaN(pctVal)) {
+                        let parentAmt = 0;
+                        let prevIdx = idx - 1;
+                        while (prevIdx >= 0) {
+                            const prev = this.state.items[prevIdx];
+                            const prevDesc = String(prev.description || '').toLowerCase();
+                            if (!prev.isDiscount && !prevDesc.includes('discount')) {
+                                parentAmt = Math.abs(parseFloat(String(prev.amount).replace(/[()$,]/g, '')) || 0);
+                                break;
+                            }
+                            prevIdx--;
+                        }
+                        const discAmt = parentAmt > 0 ? Math.round(parentAmt * (pctVal / 100) * 100) / 100 : 0;
+                        raw = discAmt.toFixed(2);
+                        if (item) {
+                            item.isDiscount = true;
+                            if (descInput && (!descInput.value || descInput.value.trim().toLowerCase() === 'discount')) {
+                                const parentName = prevIdx >= 0 && this.state.items[prevIdx].description ? this.state.items[prevIdx].description : '';
+                                const newDesc = `${pctVal}% ${parentName ? parentName + ' ' : ''}Discount`.trim();
+                                descInput.value = newDesc;
+                                item.description = newDesc;
+                                desc = newDesc.toLowerCase();
+                            }
+                        }
+                    }
+                }
+
+                const isDiscount = (item && Boolean(item.isDiscount)) ||
+                    desc.includes('discount') ||
+                    desc.includes('ins') ||
+                    desc.includes('allowance') ||
+                    desc.includes('write-off') ||
+                    desc.includes('coupon') ||
+                    desc.includes('promo') ||
+                    raw.includes('-') ||
+                    raw.includes('(');
+
+                const cleanNum = parseFloat(raw.replace(/[()$,]/g, '').trim());
+                if (!isNaN(cleanNum)) {
+                    if (isDiscount) {
+                        if (item) item.isDiscount = true;
+                        target.value = `(${Math.abs(cleanNum).toFixed(2)})`;
+                        if (item) item.amount = target.value;
+                    } else {
+                        target.value = cleanNum.toFixed(2);
+                        if (item) item.amount = target.value;
+                    }
                 }
                 this.calculateTotals(true);
             }
@@ -720,9 +812,9 @@ export class ItemizedReceiptForm {
                 this.calculateTotals(true);
             }
         });
-        // Click actions (delete rows)
+        // Click actions (delete rows, add discount below, add item below, toggle discount)
         this.container.addEventListener('click', (e) => {
-            const target = e.target.closest('button');
+            const target = e.target.closest('button, [data-action]');
             if (!target)
                 return;
             const action = target.getAttribute('data-action');
@@ -733,6 +825,18 @@ export class ItemizedReceiptForm {
                     this.refreshItemsTable();
                     this.calculateTotals(true);
                 }
+            }
+            else if (action === 'add-discount-below') {
+                const idx = parseInt(target.getAttribute('data-index') || '-1', 10);
+                this.addDiscountRow(idx, true);
+            }
+            else if (action === 'add-item-below') {
+                const idx = parseInt(target.getAttribute('data-index') || '-1', 10);
+                this.addItemRow(true, idx + 1);
+            }
+            else if (action === 'toggle-discount') {
+                const idx = parseInt(target.getAttribute('data-index') || '-1', 10);
+                this.toggleItemDiscount(idx);
             }
             else if (action === 'delete-payment') {
                 const idx = parseInt(target.getAttribute('data-index') || '-1', 10);
@@ -770,10 +874,10 @@ export class ItemizedReceiptForm {
             pmtBody.innerHTML = this.renderPaymentRows();
         }
     }
-    addItemRow(focus = true) {
+    addItemRow(focus = true, insertIndex = -1) {
         const today = new Date().toLocaleDateString('en-US');
         const newId = 'item-' + Date.now();
-        this.state.items.push({
+        const newItem = {
             id: newId,
             dateOfService: today,
             ordNumber: '0',
@@ -783,19 +887,97 @@ export class ItemizedReceiptForm {
             cpt: '',
             diagnosis: '',
             amount: '0.00',
-            patientBalance: ''
-        });
+            patientBalance: '',
+            isDiscount: false
+        };
+        if (insertIndex >= 0 && insertIndex <= this.state.items.length) {
+            this.state.items.splice(insertIndex, 0, newItem);
+        } else {
+            this.state.items.push(newItem);
+        }
         this.refreshItemsTable();
         this.calculateTotals(true);
         if (focus) {
             setTimeout(() => {
-                const lastRow = this.container.querySelector(`tr[data-id="${newId}"]`);
-                if (lastRow) {
-                    const descInput = lastRow.querySelector('input[data-item-field="description"]');
+                const targetRow = this.container.querySelector(`tr[data-id="${newId}"]`);
+                if (targetRow) {
+                    const descInput = targetRow.querySelector('input[data-item-field="description"]');
                     if (descInput)
                         descInput.focus();
                 }
             }, 50);
+        }
+    }
+    addDiscountRow(parentIndex = -1, focus = true) {
+        const today = new Date().toLocaleDateString('en-US');
+        const newId = 'item-disc-' + Date.now();
+        let targetIndex = this.state.items.length;
+        let dos = today;
+        let desc = 'Discount';
+        let parentItemId = undefined;
+
+        if (parentIndex >= 0 && parentIndex < this.state.items.length) {
+            const parent = this.state.items[parentIndex];
+            parentItemId = parent.id;
+            dos = parent.dateOfService || today;
+            const parentDesc = String(parent.description || '').trim();
+            if (parentDesc) {
+                desc = `${parentDesc} Discount`;
+            }
+            targetIndex = parentIndex + 1;
+        } else if (this.state.items.length > 0) {
+            const last = this.state.items[this.state.items.length - 1];
+            dos = last.dateOfService || today;
+            const lastDesc = String(last.description || '').trim();
+            if (lastDesc && !last.isDiscount) {
+                desc = `${lastDesc} Discount`;
+                parentItemId = last.id;
+            }
+        }
+
+        const newDiscItem = {
+            id: newId,
+            dateOfService: dos,
+            ordNumber: '',
+            sku: '',
+            qty: '',
+            description: desc,
+            cpt: '',
+            diagnosis: '',
+            amount: '',
+            patientBalance: '',
+            isDiscount: true,
+            parentItemId
+        };
+
+        this.state.items.splice(targetIndex, 0, newDiscItem);
+        this.refreshItemsTable();
+        this.calculateTotals(true);
+
+        if (focus) {
+            setTimeout(() => {
+                const row = this.container.querySelector(`tr[data-id="${newId}"]`);
+                if (row) {
+                    const amtInput = row.querySelector('input[data-item-field="amount"]');
+                    if (amtInput) {
+                        amtInput.focus();
+                        amtInput.select();
+                    }
+                }
+            }, 50);
+        }
+    }
+    toggleItemDiscount(index) {
+        if (index >= 0 && index < this.state.items.length) {
+            const item = this.state.items[index];
+            item.isDiscount = !Boolean(item.isDiscount);
+            const raw = String(item.amount || '').replace(/[()$,]/g, '').trim();
+            const num = parseFloat(raw);
+            if (!isNaN(num) && num !== 0) {
+                item.amount = item.isDiscount ? `(${Math.abs(num).toFixed(2)})` : Math.abs(num).toFixed(2);
+            }
+            this.refreshItemsTable();
+            this.calculateTotals(true);
         }
     }
     addPaymentRow(focus = true) {
@@ -871,17 +1053,21 @@ export class ItemizedReceiptForm {
             const raw = String(item.amount || '').replace(/[()$,]/g, '').trim();
             const val = parseFloat(raw) || 0;
             // Identify discount items in the table
-            if (desc.includes('discount') ||
+            const isDisc = Boolean(item.isDiscount) ||
+                desc.includes('discount') ||
                 desc.includes('ins') ||
                 desc.includes('allowance') ||
                 desc.includes('adjustment') ||
                 desc.includes('write-off') ||
+                desc.includes('coupon') ||
+                desc.includes('promo') ||
                 String(item.amount).includes('-') ||
-                String(item.amount).includes('(')) {
+                String(item.amount).includes('(');
+            if (isDisc) {
                 itemDiscounts += Math.abs(val);
             }
             else {
-                grossCharges += val;
+                grossCharges += Math.max(0, val);
             }
         });
         // Subtotal of line items before insurance discount

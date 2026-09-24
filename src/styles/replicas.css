@@ -1982,7 +1982,7 @@
 .col-diag { width: 70px; text-align: center; }
 .col-amt { width: 75px; text-align: right; }
 .col-patbal { width: 70px; text-align: right; }
-.col-action { width: 25px; text-align: center; }
+.col-action { width: 82px; text-align: center; }
 
 .ir-table-input {
   width: 100%;
@@ -2022,6 +2022,126 @@
 .ir-row-delete-btn:hover {
   color: #ef4444;
   background: #fee2e2;
+}
+
+/* Action Button Group per Row */
+.ir-row-action-group {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.ir-row-btn {
+  background: none;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  cursor: pointer;
+  padding: 2px 4px;
+  font-size: 7pt;
+  line-height: 1;
+  border-radius: 3px;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.ir-row-btn:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+.ir-btn-add-disc {
+  color: #6d28d9;
+  background-color: #f5f3ff;
+  border-color: #ddd6fe;
+  font-weight: 700;
+  padding: 2px 5px;
+}
+
+.ir-btn-add-disc:hover {
+  background-color: #ede9fe;
+  border-color: #c4b5fd;
+  color: #5b21b6;
+}
+
+.ir-btn-add-line {
+  color: #0284c7;
+  background-color: #f0f9ff;
+  border-color: #bae6fd;
+  padding: 2px 4px;
+}
+
+.ir-btn-add-line:hover {
+  background-color: #e0f2fe;
+  border-color: #7dd3fc;
+  color: #0369a1;
+}
+
+.ir-btn-delete {
+  color: #94a3b8;
+  border-color: transparent;
+  padding: 2px 3px;
+}
+
+.ir-btn-delete:hover {
+  color: #ef4444;
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+}
+
+/* Line-by-Line Discount Row Styles */
+.ir-discount-row {
+  background-color: #fcfaff;
+}
+
+.ir-desc-cell-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.ir-disc-pill {
+  font-size: 6.5pt;
+  font-weight: 800;
+  color: #6d28d9;
+  background-color: #ede9fe;
+  border: 1px solid #ddd6fe;
+  border-radius: 2px;
+  padding: 1px 3px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.ir-disc-pill:hover {
+  background-color: #ddd6fe;
+}
+
+.ir-disc-desc {
+  font-style: italic;
+  color: #334155;
+}
+
+.ir-disc-amt {
+  font-weight: 600;
+  color: #991b1b;
+}
+
+.ir-add-disc-table-btn {
+  color: #6d28d9;
+  border-color: #8b5cf6;
+  background-color: #faf5ff;
+}
+
+.ir-add-disc-table-btn:hover {
+  background-color: #ede9fe;
 }
 
 .ir-table-actions {
