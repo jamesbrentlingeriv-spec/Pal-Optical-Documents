@@ -132,6 +132,13 @@
     color: transparent !important;
     -webkit-text-fill-color: transparent !important; /* Safari support */
   }
+
+  .print-blank-active input::placeholder,
+  .print-blank-active textarea::placeholder,
+  .print-blank-active .form-control::placeholder {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+  }
   
   .print-blank-active input[type="checkbox"],
   .print-blank-active input[type="radio"],
@@ -149,6 +156,7 @@
     background-color: transparent !important;
     background-image: none !important;
     color: transparent !important;
+    accent-color: transparent !important;
   }
 
   /* Scoped print styles for CMS-1500: Print ONLY the typed text overlaid on cms1500print.png background */
@@ -546,252 +554,335 @@
     font-size: 8pt !important;
   }
 
-  /* Scoped print overrides for DrSideNewPatient form — aggressively condense to fit 2 pages */
+  /* Scoped print overrides for DrSideNewPatient form — calibrated for exactly 2 pages (front & back) */
   body.active-form-dr-side-patient .form-card {
-    padding: 0.05in !important;
+    padding: 0.25in 0.35in !important;
     margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
     min-height: auto !important;
     page-break-after: auto !important;
-  }
-
-  body.active-form-dr-side-patient .form-section {
-    margin-bottom: 1px !important;
-    padding-bottom: 0px !important;
-    page-break-inside: avoid !important;
+    box-sizing: border-box !important;
   }
 
   body.active-form-dr-side-patient .form-header-block {
-    margin-bottom: 2px !important;
-    padding-bottom: 1px !important;
+    margin-bottom: 8px !important;
+    padding-bottom: 4px !important;
+    border-bottom: 2px solid #000 !important;
   }
 
   body.active-form-dr-side-patient .form-header-block h2 {
-    font-size: 0.75rem !important;
-    margin-bottom: 0px !important;
-    line-height: 1.1 !important;
+    font-size: 13pt !important;
+    font-weight: 800 !important;
+    margin-bottom: 2px !important;
+    line-height: 1.15 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
   }
 
   body.active-form-dr-side-patient .form-header-block p {
-    font-size: 0.45rem !important;
+    font-size: 7.5pt !important;
     margin: 0 !important;
-    line-height: 1.1 !important;
+    line-height: 1.2 !important;
+    color: #333 !important;
+  }
+
+  body.active-form-dr-side-patient .top-dates-grid {
+    margin-bottom: 8px !important;
+  }
+
+  body.active-form-dr-side-patient .form-section {
+    margin-bottom: 8px !important;
+    padding-bottom: 0px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   body.active-form-dr-side-patient .form-section-title {
-    font-size: 0.5rem !important;
-    margin-bottom: 1px !important;
-    padding-bottom: 0px !important;
-    border-bottom: none !important;
+    font-size: 8.8pt !important;
+    font-weight: 700 !important;
+    margin-bottom: 6px !important;
+    padding-bottom: 2px !important;
+    border-bottom: 1.2px solid #000 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.4px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
   }
 
   body.active-form-dr-side-patient .form-section-title svg {
-    display: none !important; /* Hide SVGs to save vertical space */
+    display: inline-block !important;
+    width: 12px !important;
+    height: 12px !important;
   }
 
   body.active-form-dr-side-patient .form-grid {
-    gap: 1px 2px !important;
+    gap: 5px 10px !important;
   }
 
   body.active-form-dr-side-patient .form-group {
-    margin-bottom: 0px !important;
+    margin-bottom: 2px !important;
     padding: 0 !important;
   }
 
   body.active-form-dr-side-patient label {
-    font-size: 4.8pt !important;
-    margin-bottom: 0px !important;
-    line-height: 1.0 !important;
-    display: block !important;
+    font-size: 7pt !important;
+    font-weight: 600 !important;
+    margin-bottom: 1px !important;
+    line-height: 1.1 !important;
+    color: #111 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.2px !important;
   }
 
   body.active-form-dr-side-patient .form-control {
-    height: 11px !important;
-    font-size: 5pt !important;
-    padding: 0px 1px !important;
-    line-height: 1.0 !important;
+    height: 18px !important;
+    font-size: 8.5pt !important;
+    padding: 0px 4px !important;
+    line-height: 18px !important;
+    border: none !important;
+    border-bottom: 1px solid #333 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
   }
 
   body.active-form-dr-side-patient textarea.form-control {
-    height: 15px !important;
-    font-size: 5pt !important;
-    line-height: 1.0 !important;
+    height: 32px !important;
+    font-size: 7.8pt !important;
+    line-height: 1.2 !important;
+    border: 1px solid #444 !important;
+    border-radius: 3px !important;
+    padding: 3px 5px !important;
+    resize: none !important;
   }
 
   body.active-form-dr-side-patient p,
-  body.active-form-dr-side-patient .dilation-text,
-  body.active-form-dr-side-patient .checkbox-grid label {
-    font-size: 4.8pt !important;
-    line-height: 1.05 !important;
-    margin-bottom: 0px !important;
+  body.active-form-dr-side-patient .dilation-text {
+    font-size: 7.2pt !important;
+    line-height: 1.2 !important;
+    margin-bottom: 3px !important;
   }
 
   body.active-form-dr-side-patient strong {
-    font-size: 4.8pt !important;
+    font-size: inherit !important;
+    font-weight: 700 !important;
   }
 
   body.active-form-dr-side-patient .checkbox-grid {
-    gap: 0px 2px !important;
+    gap: 3px 6px !important;
   }
 
-  body.active-form-dr-side-patient .checkbox-label {
-    font-size: 4.8pt !important;
-  }
-
+  body.active-form-dr-side-patient .checkbox-label,
   body.active-form-dr-side-patient .radio-label {
-    font-size: 4.8pt !important;
-  }
-
-  body.active-form-dr-side-patient .signature-canvas-wrapper {
-    height: 25px !important;
-  }
-
-  /* Override inline styling on gender block */
-  body.active-form-dr-side-patient div[style*="margin-top: 10px"] {
-    margin-top: 1px !important;
-    gap: 6px !important;
-  }
-
-  /* Override inline styling on marital status block */
-  body.active-form-dr-side-patient div[style*="margin-top: 6px"] {
-    margin-top: 1px !important;
+    font-size: 7.2pt !important;
+    font-weight: 500 !important;
     gap: 4px !important;
+    cursor: default !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
   }
 
-  /* Override inline styling on State/Zip/Phone wrapper */
-  body.active-form-dr-side-patient div[style*="gap: 12px"] {
-    gap: 4px !important;
+  body.active-form-dr-side-patient input[type="checkbox"],
+  body.active-form-dr-side-patient input[type="radio"] {
+    width: 10px !important;
+    height: 10px !important;
+    margin: 0 !important;
+    accent-color: #000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  /* Override inline styling on social profile grid */
-  body.active-form-dr-side-patient div[style*="gap: 20px"] {
-    gap: 1px 6px !important;
-    margin-top: 1px !important;
+  body.active-form-dr-side-patient .gender-radio-group {
+    margin-top: 4px !important;
+    gap: 12px !important;
   }
 
-  /* Override inline styling on illegal drugs block border and padding */
-  body.active-form-dr-side-patient div[style*="padding-bottom: 12px"] {
-    padding-bottom: 1px !important;
-    margin-bottom: 1px !important;
+  body.active-form-dr-side-patient .social-health-group {
+    gap: 6px 14px !important;
+    margin-top: 2px !important;
   }
 
-  /* Override inline styling on drug list input */
+  body.active-form-dr-side-patient .illegal-drugs-group {
+    padding-bottom: 4px !important;
+    margin-bottom: 4px !important;
+    border-bottom: 1px solid #ddd !important;
+    font-size: 7.2pt !important;
+  }
+
   body.active-form-dr-side-patient #ds-drugs-list {
-    width: 140px !important;
-    height: 11px !important;
-    margin-left: 2px !important;
-    padding: 0px 2px !important;
+    width: 220px !important;
+    height: 16px !important;
+    margin-left: 4px !important;
+    padding: 0 4px !important;
+    display: inline-block !important;
   }
 
-  /* Override inline styling on diabetes and allergy section boundaries */
-  body.active-form-dr-side-patient div[style*="border-top: 1px solid var(--border-color)"] {
-    padding-top: 1px !important;
-    margin-top: 1px !important;
+  body.active-form-dr-side-patient .diabetes-row,
+  body.active-form-dr-side-patient .allergy-row {
+    padding-top: 4px !important;
+    margin-top: 4px !important;
+    font-size: 7.2pt !important;
   }
 
-  /* Override inline styling on A1c input */
   body.active-form-dr-side-patient #ds-a1c {
-    width: 40px !important;
-    height: 11px !important;
-    padding: 0px 2px !important;
+    width: 60px !important;
+    height: 16px !important;
+    padding: 0 4px !important;
+    display: inline-block !important;
   }
 
-  /* Override inline styling on med allergy input */
   body.active-form-dr-side-patient #ds-med-allergy-list {
-    width: 150px !important;
-    height: 11px !important;
-    margin-left: 2px !important;
-    padding: 0px 2px !important;
+    width: 240px !important;
+    height: 16px !important;
+    margin-left: 4px !important;
+    padding: 0 4px !important;
+    display: inline-block !important;
   }
 
-  /* Override inline styling on dilation preference banner */
-  body.active-form-dr-side-patient .form-section[style*="background-color: var(--primary-light)"] {
-    padding: 4px !important;
-    margin-top: 2px !important;
+  /* Section 3: Pupil Dilation Preference Box on Page 1 */
+  body.active-form-dr-side-patient .dr-side-dilation-box {
+    background-color: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 5px !important;
+    padding: 7px 12px !important;
+    margin-top: 6px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  body.active-form-dr-side-patient .form-section[style*="background-color: var(--primary-light)"] div[style*="font-weight: 800"] {
-    font-size: 5.5pt !important;
-    margin-bottom: 1px !important;
-  }
-
-  body.active-form-dr-side-patient .form-section[style*="background-color: var(--primary-light)"] p {
-    font-size: 4.8pt !important;
-    line-height: 1.05 !important;
-    margin-bottom: 2px !important;
-  }
-
-  body.active-form-dr-side-patient .form-section[style*="background-color: var(--primary-light)"] div[style*="flex-direction: column"] {
-    gap: 1px !important;
-  }
-
-  body.active-form-dr-side-patient .form-section[style*="background-color: var(--primary-light)"] div[style*="padding-left: 24px"] {
-    padding-left: 8px !important;
-    font-size: 4.5pt !important;
-    line-height: 1.05 !important;
-    margin-bottom: 1px !important;
-  }
-
-  /* Override inline style on Ocular history section top margin */
-  body.active-form-dr-side-patient .form-section[style*="margin-top: 24px"] {
-    margin-top: 2px !important;
-  }
-
-  /* Override inline style on Family history wrapper */
-  body.active-form-dr-side-patient div[style*="padding: 12px"] {
-    padding: 3px !important;
-    margin-bottom: 1px !important;
-  }
-
-  body.active-form-dr-side-patient div[style*="grid-template-columns: 3fr 1fr 8fr; gap: 8px; font-weight: 800"] {
-    gap: 2px !important;
-    padding-bottom: 1px !important;
-    margin-bottom: 1px !important;
-  }
-
-  body.active-form-dr-side-patient div[style*="font-size: 0.55rem; color: var(--text-light)"] {
-    margin-bottom: 2px !important;
-    padding-bottom: 2px !important;
-    line-height: 1.05 !important;
-  }
-
-  /* Override inline styles for Family History Grid in print */
-  body.active-form-dr-side-patient div[style*="grid-template-columns: 3fr 1fr 8fr; gap: 8px; align-items: center"] {
-    gap: 1px 3px !important;
-    padding: 1px 0 !important;
-    font-size: 4.8pt !important;
-  }
-
-  body.active-form-dr-side-patient div[style*="grid-template-columns: 3fr 1fr 8fr; gap: 8px; align-items: center"] div {
-    font-size: 4.8pt !important;
-  }
-
-  body.active-form-dr-side-patient div[style*="grid-template-columns: 3fr 1fr 8fr; gap: 8px; align-items: center"] label {
-    font-size: 4.5pt !important;
-    gap: 1px !important;
-    margin-bottom: 0px !important;
-  }
-
-  body.active-form-dr-side-patient div[style*="flex-wrap: wrap; gap: 8px"] {
-    gap: 1px 3px !important;
-  }
-
-  /* Override HIPAA statement card padding and margins */
-  body.active-form-dr-side-patient div[style*="padding: 16px; font-size: 0.8rem"] {
-    padding: 3px 5px !important;
-    font-size: 4.8pt !important;
-    line-height: 1.1 !important;
+  body.active-form-dr-side-patient .dr-side-dilation-box div[style*="font-weight: 800"] {
+    font-size: 8pt !important;
     margin-bottom: 3px !important;
+  }
+
+  body.active-form-dr-side-patient .dr-side-dilation-box p {
+    font-size: 6.8pt !important;
+    line-height: 1.25 !important;
+    margin-bottom: 4px !important;
+  }
+
+  body.active-form-dr-side-patient .dr-side-dilation-box .dilation-subtext {
+    padding-left: 18px !important;
+    font-size: 6.5pt !important;
+    line-height: 1.15 !important;
+    margin-bottom: 3px !important;
+  }
+
+  /* Page 2 Break and Page 2 Header */
+  body.active-form-dr-side-patient .dr-side-page-2-start {
+    page-break-before: always !important;
+    break-before: page !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  body.active-form-dr-side-patient .dr-side-page-2-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border-bottom: 1.5px solid #000 !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 8px !important;
+  }
+
+  body.active-form-dr-side-patient .dr-side-p2-title {
+    font-size: 10pt !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.4px !important;
+  }
+
+  body.active-form-dr-side-patient .dr-side-p2-subtitle {
+    font-size: 7.5pt !important;
+    color: #444 !important;
+  }
+
+  /* Family History Table (12 rows, Page 2) */
+  body.active-form-dr-side-patient .fam-history-container {
+    padding: 4px 8px !important;
+    margin-bottom: 6px !important;
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
     border-radius: 4px !important;
   }
 
-  /* Override hardcoded signature date margin */
-  body.active-form-dr-side-patient #ds-sig-date {
-    margin-top: 0px !important;
+  body.active-form-dr-side-patient .fam-table-header {
+    display: grid !important;
+    grid-template-columns: 140px 48px 1fr !important;
+    gap: 8px !important;
+    font-size: 6.8pt !important;
+    font-weight: 800 !important;
+    border-bottom: 1.5px solid #000 !important;
+    padding-bottom: 2px !important;
+    margin-bottom: 2px !important;
+    text-transform: uppercase !important;
   }
 
-  /* Force page breaks for logical front/back split */
-  body.active-form-dr-side-patient .form-section:nth-of-type(4) {
-    page-break-before: always;
+  body.active-form-dr-side-patient .fam-key-note {
+    font-size: 6pt !important;
+    line-height: 1.15 !important;
+    margin-bottom: 3px !important;
+    padding-bottom: 2px !important;
+    color: #444 !important;
+  }
+
+  body.active-form-dr-side-patient .fam-grid-row {
+    display: grid !important;
+    grid-template-columns: 140px 48px 1fr !important;
+    gap: 8px !important;
+    align-items: center !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 2.5px 0 !important;
+    font-size: 6.8pt !important;
+  }
+
+  body.active-form-dr-side-patient .fam-cond-name {
+    font-size: 6.8pt !important;
+    font-weight: 600 !important;
+    line-height: 1.1 !important;
+  }
+
+  body.active-form-dr-side-patient .fam-members-col {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    gap: 4px !important;
+  }
+
+  body.active-form-dr-side-patient .fam-cb-label {
+    font-size: 6.4pt !important;
+    gap: 2px !important;
+    margin-bottom: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  /* Section VII: HIPAA & Signatures */
+  body.active-form-dr-side-patient .dr-side-hipaa-box {
+    padding: 8px 12px !important;
+    font-size: 7.2pt !important;
+    line-height: 1.25 !important;
+    margin-bottom: 8px !important;
+    background-color: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 4px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.active-form-dr-side-patient .signature-canvas-wrapper {
+    height: 52px !important;
+    border: none !important;
+    border-bottom: 1.5px solid #000 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+  }
+
+  body.active-form-dr-side-patient #ds-sig-date {
+    margin-top: 34px !important;
+    border-bottom: 1.5px solid #000 !important;
   }
 
   /* Scoped print overrides for active-form-pd-record to force exactly one page */
@@ -1686,6 +1777,219 @@
   .print-blank-active body.active-form-itemized-statement-request input[type="radio"] {
     accent-color: transparent !important;
     opacity: 0.4 !important;
+  }
+
+  /* =========================================================
+     WAIVERS & CONSENTS 2-UP BLANK HALF-SHEET PRINT STYLES
+     ========================================================= */
+  body.print-blank-active.active-form-child-no-poly,
+  body.print-blank-active.active-form-expired-rx,
+  body.print-blank-active.active-form-frame-no-child,
+  body.print-blank-active.active-form-patients-own-frame,
+  body.print-blank-active.active-form-semi-rimless,
+  body.print-blank-active.active-form-single-vision,
+  body.print-blank-active.active-form-child-no-poly .app-container,
+  body.print-blank-active.active-form-expired-rx .app-container,
+  body.print-blank-active.active-form-frame-no-child .app-container,
+  body.print-blank-active.active-form-patients-own-frame .app-container,
+  body.print-blank-active.active-form-semi-rimless .app-container,
+  body.print-blank-active.active-form-single-vision .app-container,
+  body.print-blank-active.active-form-child-no-poly .main-panel,
+  body.print-blank-active.active-form-expired-rx .main-panel,
+  body.print-blank-active.active-form-frame-no-child .main-panel,
+  body.print-blank-active.active-form-patients-own-frame .main-panel,
+  body.print-blank-active.active-form-semi-rimless .main-panel,
+  body.print-blank-active.active-form-single-vision .main-panel,
+  body.print-blank-active.active-form-child-no-poly .form-viewport,
+  body.print-blank-active.active-form-expired-rx .form-viewport,
+  body.print-blank-active.active-form-frame-no-child .form-viewport,
+  body.print-blank-active.active-form-patients-own-frame .form-viewport,
+  body.print-blank-active.active-form-semi-rimless .form-viewport,
+  body.print-blank-active.active-form-single-vision .form-viewport {
+    height: 11in !important;
+    max-height: 11in !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #fff !important;
+  }
+
+  body.print-blank-active.active-form-child-no-poly .form-card,
+  body.print-blank-active.active-form-expired-rx .form-card,
+  body.print-blank-active.active-form-frame-no-child .form-card,
+  body.print-blank-active.active-form-patients-own-frame .form-card,
+  body.print-blank-active.active-form-semi-rimless .form-card,
+  body.print-blank-active.active-form-single-vision .form-card,
+  body.print-blank-active .waiver-interactive-view {
+    display: none !important;
+  }
+
+  body.print-blank-active .waiver-blank-2up-sheet {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    width: 8.5in !important;
+    max-width: 8.5in !important;
+    height: 11in !important;
+    max-height: 11in !important;
+    padding: 0.22in 0.45in !important;
+    margin: 0 auto !important;
+    border: none !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-after: avoid !important;
+    break-inside: avoid !important;
+    overflow: hidden !important;
+    background: #fff !important;
+  }
+
+  body.print-blank-active .waiver-half-page {
+    height: 5.15in !important;
+    max-height: 5.15in !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    overflow: hidden !important;
+  }
+
+  body.print-blank-active .wb-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-end !important;
+    border-bottom: 2px solid #000 !important;
+    padding-bottom: 3px !important;
+    margin-bottom: 4px !important;
+  }
+
+  body.print-blank-active .wb-brand-title {
+    font-size: 13pt !important;
+    font-weight: 800 !important;
+    color: #000 !important;
+    line-height: 1.1 !important;
+  }
+
+  body.print-blank-active .wb-brand-sub {
+    font-size: 6.8pt !important;
+    color: #333 !important;
+  }
+
+  body.print-blank-active .wb-doc-title {
+    font-size: 9.5pt !important;
+    font-weight: 800 !important;
+    color: #000 !important;
+  }
+
+  body.print-blank-active .wb-doc-subtitle {
+    font-size: 7.2pt !important;
+    color: #444 !important;
+  }
+
+  body.print-blank-active .wb-demographics-row {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: flex-end !important;
+    margin-bottom: 4px !important;
+  }
+
+  body.print-blank-active .wb-field {
+    display: flex !important;
+    align-items: flex-end !important;
+    gap: 4px !important;
+  }
+
+  body.print-blank-active .wb-field-label {
+    font-size: 7.2pt !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+    white-space: nowrap !important;
+  }
+
+  body.print-blank-active .wb-field-line {
+    border-bottom: 1px solid #000 !important;
+    flex: 1 !important;
+    min-height: 14px !important;
+  }
+
+  body.print-blank-active .wb-disclosure-box {
+    border: 1px solid #000 !important;
+    background-color: #fafafa !important;
+    border-radius: 4px !important;
+    padding: 5px 8px !important;
+    margin-bottom: 5px !important;
+    font-size: 6.8pt !important;
+    line-height: 1.25 !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.print-blank-active .wb-es-text {
+    font-style: italic !important;
+    color: #444 !important;
+    border-top: 1px dashed #cbd5e1 !important;
+    padding-top: 3px !important;
+    margin-top: 3px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.print-blank-active .wb-box-square {
+    width: 11px !important;
+    height: 11px !important;
+    border: 1.2px solid #000 !important;
+    background: #fff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.print-blank-active .wb-signatures-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    margin-top: 4px !important;
+  }
+
+  body.print-blank-active .wb-sig-line {
+    border-bottom: 1px solid #000 !important;
+    height: 20px !important;
+    margin-bottom: 2px !important;
+  }
+
+  body.print-blank-active .wb-sig-label {
+    font-size: 6.5pt !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+  }
+
+  body.print-blank-active .waiver-cut-line {
+    margin: 2px 0 !important;
+    height: 14px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  body.print-blank-active .waiver-cut-line::before {
+    border-top: 1.5px dotted #cbd5e1 !important; /* very light grey */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.print-blank-active .waiver-cut-line .cut-line-indicator {
+    background: #fff !important;
+    color: #94a3b8 !important; /* very light grey */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.print-blank-active .waiver-cut-line svg {
+    stroke: #94a3b8 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
 

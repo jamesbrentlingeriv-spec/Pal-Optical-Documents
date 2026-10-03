@@ -54,21 +54,21 @@ export class DrSideNewPatientForm {
       this.familyMembers.forEach(member => {
         const isChecked = (this.state.familyHistory[cond] && this.state.familyHistory[cond].includes(member)) ? 'checked' : '';
         checkboxesHTML += `
-          <label style="display: inline-flex; align-items: center; gap: 2px; font-size: 0.725rem; font-weight: 500;">
+          <label class="fam-cb-label" style="display: inline-flex; align-items: center; gap: 2px; font-size: 0.725rem; font-weight: 500;">
             <input type="checkbox" class="fam-cb" data-condition="${cond}" data-member="${member}" ${isChecked}> ${member}
           </label>
         `;
       });
       
       familyGridHTML += `
-        <div style="display: grid; grid-template-columns: 3fr 1fr 8fr; gap: 8px; align-items: center; border-bottom: 1px solid var(--border-color); padding: 6px 0;">
-          <div style="font-weight: 600; font-size: 0.8rem; color: var(--text-primary);">${cond}</div>
-          <div>
-            <label style="display: inline-flex; align-items: center; gap: 2px; font-size: 0.725rem; font-weight: bold; color: var(--text-secondary);">
+        <div class="fam-grid-row" style="display: grid; grid-template-columns: 140px 48px 1fr; gap: 8px; align-items: center; border-bottom: 1px solid var(--border-color); padding: 5px 0;">
+          <div class="fam-cond-name" style="font-weight: 600; font-size: 0.8rem; color: var(--text-primary);">${cond}</div>
+          <div class="fam-no-col">
+            <label class="fam-no-label" style="display: inline-flex; align-items: center; gap: 2px; font-size: 0.725rem; font-weight: bold; color: var(--text-secondary);">
               <input type="checkbox" class="fam-no-cb" data-condition="${cond}" ${isNoChecked}> No
             </label>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <div class="fam-members-col" style="display: flex; flex-wrap: wrap; gap: 8px;">
             ${checkboxesHTML}
           </div>
         </div>
@@ -86,7 +86,7 @@ export class DrSideNewPatientForm {
         
         <form id="dr-side-patient-form">
           <!-- Top dates -->
-          <div class="form-grid" style="margin-bottom: 24px;">
+          <div class="form-grid top-dates-grid" style="margin-bottom: 24px;">
             <div class="form-group col-6">
               <label for="ds-date">Today's Date</label>
               <input type="text" class="form-control" id="ds-date" placeholder="MM/DD/YYYY" value="${this.state.todayDate || ''}">
@@ -105,37 +105,41 @@ export class DrSideNewPatientForm {
             </div>
             
             <div class="form-grid">
-              <div class="form-group col-12">
+              <div class="form-group col-5">
                 <label for="ds-last-name">Last Name</label>
                 <input type="text" class="form-control" id="ds-last-name" placeholder="Doe" value="${this.state.lastName}">
               </div>
-              <div class="form-group col-12">
+              <div class="form-group col-5">
                 <label for="ds-first-name">First Name</label>
                 <input type="text" class="form-control" id="ds-first-name" placeholder="John" value="${this.state.firstName}">
               </div>
-              <div class="form-group col-12">
-                <label for="ds-mi">M.I. (Middle Initial)</label>
+              <div class="form-group col-2">
+                <label for="ds-mi">M.I.</label>
                 <input type="text" class="form-control" id="ds-mi" placeholder="H" value="${this.state.mi}">
               </div>
               
-              <div class="form-group col-12">
+              <div class="form-group col-7">
                 <label for="ds-address">Street Address</label>
                 <input type="text" class="form-control" id="ds-address" placeholder="Street Address" value="${this.state.address}">
               </div>
-              <div class="form-group col-12">
+              <div class="form-group col-5">
                 <label for="ds-city">City</label>
                 <input type="text" class="form-control" id="ds-city" placeholder="City" value="${this.state.city}">
               </div>
-              <div class="form-group col-12">
-                <label>Kentucky / Zip Code / Phone Number</label>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                  <input type="text" class="form-control" id="ds-state" placeholder="KY" value="${this.state.stateVal}" style="flex: 1; min-width: 80px;">
-                  <input type="text" class="form-control" id="ds-zip" placeholder="Zip Code" value="${this.state.zip}" style="flex: 2; min-width: 120px;">
-                  <input type="tel" class="form-control" id="ds-phone" placeholder="Phone Number" value="${this.state.phone}" style="flex: 3; min-width: 160px;">
-                </div>
-              </div>
               
-              <div class="form-group col-12">
+              <div class="form-group col-2">
+                <label for="ds-state">State</label>
+                <input type="text" class="form-control" id="ds-state" placeholder="KY" value="${this.state.stateVal}">
+              </div>
+              <div class="form-group col-3">
+                <label for="ds-zip">Zip Code</label>
+                <input type="text" class="form-control" id="ds-zip" placeholder="Zip Code" value="${this.state.zip}">
+              </div>
+              <div class="form-group col-3">
+                <label for="ds-phone">Phone Number</label>
+                <input type="tel" class="form-control" id="ds-phone" placeholder="Phone Number" value="${this.state.phone}">
+              </div>
+              <div class="form-group col-4">
                 <label for="ds-email">Email Address</label>
                 <input type="email" class="form-control" id="ds-email" placeholder="Email" value="${this.state.email}">
               </div>
@@ -150,7 +154,7 @@ export class DrSideNewPatientForm {
               </div>
               <div class="form-group col-4">
                 <label>Gender</label>
-                <div style="display: flex; gap: 16px; margin-top: 10px; font-size: 0.85rem;">
+                <div class="gender-radio-group" style="display: flex; gap: 16px; margin-top: 10px; font-size: 0.85rem;">
                   <label class="radio-label"><input type="radio" name="ds-gender" value="Male" ${this.state.gender === 'Male' ? 'checked' : ''}> M</label>
                   <label class="radio-label"><input type="radio" name="ds-gender" value="Female" ${this.state.gender === 'Female' ? 'checked' : ''}> F</label>
                   <label class="radio-label"><input type="radio" name="ds-gender" value="Other" ${this.state.gender === 'Other' ? 'checked' : ''}> Other</label>
@@ -218,7 +222,7 @@ export class DrSideNewPatientForm {
               
               <div class="form-group col-12">
                 <label>Social Health Profile</label>
-                <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 6px; font-size: 0.85rem;">
+                <div class="social-health-group" style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 6px; font-size: 0.85rem;">
                   <div style="display: flex; gap: 8px; align-items: center;">
                     <strong>Do you drive?</strong>
                     <label><input type="radio" name="ds-drive" value="Yes" ${this.state.drive === 'Yes' ? 'checked' : ''}> Yes</label>
@@ -242,7 +246,7 @@ export class DrSideNewPatientForm {
                 </div>
               </div>
               
-              <div class="form-group col-12" style="border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 4px;">
+              <div class="form-group col-12 illegal-drugs-group" style="border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 4px;">
                 <div style="display: flex; gap: 12px; align-items: center; font-size: 0.85rem;">
                   <strong>Use illegal drugs?</strong>
                   <label><input type="radio" name="ds-drugs" value="Yes" ${this.state.drugs === 'Yes' ? 'checked' : ''}> Yes</label>
@@ -268,7 +272,7 @@ export class DrSideNewPatientForm {
               </div>
               
               <!-- Diabetes Block -->
-              <div class="form-group col-12" style="border-top: 1px solid var(--border-color); padding-top: 10px;">
+              <div class="form-group col-12 diabetes-row" style="border-top: 1px solid var(--border-color); padding-top: 10px;">
                 <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 0.85rem;">
                   <strong>Do you have diabetes?</strong>
                   <label><input type="radio" name="ds-diabetes" value="Yes" ${this.state.diabetes === 'Yes' ? 'checked' : ''}> Yes</label>
@@ -284,7 +288,7 @@ export class DrSideNewPatientForm {
               </div>
               
               <!-- Drug Allergies -->
-              <div class="form-group col-12" style="border-top: 1px solid var(--border-color); padding-top: 10px;">
+              <div class="form-group col-12 allergy-row" style="border-top: 1px solid var(--border-color); padding-top: 10px;">
                 <div style="display: flex; gap: 12px; align-items: center; font-size: 0.85rem;">
                   <strong>Are you allergic to any medications?</strong>
                   <label><input type="radio" name="ds-med-allergy" value="Yes" ${this.state.allergicMeds === 'Yes' ? 'checked' : ''}> Yes</label>
@@ -300,33 +304,38 @@ export class DrSideNewPatientForm {
             </div>
           </div>
           
-          <!-- Section 3: Pupil Dilation Preference -->
-          <div class="form-section" style="background-color: var(--primary-light); padding: 16px; border-radius: 8px; border: 1px solid var(--border-color); page-break-inside: avoid;">
-            <div style="font-weight: 800; font-size: 0.85rem; color: var(--primary); text-transform: uppercase; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+          <!-- Section 3: Pupil Dilation Preference (Bottom of Page 1) -->
+          <div class="form-section dr-side-dilation-box" style="background-color: var(--primary-light); padding: 16px; border-radius: 8px; border: 1px solid var(--border-color); page-break-inside: avoid;">
+            <div class="dilation-title" style="font-weight: 800; font-size: 0.85rem; color: var(--primary); text-transform: uppercase; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
               Dilation Preference Acknowledgement
             </div>
             <p style="font-size: 0.775rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">
               Dilating the pupils is the medical standard of care. It allows the doctor to fully examine the retina for signs of disease (bleeding, tumors, or damage to blood vessels), which can occur without symptoms and lead to permanent vision loss if untreated.
             </p>
-            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem;">
+            <div class="dilation-options" style="display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem;">
               <label class="radio-label" style="font-weight: 700;">
                 <input type="radio" name="ds-dilation" value="Agree" ${this.state.dilationPref === 'Agree' ? 'checked' : ''}> I AGREE to be Dilated (Recommended)
               </label>
-              <div style="padding-left: 24px; font-size: 0.75rem; color: var(--text-light); margin-top: -4px; margin-bottom: 4px;">
+              <div class="dilation-subtext" style="padding-left: 24px; font-size: 0.75rem; color: var(--text-light); margin-top: -4px; margin-bottom: 4px;">
                 I understand I may be light-sensitive and have blurry near vision for 2-4 hours. I understand that my distance vision and ability to drive will generally not be blurred, though sunglasses are recommended for glare.
               </div>
               <label class="radio-label" style="font-weight: 700;">
                 <input type="radio" name="ds-dilation" value="Decline" ${this.state.dilationPref === 'Decline' ? 'checked' : ''}> I PREFER NOT to be Dilated
               </label>
-              <div style="padding-left: 24px; font-size: 0.75rem; color: var(--text-light); margin-top: -4px;">
+              <div class="dilation-subtext" style="padding-left: 24px; font-size: 0.75rem; color: var(--text-light); margin-top: -4px;">
                 I understand the risks of undiagnosed retinal conditions and assume responsibility for opting out today.
               </div>
             </div>
           </div>
           
-          <!-- Section III: Ocular History -->
-          <div class="form-section" style="margin-top: 24px;">
+          <!-- Section III: Ocular History (Start of Page 2 for front/back printing) -->
+          <div class="form-section dr-side-page-2-start" style="margin-top: 24px;">
+            <div class="dr-side-page-2-header">
+              <span class="dr-side-p2-title">Pal Optical • Dr. Klecker and Dr. Robbins Office</span>
+              <span class="dr-side-p2-subtitle">Clinical Intake Sheet — Page 2</span>
+            </div>
+
             <div class="form-section-title">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg>
               III. Ocular (Eye) History
@@ -361,13 +370,13 @@ export class DrSideNewPatientForm {
               V. Family Medical & Ocular History
             </div>
             
-            <div style="background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
-              <div style="display: grid; grid-template-columns: 3fr 1fr 8fr; gap: 8px; font-weight: 800; font-size: 0.65rem; text-transform: uppercase; color: var(--text-secondary); border-bottom: 2px solid var(--border-color); padding-bottom: 6px; margin-bottom: 4px;">
+            <div class="fam-history-container" style="background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
+              <div class="fam-table-header" style="display: grid; grid-template-columns: 140px 48px 1fr; gap: 8px; font-weight: 800; font-size: 0.65rem; text-transform: uppercase; color: var(--text-secondary); border-bottom: 2px solid var(--border-color); padding-bottom: 6px; margin-bottom: 4px;">
                 <span>Condition</span>
                 <span>Negative</span>
                 <span>If Yes, Check Family Members affected</span>
               </div>
-              <div style="font-size: 0.55rem; color: var(--text-light); margin-bottom: 6px; line-height: 1.4; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;">
+              <div class="fam-key-note" style="font-size: 0.55rem; color: var(--text-light); margin-bottom: 6px; line-height: 1.4; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;">
                 <strong>Family Member Key:</strong> MGF = Maternal Grandfather &bull; MGM = Maternal Grandmother &bull; PGF = Paternal Grandfather &bull; PGM = Paternal Grandmother &bull; Bro = Brother &bull; Sis = Sister
               </div>
               ${familyGridHTML}
@@ -400,7 +409,7 @@ export class DrSideNewPatientForm {
               VII. Patient HIPAA Authorization & Sign-Off
             </div>
             
-            <div style="background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 16px; font-size: 0.8rem; line-height: 1.5; color: var(--text-secondary); margin-bottom: 20px;">
+            <div class="dr-side-hipaa-box" style="background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 16px; font-size: 0.8rem; line-height: 1.5; color: var(--text-secondary); margin-bottom: 20px;">
               By signing this, I hereby authorize the office of <strong>Dr. Steven Klecker and Dr. Kathryn Robbins (Pal Optical)</strong> to release any protected health information (PHI) necessary to process insurance claims and coordinate my care. This includes, but is not limited to, clinical findings, prescriptions, and billing data shared with my insurance carriers or third-party administrators to determine benefits and secure payment. I understand that this authorization is voluntary, remains in effect until revoked in writing, and that I have the right to receive a copy of this notice upon request.
             </div>
             

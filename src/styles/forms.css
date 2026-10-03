@@ -66,12 +66,40 @@
 }
 
 .col-12 { grid-column: span 12; }
+.col-11 { grid-column: span 11; }
+.col-10 { grid-column: span 10; }
+.col-9  { grid-column: span 9; }
 .col-8  { grid-column: span 8; }
+.col-7  { grid-column: span 7; }
 .col-6  { grid-column: span 6; }
+.col-5  { grid-column: span 5; }
 .col-4  { grid-column: span 4; }
 .col-3  { grid-column: span 3; }
 .col-2  { grid-column: span 2; }
 .col-1  { grid-column: span 1; }
+
+.dr-side-page-2-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.dr-side-page-2-header .dr-side-p2-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.dr-side-page-2-header .dr-side-p2-subtitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-light);
+}
 
 .form-group {
   display: flex;
@@ -480,4 +508,254 @@
   60% { transform: translateX(-4px); }
   80% { transform: translateX(4px); }
 }
+
+/* =========================================================
+   WAIVERS & CONSENTS 2-UP BLANK HALF-SHEET SCREEN STYLES
+   ========================================================= */
+.waiver-blank-2up-sheet {
+  display: none; /* hidden in fill mode */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 8.5in;
+  margin: 0 auto 30px auto;
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0.35in 0.45in;
+}
+
+/* When print-blank mode is active, toggle views */
+.print-blank-active .waiver-interactive-view {
+  display: none !important;
+}
+
+.print-blank-active .waiver-blank-2up-sheet {
+  display: flex !important;
+}
+
+/* Individual Half-Sheet Component */
+.waiver-half-page {
+  box-sizing: border-box;
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header */
+.wb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 2px solid #000;
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+}
+
+.wb-brand-title {
+  font-size: 13pt;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  color: #000;
+}
+
+.wb-brand-sub {
+  font-size: 6.8pt;
+  color: #4b5563;
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+.wb-doc-title-block {
+  text-align: right;
+}
+
+.wb-doc-title {
+  font-size: 9.5pt;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  line-height: 1.15;
+  color: #000;
+}
+
+.wb-doc-subtitle {
+  font-size: 7.2pt;
+  font-style: italic;
+  color: #4b5563;
+  margin-top: 1px;
+}
+
+/* Demographics Block */
+.wb-demographics-block {
+  margin-bottom: 6px;
+}
+
+.wb-demographics-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 4px;
+}
+
+.wb-field {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.wb-field-label {
+  font-size: 7.2pt;
+  font-weight: 700;
+  white-space: nowrap;
+  color: #111;
+  line-height: 1.1;
+}
+
+.wb-field-line {
+  border-bottom: 1px solid #000;
+  flex: 1;
+  min-height: 14px;
+}
+
+/* Disclosure / Warning Box */
+.wb-disclosure-box {
+  border: 1px solid #111;
+  background-color: #fafafa;
+  border-radius: 4px;
+  padding: 5px 8px;
+  margin-bottom: 6px;
+  font-size: 6.8pt;
+  line-height: 1.25;
+  color: #111;
+}
+
+.wb-disclosure-box p {
+  margin: 0 0 3px 0;
+}
+
+.wb-disclosure-box p:last-child {
+  margin-bottom: 0;
+}
+
+.wb-es-text {
+  font-style: italic;
+  color: #4b5563;
+  border-top: 1px dashed #cbd5e1;
+  padding-top: 3px;
+  margin-top: 3px;
+}
+
+/* Checkbox groups */
+.wb-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 4px 0;
+}
+
+.wb-checkbox-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 6.8pt;
+  line-height: 1.2;
+}
+
+.wb-box-square {
+  width: 11px;
+  height: 11px;
+  border: 1.2px solid #000;
+  flex-shrink: 0;
+  margin-top: 1px;
+  background: #fff;
+}
+
+/* Signatures Row */
+.wb-signatures-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.wb-sig-block {
+  flex: 1;
+}
+
+.wb-sig-flex {
+  display: flex;
+  gap: 10px;
+}
+
+.wb-sig-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.wb-sig-line {
+  border-bottom: 1px solid #000;
+  height: 20px;
+  margin-bottom: 2px;
+}
+
+.wb-sig-label {
+  font-size: 6.5pt;
+  font-weight: 700;
+  color: #222;
+  white-space: nowrap;
+}
+
+/* Cut Dotted Line in the Middle in Very Light Grey */
+.waiver-cut-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  margin: 6px 0;
+  height: 18px;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.waiver-cut-line::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 1.5px dotted #d1d5db; /* very light grey */
+  z-index: 1;
+}
+
+.waiver-cut-line .cut-line-indicator {
+  position: relative;
+  z-index: 2;
+  background-color: #ffffff;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #9ca3af; /* very light grey */
+  font-size: 6.5pt;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.waiver-cut-line svg {
+  width: 12px;
+  height: 12px;
+  stroke: #9ca3af;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 

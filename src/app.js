@@ -168,9 +168,13 @@ class App {
     if (mode === 'print-blank') {
       renderTarget.classList.add('print-blank-active');
       renderTarget.classList.add('print-mode');
+      document.body.classList.add('print-blank-active');
+      document.body.classList.add('mode-print-blank');
     } else {
       renderTarget.classList.remove('print-blank-active');
       renderTarget.classList.remove('print-mode');
+      document.body.classList.remove('print-blank-active');
+      document.body.classList.remove('mode-print-blank');
     }
     
     // We re-render the canvas layout or signature pad states if required,
