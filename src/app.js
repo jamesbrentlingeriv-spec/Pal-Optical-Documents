@@ -147,11 +147,11 @@ class App {
       case 'fee-slip': return 'Office Fee Slip / Superbill';
       case 'itemized-receipt': return 'Pal Optical Itemized Receipt';
       case 'itemized-statement-request': return 'Itemized Statement Request (Tracy)';
-      case 'bilingual-lens-waiver': return 'Bilingual Lens Waiver';
+      case 'bilingual-lens-waiver': return 'Polycarbonate Balance Lens';
       case 'child-no-poly': return 'Refusal of Polycarbonate';
       case 'expired-rx': return 'Expired Rx Consent';
       case 'frame-no-child': return 'Frame Selection w/o Child';
-      case 'patients-own-frame': return "Notice: Patient's Own Frame";
+      case 'patients-own-frame': return "Patient's Own Frame";
       case 'semi-rimless': return 'Semi-Rimless in Plastic';
       case 'single-vision': return 'Single Vision Consent';
       case 'school-excuse-james': return 'School Excuse (James)';
@@ -304,7 +304,7 @@ class App {
       this.formActions.setControlsVisibility(true, true);
       this.formActions.setOpenTabUrl('/Itemized%20Statement%20Request.html');
     } else if (this.activeFormId === 'bilingual-lens-waiver') {
-      this.formActions.updateDescription('Refusal of impact-resistant lenses & assumption of risk waiver (bilingual)');
+      this.formActions.updateDescription('Polycarbonate balance lens refusal & assumption of risk waiver (bilingual)');
       this.formActions.setControlsVisibility(true, true);
       this.formActions.setOpenTabUrl(null);
     } else {

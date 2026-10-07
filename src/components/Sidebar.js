@@ -38,11 +38,11 @@ export class Sidebar {
       {
         title: 'Waivers & Consents',
         items: [
-          { id: 'bilingual-lens-waiver', label: 'Bilingual Lens Waiver', icon: 'shield' },
+          { id: 'bilingual-lens-waiver', label: 'Polycarbonate Balance Lens', icon: 'shield' },
           { id: 'child-no-poly', label: 'Refusal of Polycarbonate', icon: 'shield' },
           { id: 'expired-rx', label: 'Expired Rx Consent', icon: 'file-text' },
           { id: 'frame-no-child', label: 'Frame Selection w/o Child', icon: 'user' },
-          { id: 'patients-own-frame', label: "Notice: Patient's Own Frame", icon: 'file-text' },
+          { id: 'patients-own-frame', label: "Patient's Own Frame", icon: 'file-text' },
           { id: 'semi-rimless', label: 'Semi-Rimless in Plastic', icon: 'shield' },
           { id: 'single-vision', label: 'Single Vision Consent', icon: 'file-text' }
         ]

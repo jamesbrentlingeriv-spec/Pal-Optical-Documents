@@ -18,7 +18,7 @@ export class BilingualLensWaiverForm {
   renderBlankHalfSheet() {
     return `
       ${renderWaiverBrandHeader(
-        'Refusal of Impact-Resistant Lenses Waiver',
+        'Polycarbonate Balance Lens Waiver',
         'Exención de Responsabilidad por Rechazo de Lentes Resistentes a Impactos',
         'OPTICAL RECORD COPY &bull; (COPIA DEL EXPEDIENTE)'
       )}
@@ -104,7 +104,7 @@ export class BilingualLensWaiverForm {
           <div class="form-header-block">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
               <div>
-                <h2>Refusal of Impact-Resistant Lenses Waiver</h2>
+                <h2>Polycarbonate Balance Lens Waiver</h2>
                 <p style="font-style: italic; color: var(--text-secondary); margin-top: 4px;">
                   Exención de Responsabilidad por Rechazo de Lentes Resistentes a Impactos
                 </p>

@@ -17,7 +17,7 @@ export class PatientsOwnFrameForm {
 
   renderBlankHalfSheet() {
     return `
-      ${renderWaiverBrandHeader("Notice Regarding Patient's Own Frame", 'Aviso Sobre la Montura del Paciente')}
+      ${renderWaiverBrandHeader("Patient's Own Frame", 'Aviso Sobre la Montura del Paciente')}
       
       <div class="wb-demographics-block">
         <div class="wb-demographics-row">
@@ -88,7 +88,7 @@ export class PatientsOwnFrameForm {
         <div class="form-card" id="patients-own-frame-card">
           <!-- Form Header -->
           <div class="form-header-block">
-            <h2>Notice Regarding Patient's Own Frame</h2>
+            <h2>Patient's Own Frame</h2>
             <p style="font-style: italic; color: var(--text-secondary); margin-top: 4px;">
               Aviso Sobre la Montura del Paciente
             </p>
