@@ -63,6 +63,7 @@ const pdfFiles = [
   "write up - fillable.pdf",
   "write up - fillable (blank order num).pdf",
   "write up - print overlay only.pdf",
+  "Bilingual Lens Waiver - Dual Half-Page.pdf",
 ];
 
 pdfFiles.forEach((file) => {

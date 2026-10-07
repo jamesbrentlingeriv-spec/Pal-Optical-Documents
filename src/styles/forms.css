@@ -592,6 +592,14 @@
   margin-top: 1px;
 }
 
+.wb-doc-badge {
+  font-size: 6.8pt;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
 /* Demographics Block */
 .wb-demographics-block {
   margin-bottom: 6px;
@@ -622,6 +630,28 @@
   border-bottom: 1px solid #000;
   flex: 1;
   min-height: 14px;
+}
+
+/* Clinical Warning Box (e.g. Bilingual Impact Refusal) */
+.wb-warning-box {
+  border: 1.2px solid #000;
+  border-left: 3.5px solid #000;
+  background-color: #f8fafc;
+  border-radius: 4px;
+  padding: 4px 6px;
+  margin-bottom: 4px;
+  font-size: 6.7pt;
+  line-height: 1.2;
+  color: #000;
+}
+
+.wb-warning-box-title {
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 2px;
+  color: #000;
+  font-size: 6.8pt;
 }
 
 /* Disclosure / Warning Box */

@@ -38,6 +38,7 @@ export class Sidebar {
       {
         title: 'Waivers & Consents',
         items: [
+          { id: 'bilingual-lens-waiver', label: 'Bilingual Lens Waiver', icon: 'shield' },
           { id: 'child-no-poly', label: 'Refusal of Polycarbonate', icon: 'shield' },
           { id: 'expired-rx', label: 'Expired Rx Consent', icon: 'file-text' },
           { id: 'frame-no-child', label: 'Frame Selection w/o Child', icon: 'user' },

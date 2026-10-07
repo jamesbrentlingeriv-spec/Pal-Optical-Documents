@@ -17,6 +17,7 @@ import { EyeglassJobNoteForm } from './forms/EyeglassJobNoteForm.js';
 import { WriteUpForm } from './forms/WriteUpForm.js';
 
 // Waivers
+import { BilingualLensWaiverForm } from './forms/BilingualLensWaiverForm.js';
 import { ChildNoPolyForm } from './forms/ChildNoPolyForm.js';
 import { ExpiredRxForm } from './forms/ExpiredRxForm.js';
 import { FrameNoChildForm } from './forms/FrameNoChildForm.js';
@@ -146,6 +147,7 @@ class App {
       case 'fee-slip': return 'Office Fee Slip / Superbill';
       case 'itemized-receipt': return 'Pal Optical Itemized Receipt';
       case 'itemized-statement-request': return 'Itemized Statement Request (Tracy)';
+      case 'bilingual-lens-waiver': return 'Bilingual Lens Waiver';
       case 'child-no-poly': return 'Refusal of Polycarbonate';
       case 'expired-rx': return 'Expired Rx Consent';
       case 'frame-no-child': return 'Frame Selection w/o Child';
@@ -241,6 +243,9 @@ class App {
       case 'itemized-statement-request':
         this.currentFormInstance = new ItemizedStatementRequestForm(renderTarget, formState, callback);
         break;
+      case 'bilingual-lens-waiver':
+        this.currentFormInstance = new BilingualLensWaiverForm(renderTarget, formState, callback);
+        break;
       case 'child-no-poly':
         this.currentFormInstance = new ChildNoPolyForm(renderTarget, formState, callback);
         break;
@@ -298,6 +303,10 @@ class App {
       this.formActions.updateDescription('Routing request for file clerk Tracy with mandatory attachments disclaimer');
       this.formActions.setControlsVisibility(true, true);
       this.formActions.setOpenTabUrl('/Itemized%20Statement%20Request.html');
+    } else if (this.activeFormId === 'bilingual-lens-waiver') {
+      this.formActions.updateDescription('Refusal of impact-resistant lenses & assumption of risk waiver (bilingual)');
+      this.formActions.setControlsVisibility(true, true);
+      this.formActions.setOpenTabUrl(null);
     } else {
       this.formActions.updateDescription('Choose fill option or print directly');
       this.formActions.setControlsVisibility(true, true);

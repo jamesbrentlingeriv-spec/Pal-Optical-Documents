@@ -518,11 +518,14 @@
   body.active-form-frame-no-child .form-card,
   body.active-form-patients-own-frame .form-card,
   body.active-form-semi-rimless .form-card,
-  body.active-form-single-vision .form-card {
+  body.active-form-single-vision .form-card,
+  body.active-form-bilingual-lens .form-card {
     padding: 0.25in !important;
     margin: 0 !important;
     height: auto !important;
     min-height: auto !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
   }
   
   body.active-form-child-no-poly .form-section,
@@ -530,8 +533,9 @@
   body.active-form-frame-no-child .form-section,
   body.active-form-patients-own-frame .form-section,
   body.active-form-semi-rimless .form-section,
-  body.active-form-single-vision .form-section {
-    margin-bottom: 12px !important;
+  body.active-form-single-vision .form-section,
+  body.active-form-bilingual-lens .form-section {
+    margin-bottom: 8px !important;
   }
   
   body.active-form-child-no-poly p,
@@ -539,10 +543,11 @@
   body.active-form-frame-no-child p,
   body.active-form-patients-own-frame p,
   body.active-form-semi-rimless p,
-  body.active-form-single-vision p {
-    font-size: 8.5pt !important;
-    line-height: 1.35 !important;
-    margin-bottom: 6px !important;
+  body.active-form-single-vision p,
+  body.active-form-bilingual-lens p {
+    font-size: 8pt !important;
+    line-height: 1.3 !important;
+    margin-bottom: 4px !important;
   }
   
   body.active-form-child-no-poly label,
@@ -550,8 +555,13 @@
   body.active-form-frame-no-child label,
   body.active-form-patients-own-frame label,
   body.active-form-semi-rimless label,
-  body.active-form-single-vision label {
-    font-size: 8pt !important;
+  body.active-form-single-vision label,
+  body.active-form-bilingual-lens label {
+    font-size: 7.5pt !important;
+  }
+
+  body.active-form-bilingual-lens .signature-canvas-wrapper {
+    height: 60px !important;
   }
 
   /* Scoped print overrides for DrSideNewPatient form — calibrated for exactly 2 pages (front & back) */
@@ -1788,24 +1798,28 @@
   body.print-blank-active.active-form-patients-own-frame,
   body.print-blank-active.active-form-semi-rimless,
   body.print-blank-active.active-form-single-vision,
+  body.print-blank-active.active-form-bilingual-lens,
   body.print-blank-active.active-form-child-no-poly .app-container,
   body.print-blank-active.active-form-expired-rx .app-container,
   body.print-blank-active.active-form-frame-no-child .app-container,
   body.print-blank-active.active-form-patients-own-frame .app-container,
   body.print-blank-active.active-form-semi-rimless .app-container,
   body.print-blank-active.active-form-single-vision .app-container,
+  body.print-blank-active.active-form-bilingual-lens .app-container,
   body.print-blank-active.active-form-child-no-poly .main-panel,
   body.print-blank-active.active-form-expired-rx .main-panel,
   body.print-blank-active.active-form-frame-no-child .main-panel,
   body.print-blank-active.active-form-patients-own-frame .main-panel,
   body.print-blank-active.active-form-semi-rimless .main-panel,
   body.print-blank-active.active-form-single-vision .main-panel,
+  body.print-blank-active.active-form-bilingual-lens .main-panel,
   body.print-blank-active.active-form-child-no-poly .form-viewport,
   body.print-blank-active.active-form-expired-rx .form-viewport,
   body.print-blank-active.active-form-frame-no-child .form-viewport,
   body.print-blank-active.active-form-patients-own-frame .form-viewport,
   body.print-blank-active.active-form-semi-rimless .form-viewport,
-  body.print-blank-active.active-form-single-vision .form-viewport {
+  body.print-blank-active.active-form-single-vision .form-viewport,
+  body.print-blank-active.active-form-bilingual-lens .form-viewport {
     height: 11in !important;
     max-height: 11in !important;
     overflow: hidden !important;
@@ -1820,6 +1834,7 @@
   body.print-blank-active.active-form-patients-own-frame .form-card,
   body.print-blank-active.active-form-semi-rimless .form-card,
   body.print-blank-active.active-form-single-vision .form-card,
+  body.print-blank-active.active-form-bilingual-lens .form-card,
   body.print-blank-active .waiver-interactive-view {
     display: none !important;
   }
@@ -1913,6 +1928,37 @@
     border-bottom: 1px solid #000 !important;
     flex: 1 !important;
     min-height: 14px !important;
+  }
+
+  body.print-blank-active .wb-doc-badge {
+    font-size: 6.8pt !important;
+    font-weight: 800 !important;
+    color: #000 !important;
+    letter-spacing: 0.5px !important;
+    margin-top: 2px !important;
+  }
+
+  body.print-blank-active .wb-warning-box {
+    border: 1.2px solid #000 !important;
+    border-left: 3.5px solid #000 !important;
+    background-color: #f8fafc !important;
+    border-radius: 4px !important;
+    padding: 4px 6px !important;
+    margin-bottom: 4px !important;
+    font-size: 6.7pt !important;
+    line-height: 1.2 !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.print-blank-active .wb-warning-box-title {
+    font-weight: 850 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+    margin-bottom: 2px !important;
+    color: #000 !important;
+    font-size: 6.8pt !important;
   }
 
   body.print-blank-active .wb-disclosure-box {

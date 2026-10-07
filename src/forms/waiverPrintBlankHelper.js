@@ -1,6 +1,6 @@
 /* Pal Optical Forms Web App - Helper for 2-Up Blank Waiver Half-Sheet Printing */
 
-export function renderCutLine() {
+export function renderCutLine(cutText = 'CUT HERE') {
   return `
     <div class="waiver-cut-line" aria-label="Cut line">
       <div class="cut-line-indicator">
@@ -11,13 +11,13 @@ export function renderCutLine() {
           <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
           <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
         </svg>
-        <span>CUT HERE</span>
+        <span>${cutText}</span>
       </div>
     </div>
   `;
 }
 
-export function renderWaiverBrandHeader(titleEn, titleEs) {
+export function renderWaiverBrandHeader(titleEn, titleEs, rightBadge = null) {
   return `
     <div class="wb-header">
       <div class="wb-brand-block">
@@ -27,19 +27,20 @@ export function renderWaiverBrandHeader(titleEn, titleEs) {
       <div class="wb-doc-title-block">
         <div class="wb-doc-title">${titleEn}</div>
         ${titleEs ? `<div class="wb-doc-subtitle">${titleEs}</div>` : ''}
+        ${rightBadge ? `<div class="wb-doc-badge">${rightBadge}</div>` : ''}
       </div>
     </div>
   `;
 }
 
-export function render2UpBlankSheet(renderHalfSheetFn) {
+export function render2UpBlankSheet(renderHalfSheetFn, cutText = 'CUT HERE') {
   const halfSheetHtml = renderHalfSheetFn();
   return `
     <div class="waiver-blank-2up-sheet" id="waiver-blank-2up-print">
       <div class="waiver-half-page top-half">
         ${halfSheetHtml}
       </div>
-      ${renderCutLine()}
+      ${renderCutLine(cutText)}
       <div class="waiver-half-page bottom-half">
         ${halfSheetHtml}
       </div>
