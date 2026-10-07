@@ -1799,6 +1799,7 @@
   body.print-blank-active.active-form-semi-rimless,
   body.print-blank-active.active-form-single-vision,
   body.print-blank-active.active-form-bilingual-lens,
+  body.print-blank-active.active-form-patient-info,
   body.print-blank-active.active-form-child-no-poly .app-container,
   body.print-blank-active.active-form-expired-rx .app-container,
   body.print-blank-active.active-form-frame-no-child .app-container,
@@ -1806,6 +1807,7 @@
   body.print-blank-active.active-form-semi-rimless .app-container,
   body.print-blank-active.active-form-single-vision .app-container,
   body.print-blank-active.active-form-bilingual-lens .app-container,
+  body.print-blank-active.active-form-patient-info .app-container,
   body.print-blank-active.active-form-child-no-poly .main-panel,
   body.print-blank-active.active-form-expired-rx .main-panel,
   body.print-blank-active.active-form-frame-no-child .main-panel,
@@ -1813,13 +1815,15 @@
   body.print-blank-active.active-form-semi-rimless .main-panel,
   body.print-blank-active.active-form-single-vision .main-panel,
   body.print-blank-active.active-form-bilingual-lens .main-panel,
+  body.print-blank-active.active-form-patient-info .main-panel,
   body.print-blank-active.active-form-child-no-poly .form-viewport,
   body.print-blank-active.active-form-expired-rx .form-viewport,
   body.print-blank-active.active-form-frame-no-child .form-viewport,
   body.print-blank-active.active-form-patients-own-frame .form-viewport,
   body.print-blank-active.active-form-semi-rimless .form-viewport,
   body.print-blank-active.active-form-single-vision .form-viewport,
-  body.print-blank-active.active-form-bilingual-lens .form-viewport {
+  body.print-blank-active.active-form-bilingual-lens .form-viewport,
+  body.print-blank-active.active-form-patient-info .form-viewport {
     height: 11in !important;
     max-height: 11in !important;
     overflow: hidden !important;
@@ -1835,6 +1839,7 @@
   body.print-blank-active.active-form-semi-rimless .form-card,
   body.print-blank-active.active-form-single-vision .form-card,
   body.print-blank-active.active-form-bilingual-lens .form-card,
+  body.print-blank-active.active-form-patient-info .form-card,
   body.print-blank-active .waiver-interactive-view {
     display: none !important;
   }

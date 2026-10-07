@@ -1,5 +1,6 @@
 /* Pal Optical Forms Web App - Patient Information Sheet Form */
 import { SignaturePad } from '../components/SignaturePad.js';
+import { render2UpBlankSheet } from './waiverPrintBlankHelper.js';
 
 export class PatientInfoForm {
   constructor(container, state = {}, onStateChange) {
@@ -12,10 +13,214 @@ export class PatientInfoForm {
     this.bindEvents();
     this.initSignature();
   }
+
+  renderBlankHalfSheet() {
+    return `
+      <div class="wb-header" style="margin-bottom: 4px; padding-bottom: 2px;">
+        <div class="wb-brand-block">
+          <div class="wb-brand-title" style="font-size: 11.5pt;">PAL OPTICAL</div>
+          <div class="wb-brand-sub" style="font-size: 6.2pt;">1555 E. New Circle Rd, Lexington, KY 40505 &bull; (859) 253-3031</div>
+        </div>
+        <div class="wb-doc-title-block">
+          <div class="wb-doc-title" style="font-size: 9.5pt;">PATIENT INFORMATION SHEET</div>
+          <div class="wb-doc-subtitle" style="font-size: 6.5pt;">Office Record &bull; Hoja de Informaci&oacute;n</div>
+        </div>
+      </div>
+      
+      <!-- 1. Patient Demographics -->
+      <div class="wb-demographics-block" style="margin-bottom: 3px;">
+        <div style="font-size: 6.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; border-bottom: 1px solid #000; padding-bottom: 1px; margin-bottom: 3px; color: #000;">
+          1. Patient Demographics
+        </div>
+        <div class="wb-demographics-row" style="margin-bottom: 3px;">
+          <div class="wb-field" style="flex: 6;">
+            <span class="wb-field-label">Patient Full Name:</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 2.2;">
+            <span class="wb-field-label">DOB:</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 2.5; align-items: center; gap: 4px;">
+            <span class="wb-field-label">Gender:</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">M</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">F</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Other</span>
+          </div>
+        </div>
+        
+        <div class="wb-demographics-row" style="margin-bottom: 3px;">
+          <div class="wb-field" style="flex: 5.5;">
+            <span class="wb-field-label">Street Address:</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 3;">
+            <span class="wb-field-label">City:</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 1.2;">
+            <span class="wb-field-label">State:</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 1.5;">
+            <span class="wb-field-label">Zip:</span>
+            <span class="wb-field-line"></span>
+          </div>
+        </div>
+        
+        <div class="wb-demographics-row" style="margin-bottom: 3px;">
+          <div class="wb-field" style="flex: 3.5;">
+            <span class="wb-field-label">Phone:</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 4.5;">
+            <span class="wb-field-label">Email:</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 3;">
+            <span class="wb-field-label">SSN:</span>
+            <span class="wb-field-line"></span>
+          </div>
+        </div>
+        
+        <div class="wb-demographics-row" style="margin-bottom: 3px; align-items: center;">
+          <div class="wb-field" style="flex: 2.2;">
+            <span class="wb-field-label">Language:</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 4.8; align-items: center; gap: 3px;">
+            <span class="wb-field-label">Race:</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">White</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Black</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Asian</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Other</span>
+          </div>
+          <div class="wb-field" style="flex: 4; align-items: center; gap: 3px;">
+            <span class="wb-field-label">Ethnicity:</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Hispanic</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Non-Hispanic</span>
+          </div>
+        </div>
+        
+        <div class="wb-demographics-row" style="margin-bottom: 2px; align-items: center;">
+          <div class="wb-field" style="flex: 5.5; align-items: center; gap: 3px;">
+            <span class="wb-field-label">Preferred Contact:</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Phone</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Email</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Text / Mail</span>
+          </div>
+          <div class="wb-field" style="flex: 5.5; align-items: center; gap: 3px;">
+            <span class="wb-field-label">Exam Reminder Calls?</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Yes</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">No</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2. Primary Insurance -->
+      <div class="wb-demographics-block" style="margin-bottom: 3px;">
+        <div style="font-size: 6.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; border-bottom: 1px solid #000; padding-bottom: 1px; margin-bottom: 3px; color: #000;">
+          2. Primary Insurance Information
+        </div>
+        <div class="wb-demographics-row" style="margin-bottom: 3px;">
+          <div class="wb-field" style="flex: 5.5;">
+            <span class="wb-field-label">Insurance Co:</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 5.5;">
+            <span class="wb-field-label">Cardholder Full Name:</span>
+            <span class="wb-field-line"></span>
+          </div>
+        </div>
+        <div class="wb-demographics-row" style="margin-bottom: 3px;">
+          <div class="wb-field" style="flex: 4;">
+            <span class="wb-field-label">Member ID / Policy #:</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 2.5;">
+            <span class="wb-field-label">Cardholder DOB:</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 4.5; align-items: center; gap: 3px;">
+            <span class="wb-field-label">Relation:</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Self</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Spouse</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Child</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Other</span>
+          </div>
+        </div>
+        <div class="wb-demographics-row" style="margin-bottom: 2px;">
+          <div class="wb-field" style="flex: 1;">
+            <span class="wb-field-label">Employer / Policy Sponsor:</span>
+            <span class="wb-field-line"></span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 3. Medical History & Guardian -->
+      <div class="wb-demographics-block" style="margin-bottom: 3px;">
+        <div style="font-size: 6.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; border-bottom: 1px solid #000; padding-bottom: 1px; margin-bottom: 3px; color: #000;">
+          3. Cataract Surgery History &bull; Parent/Guardian (If Minor)
+        </div>
+        <div class="wb-demographics-row" style="margin-bottom: 3px; align-items: center;">
+          <div class="wb-field" style="flex: 3.5; align-items: center; gap: 3px;">
+            <span class="wb-field-label">Cataract Surgery?</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">Yes</span>
+            <span class="wb-box-square"></span><span style="font-size: 6.5pt;">No</span>
+          </div>
+          <div class="wb-field" style="flex: 2;">
+            <span class="wb-field-label">Date OD (Right):</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 2;">
+            <span class="wb-field-label">Date OS (Left):</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 3.5;">
+            <span class="wb-field-label">Surgeon / City:</span>
+            <span class="wb-field-line"></span>
+          </div>
+        </div>
+        <div class="wb-demographics-row" style="margin-bottom: 2px;">
+          <div class="wb-field" style="flex: 5;">
+            <span class="wb-field-label">Parent/Guardian Name (under 18):</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 3.5;">
+            <span class="wb-field-label">Guardian Phone/Address:</span>
+            <span class="wb-field-line"></span>
+          </div>
+          <div class="wb-field" style="flex: 2.5;">
+            <span class="wb-field-label">Guardian DOB/SSN:</span>
+            <span class="wb-field-line"></span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 4. Authorization & Policy Statement -->
+      <div class="wb-disclosure-box" style="margin-bottom: 3px; padding: 3px 6px; font-size: 5.7pt; line-height: 1.2;">
+        <div><strong>1. Insurance Estimate Policy:</strong> Quoted insurance amounts are estimates, not a guarantee of payment. Final determination is made by your insurer upon claim processing. Any difference is patient responsibility.</div>
+        <div style="margin-top: 2px;"><strong>2. Release of Information:</strong> I authorize the release of any medical/vision information to necessary parties for insurance claims processing and fee collection.</div>
+      </div>
+      
+      <!-- 5. Signatures -->
+      <div class="wb-signatures-row" style="margin-top: 1px;">
+        <div class="wb-sig-block" style="flex: 7;">
+          <div class="wb-sig-line" style="height: 16px;"></div>
+          <div class="wb-sig-label">Patient / Authorized Guardian Signature</div>
+        </div>
+        <div class="wb-sig-block" style="flex: 3;">
+          <div class="wb-sig-line" style="height: 16px;"></div>
+          <div class="wb-sig-label">Date Signed (MM/DD/YYYY)</div>
+        </div>
+      </div>
+    `;
+  }
   
   render() {
     this.container.innerHTML = `
-      <div class="form-card" id="patient-info-form-card">
+      <div class="waiver-interactive-view">
+        <div class="form-card" id="patient-info-form-card">
         <!-- Form Header -->
         <div class="form-header-block">
           <h2>Patient Information Sheet</h2>
@@ -89,10 +294,10 @@ export class PatientInfoForm {
                     <input type="radio" name="p-race" value="Black" ${this.state.race === 'Black' ? 'checked' : ''}> Black
                   </label>
                   <label class="radio-label">
-                    <input type="radio" name="p-race" value="Hispanic" ${this.state.race === 'Hispanic' ? 'checked' : ''}> Hispanic
+                    <input type="radio" name="p-race" value="Asian" ${this.state.race === 'Asian' ? 'checked' : ''}> Asian
                   </label>
                   <label class="radio-label">
-                    <input type="radio" name="p-race" value="Asian" ${this.state.race === 'Asian' ? 'checked' : ''}> Asian
+                    <input type="radio" name="p-race" value="Other" ${this.state.race === 'Other' ? 'checked' : ''}> Other
                   </label>
                 </div>
               </div>
@@ -290,11 +495,17 @@ export class PatientInfoForm {
           </div>
         </form>
       </div>
+    </div>
+    ${render2UpBlankSheet(
+      () => this.renderBlankHalfSheet(),
+      'CUT HERE TO SEPARATE COPIES • PAL OPTICAL'
+    )}
     `;
   }
   
   bindEvents() {
     const form = this.container.querySelector('#patient-info-form');
+    if (!form) return;
     
     // Listen to changes and update state
     form.addEventListener('input', () => {
@@ -308,6 +519,7 @@ export class PatientInfoForm {
   
   initSignature() {
     const sigTarget = this.container.querySelector('#sig-pad-target');
+    if (!sigTarget) return;
     this.sigPad = new SignaturePad(sigTarget, 'patient-info', 'Sign here with finger or mouse');
     
     // Load signature if exists in state
@@ -390,5 +602,11 @@ export class PatientInfoForm {
     this.bindEvents();
     this.initSignature();
     this.onStateChange(this.state);
+  }
+
+  destroy() {
+    if (this.sigPad) {
+      this.sigPad.clear();
+    }
   }
 }
