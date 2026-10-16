@@ -131,6 +131,16 @@ class App {
         overlay.classList.remove('active');
       });
     }
+
+    // Live update document title as user types into any form input
+    const renderTarget = document.getElementById('form-render-target');
+    if (renderTarget) {
+      renderTarget.addEventListener('input', () => this.updateDocumentTitle());
+      renderTarget.addEventListener('change', () => this.updateDocumentTitle());
+    }
+
+    // Guarantee document title is up to date right before browser printing (e.g. Ctrl+P)
+    window.addEventListener('beforeprint', () => this.updateDocumentTitle());
   }
   
   getFormTitle(formId) {
@@ -285,6 +295,7 @@ class App {
     
     // Restore mode visual classes on target
     this.toggleMode(this.activeMode);
+    this.updateDocumentTitle();
   }
   
   updateHeader() {
@@ -312,24 +323,203 @@ class App {
       this.formActions.setControlsVisibility(true, true);
       this.formActions.setOpenTabUrl(null);
     }
+    this.updateDocumentTitle();
   }
   
   saveFormState(formId, state) {
     this.formData[formId] = state;
     this.saveState();
+    this.updateDocumentTitle();
   }
   
   resetForm() {
     if (this.currentFormInstance && typeof this.currentFormInstance.reset === 'function') {
       this.currentFormInstance.reset();
     }
+    this.updateDocumentTitle();
   }
   
   printForm() {
+    this.updateDocumentTitle();
     if (this.currentFormInstance && typeof this.currentFormInstance.print === 'function') {
       this.currentFormInstance.print();
     } else {
       window.print();
+    }
+  }
+
+  getCurrentPatientName() {
+    // 1. Check if the current form instance provides its own name getter
+    if (this.currentFormInstance && typeof this.currentFormInstance.getPatientName === 'function') {
+      const customName = this.currentFormInstance.getPatientName();
+      if (customName && customName.trim()) {
+        return this.sanitizeFileName(customName);
+      }
+    }
+
+    const formId = this.activeFormId;
+    const state = this.formData[formId] || (this.currentFormInstance?.state) || {};
+    let name = '';
+
+    // 2. Try form-specific logic based on formId
+    switch (formId) {
+      case 'patient-info':
+        name = state.name;
+        break;
+      case 'dr-side-patient':
+        if (state.firstName || state.lastName) {
+          name = `${state.firstName || ''} ${state.lastName || ''}`.trim();
+        }
+        break;
+      case 'prior-auth':
+        name = state.memberName;
+        break;
+      case 'price-quote':
+        name = state.custName;
+        break;
+      case 'safety-order':
+        name = state.Text_4;
+        break;
+      case 'pd-record':
+      case 'eyeglass-job-note':
+      case 'itemized-receipt':
+      case 'itemized-statement-request':
+      case 'bilingual-lens-waiver':
+      case 'child-no-poly':
+      case 'expired-rx':
+      case 'patients-own-frame':
+      case 'semi-rimless':
+      case 'single-vision':
+      case 'school-excuse-james':
+      case 'school-excuse-carribyan':
+      case 'wellcare-spendables':
+        name = state.patientName;
+        break;
+      case 'frame-no-child':
+        name = state.childName || state.customerName;
+        break;
+      case 'writeup':
+        name = state.patient_name;
+        break;
+      case 'cms1500':
+        name = state['40'];
+        break;
+      case 'fee-slip':
+        name = state.patientName || state.Text_1;
+        break;
+      case 'notes-to-dr': {
+        try {
+          const frame = document.getElementById('embedded-doc-frame');
+          const frameDoc = frame?.contentDocument || frame?.contentWindow?.document;
+          const input = frameDoc?.getElementById('patientName');
+          if (input && input.value) name = input.value;
+        } catch (e) {}
+        break;
+      }
+      case 'staff-schedule': {
+        try {
+          const frame = document.getElementById('embedded-doc-frame');
+          const frameDoc = frame?.contentDocument || frame?.contentWindow?.document;
+          const picker = frameDoc?.getElementById('monthSelect');
+          if (picker && picker.value) name = `Staff Schedule - ${picker.value}`;
+        } catch (e) {}
+        break;
+      }
+    }
+
+    // 3. Fallback to active DOM elements inside form-render-target
+    const renderTarget = document.getElementById('form-render-target');
+    if (renderTarget) {
+      // First, check currently focused input element inside the form viewport
+      const activeEl = document.activeElement;
+      if (activeEl && activeEl.tagName === 'INPUT' && renderTarget.contains(activeEl)) {
+        const id = (activeEl.id || '').toLowerCase();
+        const inputName = (activeEl.name || '').toLowerCase();
+        const dataField = (activeEl.getAttribute('data-field') || '').toLowerCase();
+        const placeholder = (activeEl.placeholder || '').toLowerCase();
+        
+        if (
+          id.includes('name') || 
+          inputName.includes('name') || 
+          dataField.includes('name') || 
+          placeholder.includes('name') ||
+          activeEl.id === 'pa-member-name' ||
+          activeEl.name === 'Text_4' ||
+          activeEl.name === '40'
+        ) {
+          if (activeEl.value && activeEl.value.trim()) {
+            name = activeEl.value.trim();
+          }
+        }
+      }
+
+      // If still empty, check known input selectors
+      if (!name) {
+        const knownSelectors = [
+          '#pa-member-name',
+          '#p-name',
+          'input[data-field="patientName"]',
+          '#excuse-patient-name',
+          '#wc-patient-name',
+          '#q-cust-name',
+          '#bl-patient-name',
+          '#poly-patient-name',
+          '#rx-patient-name',
+          '#fnc-child-name',
+          '#fnc-customer-name',
+          '#pof-patient-name',
+          '#sr-patient-name',
+          '#sv-patient-name',
+          '#fs-patient-name',
+          'input[name="patient_name"]',
+          'input[name="40"]',
+          'input[name="Text_4"]',
+          'input[name="Text_1"]'
+        ];
+
+        for (const sel of knownSelectors) {
+          const el = renderTarget.querySelector(sel);
+          if (el && el.value && el.value.trim()) {
+            name = el.value.trim();
+            break;
+          }
+        }
+      }
+
+      // Check Dr Side New Patient inputs
+      if (!name) {
+        const fn = renderTarget.querySelector('#ds-first-name')?.value?.trim();
+        const ln = renderTarget.querySelector('#ds-last-name')?.value?.trim();
+        if (fn || ln) {
+          name = `${fn || ''} ${ln || ''}`.trim();
+        }
+      }
+
+      // Broad fallback for any text input with name in attributes
+      if (!name) {
+        const genericInput = renderTarget.querySelector('input[type="text"][id*="name" i], input[type="text"][name*="name" i], input[type="text"][data-field*="name" i]');
+        if (genericInput && genericInput.value && genericInput.value.trim()) {
+          name = genericInput.value.trim();
+        }
+      }
+    }
+
+    return this.sanitizeFileName(name);
+  }
+
+  sanitizeFileName(str) {
+    if (!str || typeof str !== 'string') return '';
+    // Strip characters that are illegal in Windows / file systems: \ / : * ? " < > | and control characters
+    return str.trim().replace(/[\/\\:*?"<>|\x00-\x1F]/g, '').replace(/\s+/g, ' ');
+  }
+
+  updateDocumentTitle() {
+    const patientName = this.getCurrentPatientName();
+    if (patientName) {
+      document.title = patientName;
+    } else {
+      const formTitle = this.getFormTitle(this.activeFormId) || 'Pal Optical Form';
+      document.title = this.sanitizeFileName(formTitle.replace(/[\/]/g, '-'));
     }
   }
   

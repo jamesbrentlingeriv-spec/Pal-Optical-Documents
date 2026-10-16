@@ -24,11 +24,58 @@ export class EmbeddedDocForm {
     `;
 
     this.iframe = this.container.querySelector('#embedded-doc-frame');
+    if (this.iframe) {
+      this.iframe.addEventListener('load', () => {
+        try {
+          const doc = this.iframe.contentDocument || this.iframe.contentWindow?.document;
+          if (doc) {
+            const onInput = () => {
+              if (window.app && typeof window.app.updateDocumentTitle === 'function') {
+                window.app.updateDocumentTitle();
+              }
+            };
+            doc.addEventListener('input', onInput);
+            doc.addEventListener('change', onInput);
+            // Also trigger initial title sync once loaded
+            if (window.app && typeof window.app.updateDocumentTitle === 'function') {
+              window.app.updateDocumentTitle();
+            }
+          }
+        } catch (e) {
+          // Cross-origin fallback
+        }
+      });
+    }
+  }
+
+  getPatientName() {
+    try {
+      if (this.iframe) {
+        const doc = this.iframe.contentDocument || this.iframe.contentWindow?.document;
+        if (doc) {
+          const nameEl = doc.querySelector('#patientName, #p-name, input[name="patientName"], input[data-field="patientName"]');
+          if (nameEl && nameEl.value && nameEl.value.trim()) {
+            return nameEl.value.trim();
+          }
+          const monthEl = doc.querySelector('#monthSelect');
+          if (monthEl && monthEl.value && monthEl.value.trim()) {
+            return `Staff Schedule - ${monthEl.value.trim()}`;
+          }
+        }
+      }
+    } catch (e) {}
+    return '';
   }
 
   print() {
     if (this.iframe && this.iframe.contentWindow) {
       try {
+        const doc = this.iframe.contentDocument || this.iframe.contentWindow.document;
+        const patientName = this.getPatientName();
+        if (doc && patientName) {
+          doc.title = patientName;
+          document.title = patientName;
+        }
         this.iframe.contentWindow.focus();
         this.iframe.contentWindow.print();
         return;

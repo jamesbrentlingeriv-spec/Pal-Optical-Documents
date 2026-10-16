@@ -1131,15 +1131,35 @@
       }
     }
 
+    function updateDocTitle() {
+      const nameInput = document.getElementById('p-name');
+      const val = nameInput && nameInput.value ? nameInput.value.trim().replace(/[\/\\:*?"<>|\x00-\x1F]/g, '').replace(/\s+/g, ' ') : '';
+      if (val) {
+        document.title = val;
+      } else {
+        document.title = 'Itemized Statement Request - Pal Optical';
+      }
+    }
+
+    const patientNameEl = document.getElementById('p-name');
+    if (patientNameEl) {
+      patientNameEl.addEventListener('input', updateDocTitle);
+      patientNameEl.addEventListener('change', updateDocTitle);
+    }
+    window.addEventListener('beforeprint', updateDocTitle);
+
     function printFilled() {
       document.body.classList.remove('print-blank');
+      updateDocTitle();
       window.print();
     }
 
     function printBlank() {
       document.body.classList.add('print-blank');
+      document.title = 'Itemized Statement Request - Blank';
       window.print();
       document.body.classList.remove('print-blank');
+      updateDocTitle();
     }
   </script>
 </body>

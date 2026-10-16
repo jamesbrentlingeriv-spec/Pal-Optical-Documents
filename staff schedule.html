@@ -598,6 +598,16 @@
       }
     }
 
+    // Dynamically update document title for printing
+    function updateScheduleDocTitle() {
+      const picker = document.getElementById('monthSelect');
+      if (picker && picker.value) {
+        document.title = `Staff Schedule - ${picker.value}`;
+      } else {
+        document.title = 'Staff Schedule - Pal Optical';
+      }
+    }
+
     // Initialize default month on load and pre-load sample template
     window.addEventListener('DOMContentLoaded', () => {
       const today = new Date();
@@ -606,7 +616,12 @@
       const picker = document.getElementById('monthSelect');
       picker.value = `${yr}-${mo}`;
 
-      picker.addEventListener('change', calculateAndFillDates);
+      picker.addEventListener('change', () => {
+        calculateAndFillDates();
+        updateScheduleDocTitle();
+      });
+      window.addEventListener('beforeprint', updateScheduleDocTitle);
+      updateScheduleDocTitle();
 
       // Pre-fill automatically with the sample schedule on initial load
       loadSampleSchedule();
