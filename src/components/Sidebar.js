@@ -36,6 +36,43 @@ export class Sidebar {
         ]
       },
       {
+        title: 'Insurance Info',
+        folders: [
+          {
+            name: 'Eyemed',
+            items: [
+              { id: 'insurance-eyemed-anti-glare', label: 'Eyemed Anti-Glare & Progressive', icon: 'file-text' }
+            ]
+          },
+          {
+            name: 'Eyequest',
+            items: [
+              { id: 'insurance-eyequest-exhibit-ii', label: 'Exhibit II - Medically Indicated Services', icon: 'file-text' }
+            ]
+          },
+          {
+            name: 'Spectera',
+            items: [
+              { id: 'insurance-spectera-formulary', label: 'Progressive & AR Formulary', icon: 'file-text' }
+            ]
+          },
+          {
+            name: 'Versant',
+            items: [
+              { id: 'insurance-versant-formulary', label: 'Progressive & AR Formulary', icon: 'file-text' }
+            ]
+          },
+          {
+            name: 'VSP',
+            items: [
+              { id: 'insurance-vsp-advantage', label: 'Advantage Plan Enhancement Chart', icon: 'file-text' },
+              { id: 'insurance-vsp-choice', label: 'Choice Plan Enhancement Chart', icon: 'file-text' },
+              { id: 'insurance-vsp-signature', label: 'Signature Plan Enhancement Chart', icon: 'file-text' }
+            ]
+          }
+        ]
+      },
+      {
         title: 'Waivers & Consents',
         items: [
           { id: 'bilingual-lens-waiver', label: 'Polycarbonate Balance Lens', icon: 'shield' },
@@ -72,17 +109,54 @@ export class Sidebar {
     
     this.menuCategories.forEach(cat => {
       menuHTML += `<div class="menu-category">${cat.title}</div>`;
-      cat.items.forEach(item => {
-        const isActive = item.id === this.activeFormId ? 'active' : '';
-        const iconSVG = this.getIcon(item.icon);
-        
-        menuHTML += `
-          <a class="menu-item ${isActive}" data-form-id="${item.id}">
-            ${iconSVG}
-            <span>${item.label}</span>
-          </a>
-        `;
-      });
+      
+      if (cat.items) {
+        cat.items.forEach(item => {
+          const isActive = item.id === this.activeFormId ? 'active' : '';
+          const iconSVG = this.getIcon(item.icon);
+          
+          menuHTML += `
+            <a class="menu-item ${isActive}" data-form-id="${item.id}">
+              ${iconSVG}
+              <span>${item.label}</span>
+            </a>
+          `;
+        });
+      }
+
+      if (cat.folders) {
+        cat.folders.forEach(folder => {
+          const hasActiveChild = folder.items.some(item => item.id === this.activeFormId);
+          const isOpen = hasActiveChild; // Collapsed by default unless currently viewing one of its items
+          let itemsHTML = '';
+          
+          folder.items.forEach(item => {
+            const isActive = item.id === this.activeFormId ? 'active' : '';
+            const iconSVG = this.getIcon(item.icon || 'file-text');
+            
+            itemsHTML += `
+              <a class="menu-item menu-sub-item ${isActive}" data-form-id="${item.id}">
+                ${iconSVG}
+                <span>${item.label}</span>
+              </a>
+            `;
+          });
+          
+          menuHTML += `
+            <div class="menu-folder ${isOpen ? 'open' : ''}" data-folder="${folder.name}">
+              <button type="button" class="menu-folder-header" aria-expanded="${isOpen ? 'true' : 'false'}">
+                ${this.getIcon('folder', 'folder-icon')}
+                <span class="folder-label">${folder.name}</span>
+                <span class="folder-badge">${folder.items.length}</span>
+                ${this.getIcon('chevron', 'folder-chevron')}
+              </button>
+              <div class="menu-folder-content">
+                ${itemsHTML}
+              </div>
+            </div>
+          `;
+        });
+      }
     });
     
     this.container.innerHTML = `
@@ -125,12 +199,34 @@ export class Sidebar {
         // Update active class immediately in UI
         items.forEach(el => el.classList.remove('active'));
         item.classList.add('active');
+
+        // Keep parent folder expanded
+        const parentFolder = item.closest('.menu-folder');
+        if (parentFolder) {
+          parentFolder.classList.add('open');
+          const header = parentFolder.querySelector('.menu-folder-header');
+          if (header) header.setAttribute('aria-expanded', 'true');
+        }
         
         // Close mobile drawer after selecting a form
         this.closeMobileDrawer();
         
         // Trigger callback
         this.onSelectForm(formId);
+      });
+    });
+
+    // Folder header clicks (expand/collapse)
+    const folderHeaders = this.container.querySelectorAll('.menu-folder-header');
+    folderHeaders.forEach(header => {
+      header.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const folder = header.closest('.menu-folder');
+        if (folder) {
+          const isOpen = folder.classList.toggle('open');
+          header.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
       });
     });
     
@@ -147,24 +243,31 @@ export class Sidebar {
     if (overlay) overlay.classList.remove('active');
   }
   
-  getIcon(iconName) {
-    if (iconName === 'user') {
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+  getIcon(iconName, customClass = '') {
+    const classAttr = customClass ? `class="${customClass}"` : '';
+    if (iconName === 'folder') {
+      return `<svg ${classAttr} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`;
     }
-    if (iconName === 'file-text') {
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`;
+    if (iconName === 'chevron') {
+      return `<svg ${classAttr} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
+    }
+    if (iconName === 'user') {
+      return `<svg ${classAttr} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+    }
+    if (iconName === 'file-text' || iconName === 'pdf') {
+      return `<svg ${classAttr} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`;
     }
     if (iconName === 'dollar-sign') {
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`;
+      return `<svg ${classAttr} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`;
     }
     if (iconName === 'shield') {
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`;
+      return `<svg ${classAttr} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`;
     }
     if (iconName === 'activity') {
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`;
+      return `<svg ${classAttr} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`;
     }
     if (iconName === 'calendar') {
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+      return `<svg ${classAttr} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
     }
     return '';
   }

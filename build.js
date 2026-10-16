@@ -113,6 +113,15 @@ htmlFiles.forEach((file) => {
   }
 });
 
+// Step 6: Copy insurance info folder to dist
+console.log("\n📄 Copying insurance info folder...");
+const insuranceSrc = path.join(__dirname, "insurance info");
+const insuranceDst = path.join(__dirname, "dist", "insurance info");
+if (fs.existsSync(insuranceSrc)) {
+  fs.cpSync(insuranceSrc, insuranceDst, { recursive: true });
+  console.log("  ✓ insurance info folder copied to dist");
+}
+
 console.log("\n✅ Build complete! Ready for Vercel deployment.\n");
 console.log("📂 Dist folder structure:");
 console.log("   - index.html");

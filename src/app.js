@@ -28,6 +28,51 @@ import { SchoolExcuseForm } from './forms/SchoolExcuseForm.js';
 import { WellcareSpendablesForm } from './forms/WellcareSpendablesForm.js';
 import { EmbeddedDocForm } from './forms/EmbeddedDocForm.js';
 
+export const INSURANCE_DOCS = {
+  'insurance-eyemed-anti-glare': {
+    title: 'Eyemed Anti-Glare & Progressive',
+    url: '/insurance%20info/Eyemed/eyemed%20anti%20glare%20and%20progressive.pdf',
+    desc: 'Eyemed Lens Options & Anti-Reflective Formulary Guide',
+    carrier: 'Eyemed'
+  },
+  'insurance-eyequest-exhibit-ii': {
+    title: 'EyeQuest Exhibit II - Medically Indicated Optical Services',
+    url: '/insurance%20info/Eyequest/EyeQuest%20Exhibit%20II%20-%20Medically%20Indicated%20Optical%20Services.pdf',
+    desc: 'EyeQuest Medically Indicated Optical Services criteria reference',
+    carrier: 'EyeQuest'
+  },
+  'insurance-spectera-formulary': {
+    title: 'Spectera Progressive & AR Formulary',
+    url: '/insurance%20info/Spectera/Spectera%20Progressive%20&%20AR%20Formulary.pdf',
+    desc: 'Spectera Progressive and Anti-Reflective Formulary Chart',
+    carrier: 'Spectera'
+  },
+  'insurance-versant-formulary': {
+    title: 'Versant Health Progressive & AR Formulary',
+    url: '/insurance%20info/Versant/Versant%20Health%20Progressive%20&%20AR%20Formulary.pdf',
+    desc: 'Versant Health Progressive and Anti-Reflective Formulary Chart',
+    carrier: 'Versant'
+  },
+  'insurance-vsp-advantage': {
+    title: 'VSP Advantage Plan Lens Enhancement Chart',
+    url: '/insurance%20info/VSP/VSP%20Advantage%20Plan%20Lens%20Enhancement%20Chart.pdf',
+    desc: 'VSP Advantage Plan covered options & copay formulary',
+    carrier: 'VSP'
+  },
+  'insurance-vsp-choice': {
+    title: 'VSP Choice Plan Lens Enhancement Chart',
+    url: '/insurance%20info/VSP/VSP%20Choice%20Plan%20Lens%20Enhancement%20Chart.pdf',
+    desc: 'VSP Choice Plan covered options & copay formulary',
+    carrier: 'VSP'
+  },
+  'insurance-vsp-signature': {
+    title: 'VSP Signature Plan Lens Enhancement Chart',
+    url: '/insurance%20info/VSP/VSP%20Signature%20Plan%20Lens%20Enhancement%20Chart.pdf',
+    desc: 'VSP Signature Plan covered options & copay formulary',
+    carrier: 'VSP'
+  }
+};
+
 class App {
   constructor() {
     this.activeFormId = 'patient-info';
@@ -144,6 +189,9 @@ class App {
   }
   
   getFormTitle(formId) {
+    if (INSURANCE_DOCS[formId]) {
+      return INSURANCE_DOCS[formId].title;
+    }
     switch (formId) {
       case 'patient-info': return 'Patient Information Sheet';
       case 'dr-side-patient': return 'Dr. Side New Patient Form';
@@ -216,6 +264,15 @@ class App {
     // Instantiation dispatcher
     const callback = (newState) => this.saveFormState(this.activeFormId, newState);
     
+    // If active form is an insurance PDF document
+    if (INSURANCE_DOCS[this.activeFormId]) {
+      const doc = INSURANCE_DOCS[this.activeFormId];
+      this.currentFormInstance = new EmbeddedDocForm(renderTarget, doc.url, doc.title);
+      this.toggleMode('fill');
+      this.updateDocumentTitle();
+      return;
+    }
+
     switch (this.activeFormId) {
       case 'patient-info':
         this.currentFormInstance = new PatientInfoForm(renderTarget, formState, callback);
@@ -302,6 +359,15 @@ class App {
     const title = this.getFormTitle(this.activeFormId);
     this.formActions.updateTitle(title);
     
+    if (INSURANCE_DOCS[this.activeFormId]) {
+      const doc = INSURANCE_DOCS[this.activeFormId];
+      this.formActions.updateDescription(`${doc.desc} • ${doc.carrier}`);
+      this.formActions.setControlsVisibility(false, true);
+      this.formActions.setOpenTabUrl(doc.url);
+      this.updateDocumentTitle();
+      return;
+    }
+
     if (this.activeFormId === 'staff-schedule') {
       this.formActions.updateDescription('Interactive 4-week staff schedule & single-page printout');
       this.formActions.setControlsVisibility(false, true);
@@ -358,6 +424,9 @@ class App {
     }
 
     const formId = this.activeFormId;
+    if (INSURANCE_DOCS[formId]) {
+      return this.sanitizeFileName(INSURANCE_DOCS[formId].title);
+    }
     const state = this.formData[formId] || (this.currentFormInstance?.state) || {};
     let name = '';
 
