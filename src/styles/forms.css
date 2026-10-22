@@ -789,3 +789,399 @@
 }
 
 
+
+
+/* ==========================================================================
+   PAL OPTICAL MASTER LENS & SERVICE PRICE LIST COMPONENT STYLES
+   ========================================================================== */
+
+.pricelist-native-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 60px;
+}
+
+.pricelist-toolbar {
+  width: 100%;
+  max-width: 8.5in;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pricelist-tabs {
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 3px;
+  border-radius: 8px;
+  gap: 2px;
+}
+
+.pl-tab-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.pl-tab-btn:hover {
+  color: #fff;
+}
+
+.pl-tab-btn.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+.pricelist-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pl-search-wrap input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 5px 10px;
+  width: 160px;
+  outline: none;
+}
+
+.pl-search-wrap input:focus {
+  border-color: #60a5fa;
+  width: 200px;
+}
+
+.pl-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.pl-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.pl-btn-active {
+  background: #059669 !important;
+  color: #fff !important;
+  border-color: #10b981 !important;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.pl-btn-primary {
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%) !important;
+  color: #fff !important;
+}
+
+.pricelist-sheets-container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: center;
+  width: 100%;
+}
+
+/* Sheet Box */
+.pricelist-native-wrapper .price-sheet {
+  width: 8.5in;
+  min-height: 11in;
+  background: #ffffff;
+  padding: 0.35in 0.42in 0.32in 0.42in;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  color: #0f172a;
+}
+
+.pricelist-native-wrapper .sheet-header {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 60%, #2563eb 100%);
+  color: #ffffff;
+  border-radius: 7px;
+  padding: 9px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.pricelist-native-wrapper .sheet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 12px;
+  row-gap: 6px;
+  flex: 1;
+}
+
+.pricelist-native-wrapper .sheet-column {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pricelist-native-wrapper .category-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+
+.pricelist-native-wrapper .cat-header {
+  background: #0284c7;
+  color: #ffffff;
+  padding: 4px 8px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pricelist-native-wrapper .cat-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.pricelist-native-wrapper .theme-blue .cat-header { background: #0284c7; }
+.pricelist-native-wrapper .theme-indigo .cat-header { background: #4f46e5; }
+.pricelist-native-wrapper .theme-teal .cat-header { background: #0d9488; }
+.pricelist-native-wrapper .theme-amber .cat-header { background: #d97706; }
+.pricelist-native-wrapper .theme-crimson .cat-header { background: #dc2626; }
+.pricelist-native-wrapper .theme-purple .cat-header { background: #7c3aed; }
+.pricelist-native-wrapper .theme-charcoal .cat-header { background: #334155; }
+
+.pricelist-native-wrapper .price-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.69rem;
+}
+
+.pricelist-native-wrapper .price-table tr {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.pricelist-native-wrapper .price-table tr.highlighted-row {
+  background: #fffbeb;
+  font-weight: 700;
+}
+
+.pricelist-native-wrapper .item-name-cell {
+  padding: 2.2px 8px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.pricelist-native-wrapper .item-star {
+  color: #f59e0b;
+  margin-left: 4px;
+}
+
+.pricelist-native-wrapper .item-price-cell {
+  padding: 2.2px 8px;
+  text-align: right;
+  font-weight: 800;
+  color: #0369a1;
+  white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.pricelist-native-wrapper .notice-box {
+  margin: 3px 0;
+  padding: 4px 8px;
+  font-size: 0.63rem;
+  font-weight: 800;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pricelist-native-wrapper .notice-info {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+}
+
+.pricelist-native-wrapper .notice-warning {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #b45309;
+}
+
+.pricelist-native-wrapper .notice-alert {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.pricelist-native-wrapper .diagram-zone {
+  margin-top: 4px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #f8fafc;
+  padding: 6px 8px;
+}
+
+.pricelist-native-wrapper .diagram-zone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.pricelist-native-wrapper .diagram-title {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #334155;
+  text-transform: uppercase;
+}
+
+.pricelist-native-wrapper .diagram-btn-change {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.pricelist-native-wrapper .diagram-canvas-box {
+  width: 100%;
+  min-height: 105px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.pricelist-native-wrapper .diagram-caption {
+  font-size: 0.58rem;
+  color: #64748b;
+  margin-top: 3px;
+  text-align: center;
+  font-style: italic;
+}
+
+.pricelist-native-wrapper .transitions-swatches {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  width: 100%;
+}
+
+.pricelist-native-wrapper .swatch-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.pricelist-native-wrapper .swatch-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+.pricelist-native-wrapper .swatch-name {
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.pricelist-native-wrapper .sheet-footer {
+  border-top: 1px solid #cbd5e1;
+  padding-top: 5px;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  color: #64748b;
+}
+
+.pricelist-native-wrapper .editable-cell[contenteditable="true"] {
+  background: #eff6ff !important;
+  outline: 1.5px dashed #3b82f6 !important;
+  cursor: text !important;
+  border-radius: 2px;
+  padding: 1px 3px;
+}
+
+.pricelist-native-wrapper .edit-row-actions {
+  display: none;
+  width: 28px;
+  text-align: center;
+}
+
+.pricelist-native-wrapper .btn-delete-row {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.pricelist-native-wrapper .add-row-wrapper {
+  padding: 4px;
+  text-align: center;
+  background: #f8fafc;
+  border-top: 1px dashed #cbd5e1;
+}
+
+.pricelist-native-wrapper .btn-add-item {
+  background: #eff6ff;
+  border: 1px dashed #93c5fd;
+  color: #1d4ed8;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}

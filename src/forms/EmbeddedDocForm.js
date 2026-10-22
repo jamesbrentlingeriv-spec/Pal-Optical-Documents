@@ -11,10 +11,14 @@ export class EmbeddedDocForm {
   }
 
   render() {
+    let resolvedUrl = this.docUrl;
+    if (window.location.protocol === 'file:' && resolvedUrl.startsWith('/')) {
+      resolvedUrl = '.' + resolvedUrl;
+    }
     this.container.innerHTML = `
       <div class="embedded-doc-container">
         <iframe 
-          src="${this.docUrl}" 
+          src="${resolvedUrl}" 
           class="embedded-doc-iframe" 
           title="${this.docTitle}"
           id="embedded-doc-frame"
