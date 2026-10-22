@@ -53,6 +53,12 @@ export const INSURANCE_DOCS = {
     desc: 'Versant Health Progressive and Anti-Reflective Formulary Chart',
     carrier: 'Versant'
   },
+  'insurance-vsp-progressive-ar': {
+    title: 'VSP Progressive & AR Product Directory',
+    url: '/insurance%20info/VSP/VSP%20Progressive%20&%20AR%20Product%20Directory.pdf',
+    desc: 'VSP Progressive and Anti-Reflective Lens Product Directory',
+    carrier: 'VSP'
+  },
   'insurance-vsp-advantage': {
     title: 'VSP Advantage Plan Lens Enhancement Chart',
     url: '/insurance%20info/VSP/VSP%20Advantage%20Plan%20Lens%20Enhancement%20Chart.pdf',
@@ -193,6 +199,9 @@ class App {
       return INSURANCE_DOCS[formId].title;
     }
     switch (formId) {
+      case 'price-list': return 'Pal Optical Lens & Service Price List (Oct 2026)';
+      case 'optician-cheat-sheet': return 'Optician Essential Chairside Guide';
+      case 'eyecare-directory': return 'Eye Care, Surgeons & Labs Directory';
       case 'patient-info': return 'Patient Information Sheet';
       case 'dr-side-patient': return 'Dr. Side New Patient Form';
       case 'prior-auth': return 'Medicaid / Avesis Prior Auth';
@@ -274,6 +283,15 @@ class App {
     }
 
     switch (this.activeFormId) {
+      case 'price-list':
+        this.currentFormInstance = new EmbeddedDocForm(renderTarget, '/Pal%20Optical%20Lens%20Price%20List.html', 'Pal Optical Lens Price List');
+        break;
+      case 'optician-cheat-sheet':
+        this.currentFormInstance = new EmbeddedDocForm(renderTarget, '/Pal%20Optical%20Lens%20Price%20List.html?view=cheatsheet', 'Optician Essential Chairside Guide');
+        break;
+      case 'eyecare-directory':
+        this.currentFormInstance = new EmbeddedDocForm(renderTarget, '/Pal%20Optical%20Lens%20Price%20List.html?view=directory', 'Eye Care & Labs Directory');
+        break;
       case 'patient-info':
         this.currentFormInstance = new PatientInfoForm(renderTarget, formState, callback);
         break;
@@ -368,7 +386,19 @@ class App {
       return;
     }
 
-    if (this.activeFormId === 'staff-schedule') {
+    if (this.activeFormId === 'price-list') {
+      this.formActions.updateDescription('Master price list for lenses, coatings, lab charges & dispensary surcharges (Oct 2026)');
+      this.formActions.setControlsVisibility(false, true);
+      this.formActions.setOpenTabUrl('/Pal%20Optical%20Lens%20Price%20List.html');
+    } else if (this.activeFormId === 'optician-cheat-sheet') {
+      this.formActions.updateDescription('Chairside troubleshooting guide, frame styling, nose pad angles & transposition');
+      this.formActions.setControlsVisibility(false, true);
+      this.formActions.setOpenTabUrl('/Pal%20Optical%20Lens%20Price%20List.html?view=cheatsheet');
+    } else if (this.activeFormId === 'eyecare-directory') {
+      this.formActions.updateDescription('Lexington eye surgeons, ODs, optical labs, account numbers & vision plans directory');
+      this.formActions.setControlsVisibility(false, true);
+      this.formActions.setOpenTabUrl('/Pal%20Optical%20Lens%20Price%20List.html?view=directory');
+    } else if (this.activeFormId === 'staff-schedule') {
       this.formActions.updateDescription('Interactive 4-week staff schedule & single-page printout');
       this.formActions.setControlsVisibility(false, true);
       this.formActions.setOpenTabUrl('/staff%20schedule.html');

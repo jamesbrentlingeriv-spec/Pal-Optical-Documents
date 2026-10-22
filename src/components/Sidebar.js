@@ -17,6 +17,7 @@ export class Sidebar {
       {
         title: 'Orders & Calculations',
         items: [
+          { id: 'price-list', label: 'Lens & Service Price List (Oct 2026)', icon: 'dollar-sign' },
           { id: 'writeup', label: 'Lab Write-Up (5.5"×8.5")', icon: 'file-text' },
           { id: 'eyeglass-job-note', label: 'Eyeglass Job Note', icon: 'file-text' },
           { id: 'prior-auth', label: 'Medicaid / Avesis Prior Auth', icon: 'file-text' },
@@ -65,6 +66,7 @@ export class Sidebar {
           {
             name: 'VSP',
             items: [
+              { id: 'insurance-vsp-progressive-ar', label: 'Progressive & AR Product Directory', icon: 'file-text' },
               { id: 'insurance-vsp-advantage', label: 'Advantage Plan Enhancement Chart', icon: 'file-text' },
               { id: 'insurance-vsp-choice', label: 'Choice Plan Enhancement Chart', icon: 'file-text' },
               { id: 'insurance-vsp-signature', label: 'Signature Plan Enhancement Chart', icon: 'file-text' }
@@ -95,7 +97,9 @@ export class Sidebar {
         title: 'Office & Staff',
         items: [
           { id: 'staff-schedule', label: 'Staff Schedule', icon: 'calendar' },
-          { id: 'notes-to-dr', label: 'Notes to Doctor', icon: 'file-text' }
+          { id: 'notes-to-dr', label: 'Notes to Doctor', icon: 'file-text' },
+          { id: 'optician-cheat-sheet', label: 'Optician Chairside Guide', icon: 'file-text' },
+          { id: 'eyecare-directory', label: 'Eye Care & Labs Directory', icon: 'activity' }
         ]
       }
     ];
