@@ -27,7 +27,6 @@ import { SingleVisionConsentForm } from './forms/SingleVisionConsentForm.js';
 import { SchoolExcuseForm } from './forms/SchoolExcuseForm.js';
 import { WellcareSpendablesForm } from './forms/WellcareSpendablesForm.js';
 import { EmbeddedDocForm } from './forms/EmbeddedDocForm.js';
-import { PriceListForm } from './forms/PriceListForm.js';
 
 export const INSURANCE_DOCS = {
   'insurance-eyemed-anti-glare': {
@@ -53,12 +52,6 @@ export const INSURANCE_DOCS = {
     url: '/insurance%20info/Versant/Versant%20Health%20Progressive%20&%20AR%20Formulary.pdf',
     desc: 'Versant Health Progressive and Anti-Reflective Formulary Chart',
     carrier: 'Versant'
-  },
-  'insurance-vsp-progressive-ar': {
-    title: 'VSP Progressive & AR Product Directory',
-    url: '/insurance%20info/VSP/VSP%20Progressive%20&%20AR%20Product%20Directory.pdf',
-    desc: 'VSP Progressive and Anti-Reflective Lens Product Directory',
-    carrier: 'VSP'
   },
   'insurance-vsp-advantage': {
     title: 'VSP Advantage Plan Lens Enhancement Chart',
@@ -200,15 +193,90 @@ class App {
       return INSURANCE_DOCS[formId].title;
     }
     switch (formId) {
-      case 'price-list':
-        this.currentFormInstance = new PriceListForm(renderTarget, formState, callback, 'all');
-        break;
-      case 'optician-cheat-sheet':
-        this.currentFormInstance = new PriceListForm(renderTarget, formState, callback, 'cheatsheet');
-        break;
-      case 'eyecare-directory':
-        this.currentFormInstance = new PriceListForm(renderTarget, formState, callback, 'directory');
-        break;
+      case 'patient-info': return 'Patient Information Sheet';
+      case 'dr-side-patient': return 'Dr. Side New Patient Form';
+      case 'prior-auth': return 'Medicaid / Avesis Prior Auth';
+      case 'price-quote': return 'Eyewear Price Quote';
+      case 'safety-order': return 'Eagle Safety Order Form';
+      case 'pd-record': return 'Pupillary Distance (PD) Record';
+      case 'writeup': return 'Lab Write-Up Slip (5.5" x 8.5")';
+      case 'eyeglass-job-note': return 'Eyeglass Job Note';
+      case 'cms1500': return 'CMS-1500 Claim Worksheet';
+      case 'fee-slip': return 'Office Fee Slip / Superbill';
+      case 'itemized-receipt': return 'Pal Optical Itemized Receipt';
+      case 'itemized-statement-request': return 'Itemized Statement Request (Tracy)';
+      case 'bilingual-lens-waiver': return 'Polycarbonate Balance Lens';
+      case 'child-no-poly': return 'Refusal of Polycarbonate';
+      case 'expired-rx': return 'Expired Rx Consent';
+      case 'frame-no-child': return 'Frame Selection w/o Child';
+      case 'patients-own-frame': return "Patient's Own Frame";
+      case 'semi-rimless': return 'Semi-Rimless in Plastic';
+      case 'single-vision': return 'Single Vision Consent';
+      case 'school-excuse-james': return 'School Excuse (James)';
+      case 'school-excuse-carribyan': return 'School Excuse (Carribyan)';
+      case 'wellcare-spendables': return 'Wellcare Spendable Card Auth';
+      case 'staff-schedule': return 'Staff Schedule (Doc Side & Pal Front)';
+      case 'notes-to-dr': return 'Important Notes to Doctor (Dr. Robbins)';
+      case 'price-list': return 'Pal Optical Lens & Service Price List (Oct 2026)';
+      case 'optician-cheat-sheet': return 'Optician Essential Chairside Guide';
+      case 'eyecare-directory': return 'Eye Care, Surgeons & Labs Directory';
+      default: return 'Pal Optical Form';
+    }
+  }
+  
+  toggleMode(mode) {
+    this.activeMode = mode;
+    const renderTarget = document.getElementById('form-render-target');
+    
+    if (mode === 'print-blank') {
+      renderTarget.classList.add('print-blank-active');
+      renderTarget.classList.add('print-mode');
+      document.body.classList.add('print-blank-active');
+      document.body.classList.add('mode-print-blank');
+    } else {
+      renderTarget.classList.remove('print-blank-active');
+      renderTarget.classList.remove('print-mode');
+      document.body.classList.remove('print-blank-active');
+      document.body.classList.remove('mode-print-blank');
+    }
+    
+    // We re-render the canvas layout or signature pad states if required,
+    // but CSS handles hiding signature drawings and formatting inputs.
+  }
+  
+  renderActiveForm() {
+    const renderTarget = document.getElementById('form-render-target');
+    
+    // Clean up event listeners on previous form to prevent leaks
+    if (this.currentFormInstance && typeof this.currentFormInstance.destroy === 'function') {
+      this.currentFormInstance.destroy();
+    }
+    
+    renderTarget.innerHTML = ''; // Clear target
+    
+    // Clear any previous active form classes from body
+    const classesToRemove = Array.from(document.body.classList).filter(c => c.startsWith('active-form-'));
+    classesToRemove.forEach(c => document.body.classList.remove(c));
+    
+    // Add current active form class to body
+    document.body.classList.add(`active-form-${this.activeFormId}`);
+    
+    // Fetch saved state for this form
+    const formState = this.formData[this.activeFormId] || {};
+    
+    // Instantiation dispatcher
+    const callback = (newState) => this.saveFormState(this.activeFormId, newState);
+    
+    // If active form is an insurance PDF document
+    if (INSURANCE_DOCS[this.activeFormId]) {
+      const doc = INSURANCE_DOCS[this.activeFormId];
+      this.currentFormInstance = new EmbeddedDocForm(renderTarget, doc.url, doc.title);
+      this.toggleMode('fill');
+      this.updateDocumentTitle();
+      return;
+    }
+
+    switch (this.activeFormId) {
       case 'patient-info':
         this.currentFormInstance = new PatientInfoForm(renderTarget, formState, callback);
         break;
@@ -281,6 +349,15 @@ class App {
       case 'notes-to-dr':
         this.currentFormInstance = new EmbeddedDocForm(renderTarget, '/Note%20to%20Dr.html', 'Important Notes to Doctor');
         break;
+      case 'price-list':
+        this.currentFormInstance = new EmbeddedDocForm(renderTarget, '/Pal%20Optical%20Lens%20Price%20List.html', 'Pal Optical Lens Price List');
+        break;
+      case 'optician-cheat-sheet':
+        this.currentFormInstance = new EmbeddedDocForm(renderTarget, '/Pal%20Optical%20Lens%20Price%20List.html?view=cheatsheet', 'Optician Essential Chairside Guide');
+        break;
+      case 'eyecare-directory':
+        this.currentFormInstance = new EmbeddedDocForm(renderTarget, '/Pal%20Optical%20Lens%20Price%20List.html?view=directory', 'Eye Care & Labs Directory');
+        break;
       default:
         renderTarget.innerHTML = '<div class="form-card">Select a form from the menu.</div>';
     }
@@ -303,7 +380,15 @@ class App {
       return;
     }
 
-    if (this.activeFormId === 'price-list') {
+    if (this.activeFormId === 'staff-schedule') {
+      this.formActions.updateDescription('Interactive 4-week staff schedule & single-page printout');
+      this.formActions.setControlsVisibility(false, true);
+      this.formActions.setOpenTabUrl('/staff%20schedule.html');
+    } else if (this.activeFormId === 'notes-to-dr') {
+      this.formActions.updateDescription('Patient communication notes for Dr. Robbins');
+      this.formActions.setControlsVisibility(false, true);
+      this.formActions.setOpenTabUrl('/Note%20to%20Dr.html');
+    } else if (this.activeFormId === 'price-list') {
       this.formActions.updateDescription('Master price list for lenses, coatings, lab charges & dispensary surcharges (Oct 2026)');
       this.formActions.setControlsVisibility(false, true);
       this.formActions.setOpenTabUrl('/Pal%20Optical%20Lens%20Price%20List.html');
@@ -315,14 +400,6 @@ class App {
       this.formActions.updateDescription('Lexington eye surgeons, ODs, optical labs, account numbers & vision plans directory');
       this.formActions.setControlsVisibility(false, true);
       this.formActions.setOpenTabUrl('/Pal%20Optical%20Lens%20Price%20List.html?view=directory');
-    } else if (this.activeFormId === 'staff-schedule') {
-      this.formActions.updateDescription('Interactive 4-week staff schedule & single-page printout');
-      this.formActions.setControlsVisibility(false, true);
-      this.formActions.setOpenTabUrl('/staff%20schedule.html');
-    } else if (this.activeFormId === 'notes-to-dr') {
-      this.formActions.updateDescription('Patient communication notes for Dr. Robbins');
-      this.formActions.setControlsVisibility(false, true);
-      this.formActions.setOpenTabUrl('/Note%20to%20Dr.html');
     } else if (this.activeFormId === 'itemized-statement-request') {
       this.formActions.updateDescription('Routing request for file clerk Tracy with mandatory attachments disclaimer');
       this.formActions.setControlsVisibility(true, true);
