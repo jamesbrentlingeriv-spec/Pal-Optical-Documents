@@ -102,6 +102,7 @@ const htmlFiles = [
   "Note to Dr.html",
   "staff schedule.html",
   "Itemized Statement Request.html",
+  "Pal Optical Lens Price List.html",
 ];
 
 htmlFiles.forEach((file) => {

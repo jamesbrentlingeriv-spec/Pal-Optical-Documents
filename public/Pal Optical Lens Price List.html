@@ -232,6 +232,50 @@
       box-shadow: 0 4px 12px rgba(37, 99, 235, 0.5);
     }
 
+    /* Multi-Computer Cloud Sync Indicator Button */
+    .btn-cloud-sync {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 10px;
+    }
+
+    .sync-indicator-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .dot-synced {
+      background-color: #10b981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+    }
+
+    .dot-syncing {
+      background-color: #f59e0b;
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
+      animation: pulseSyncDot 0.8s infinite alternate ease-in-out;
+    }
+
+    .dot-offline {
+      background-color: #94a3b8;
+    }
+
+    .dot-error {
+      background-color: #ef4444;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+    }
+
+    @keyframes pulseSyncDot {
+      from { opacity: 0.3; transform: scale(0.85); }
+      to { opacity: 1; transform: scale(1.2); }
+    }
+
     /* Edit Toggle */
     .edit-mode-switch {
       display: flex;
@@ -1068,6 +1112,12 @@
         <span class="switch-slider"></span>
         <span id="edit-mode-text">Edit Mode</span>
       </label>
+
+      <!-- Multi-Computer Cloud Sync Indicator -->
+      <button class="btn btn-secondary btn-cloud-sync" id="btn-cloud-sync" title="Multi-Computer Sync Status (Click for sync options)">
+        <span class="sync-indicator-dot dot-synced" id="sync-dot"></span>
+        <span id="sync-text">Synced</span>
+      </button>
 
       <!-- Calculator Drawer Toggle -->
       <button class="btn btn-secondary" id="btn-toggle-calc" title="Open Quick Estimate Calculator">
@@ -7130,6 +7180,81 @@
     </div>
   </div>
 
+  <!-- Multi-Computer Sync & Backup Modal -->
+  <div class="modal-overlay no-print" id="sync-modal">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+          <h3 style="margin: 0; font-size: 0.95rem; font-weight: 700; color: #0f172a;">Shop-Wide Multi-Computer Price Sync</h3>
+        </div>
+        <button class="modal-close" id="modal-sync-close">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 16px;">
+        <!-- Status Box -->
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 0.72rem; font-weight: 700; color: #475569; letter-spacing: 0.5px;">SYNC STATUS</span>
+            <span id="sync-modal-status-text" style="font-size: 0.75rem; font-weight: 800; color: #10b981;">Connected & Synced</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; color: #64748b;">
+            <span>Last Synced across shop:</span>
+            <span id="sync-modal-time-text" style="font-weight: 600; color: #1e293b;">Just now</span>
+          </div>
+          <div style="margin-top: 8px; font-size: 0.68rem; color: #64748b; line-height: 1.4;">
+            Every price edit, added lens, custom ordering, or deleted item saved here is automatically shared across all computers in the shop.
+          </div>
+        </div>
+
+        <!-- Action Grid -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
+          <button class="btn btn-primary" id="btn-sync-pull-now" style="padding: 10px 8px; font-size: 0.76rem; display: flex; flex-direction: column; align-items: center; gap: 4px; border-radius: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            <span style="font-weight: 700;">Sync Now</span>
+            <span style="font-size: 0.64rem; opacity: 0.9; font-weight: normal;">Pull latest from all computers</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-sync-push-now" style="padding: 10px 8px; font-size: 0.76rem; display: flex; flex-direction: column; align-items: center; gap: 4px; border-radius: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+            <span style="font-weight: 700;">Push to All</span>
+            <span style="font-size: 0.64rem; opacity: 0.85; font-weight: normal;">Broadcast local version</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-modal-export" style="padding: 10px 8px; font-size: 0.76rem; display: flex; flex-direction: column; align-items: center; gap: 4px; border-radius: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            <span style="font-weight: 700;">Export Backup</span>
+            <span style="font-size: 0.64rem; opacity: 0.85; font-weight: normal;">Save dated .json to computer</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-modal-import-trigger" style="padding: 10px 8px; font-size: 0.76rem; display: flex; flex-direction: column; align-items: center; gap: 4px; border-radius: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+            <span style="font-weight: 700;">Restore Backup</span>
+            <span style="font-size: 0.64rem; opacity: 0.85; font-weight: normal;">Load backup .json file</span>
+          </button>
+          <input type="file" id="sync-file-input" accept=".json" style="display: none;">
+        </div>
+
+        <!-- Optional Cloud Endpoint URL Configuration -->
+        <details style="margin-top: 12px; font-size: 0.72rem; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+          <summary style="cursor: pointer; color: #475569; font-weight: 600;">Advanced Network Settings</summary>
+          <div style="margin-top: 8px;">
+            <label style="display: block; font-weight: 700; color: #1e293b; margin-bottom: 4px;">
+              Sync API Endpoint:
+            </label>
+            <div style="display: flex; gap: 6px;">
+              <input type="text" id="sync-endpoint-input" placeholder="/api/price-list" style="flex: 1; padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.72rem;">
+              <button class="btn btn-secondary" id="btn-save-sync-endpoint" style="font-size: 0.72rem; padding: 6px 12px;">Save</button>
+            </div>
+            <div style="color: #64748b; font-size: 0.65rem; margin-top: 4px;">
+              Default: <code>/api/price-list</code>. Automatically connects to Vercel KV, office server, or custom database URL.
+            </div>
+          </div>
+        </details>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
+          <button class="btn btn-secondary" id="modal-sync-done">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification -->
   <div id="toast" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #0f172a; color: #fff; padding: 8px 18px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; box-shadow: 0 10px 25px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2000; pointer-events: none;"></div>
 
@@ -7138,6 +7263,28 @@
   const DEFAULT_PRICE_DATA = {"meta":{"shopName":"Pal Optical","title":"Pal Optical Price List","subtitle":"Plastic • Polycarbonate • Trivex • High-Index • Crown Glass • Transitions • Polarized • Ray-Ban • Coatings • Lab Fees","location":"1555 E New Circle Rd Ste. 146, Lexington, KY 40509","phone":"(859) 266-3003","docPhone":"(859) 269-6921","fax":"(859) 266-9504","email":"paloptical18@gmail.com","effectiveDate":"October 2026","version":"2026.1"},"page1":{"sections":[{"id":"plastic-clear","title":"1. PLASTIC CLEAR (CR-39)","badge":"INDEX 1.50","note":"","items":[{"id":"pc-1","name":"PLANO","price":35,"highlighted":false},{"id":"pc-2","name":"SINGLE VISION","price":50,"highlighted":false},{"id":"pc-3","name":"EYEZEN (+0-+4)","price":125,"highlighted":false},{"id":"pc-4","name":"LENTICULAR SINGLE VISION","price":175,"highlighted":false},{"id":"pc-5","name":"FT-28 LINED BF","price":140,"highlighted":false},{"id":"pc-6","name":"LENTICULAR FT-28 LINED BF","price":235,"highlighted":false},{"id":"pc-7","name":"FT-35 LINED BF","price":145,"highlighted":false},{"id":"pc-8","name":"FT-45 LINED BF","price":150,"highlighted":false},{"id":"pc-9","name":"OCCUPATIONAL FT-28 LINED BF","price":285,"highlighted":false},{"id":"pc-10","name":"ROUND SEG 22mm","price":150,"highlighted":false},{"id":"pc-11","name":"BLENDED BIFOCAL","price":145,"highlighted":false},{"id":"pc-12","name":"FT-7X28 LINED TF","price":165,"highlighted":false},{"id":"pc-13","name":"LENTICULAR 7X28 LINED TF","price":390,"highlighted":false},{"id":"pc-14","name":"FRANKLIN SEG","price":500,"highlighted":false},{"id":"pc-15","name":"ESSILOR NATURAL","price":295,"highlighted":false},{"id":"pc-16","name":"ESSILOR OVATION","price":350,"highlighted":false},{"id":"pc-17","name":"VARILUX COMFORT DRX","price":365,"highlighted":false},{"id":"pc-18","name":"VARILUX PHYSIO DRX","price":390,"highlighted":false},{"id":"pc-19","name":"VARILUX X","price":530,"highlighted":false},{"id":"pc-20","name":"SHAMIR AUTOGRAPH III","price":465,"highlighted":false},{"id":"pc-21","name":"VSP UNITY V3","price":325,"highlighted":false},{"id":"pc-22","name":"VSP UNITY ELITE","price":425,"highlighted":false},{"id":"pc-23","name":"YOUNGER IMAGE","price":255,"highlighted":true,"star":true},{"id":"pc-24","name":"YOUNGER ADAGE","price":null,"priceNote":"POLY ONLY","highlighted":false}]},{"id":"poly-clear","title":"2. POLYCARBONATE CLEAR","badge":"INDEX 1.59 IMPACT","note":"","items":[{"id":"poly-1","name":"SINGLE VISION","price":115,"highlighted":false},{"id":"poly-2","name":"EYEZEN (+0-+4)","price":180,"highlighted":false},{"id":"poly-3","name":"FT-28 LINED BF","price":180,"highlighted":false},{"id":"poly-4","name":"FT-35 LINED BF","price":240,"highlighted":false},{"id":"poly-5","name":"OCCUPATIONAL FT-28 LINED BF","price":345,"highlighted":false},{"id":"poly-6","name":"FT-7X28 LINED TF","price":205,"highlighted":false},{"id":"poly-7","name":"ESSILOR NATURAL","price":335,"highlighted":false},{"id":"poly-8","name":"ESSILOR OVATION","price":390,"highlighted":false},{"id":"poly-9","name":"VARILUX COMFORT DRX","price":405,"highlighted":false},{"id":"poly-10","name":"VARILUX PHYSIO DRX","price":430,"highlighted":false},{"id":"poly-11","name":"VARILUX X","price":570,"highlighted":false},{"id":"poly-12","name":"SHAMIR AUTOGRAPH III","price":505,"highlighted":false},{"id":"poly-13","name":"VSP UNITY V3","price":365,"highlighted":false},{"id":"poly-14","name":"VSP UNITY ELITE","price":410,"highlighted":false},{"id":"poly-15","name":"YOUNGER IMAGE","price":295,"highlighted":true,"star":true},{"id":"poly-16","name":"YOUNGER ADAGE","price":295,"highlighted":false}]},{"id":"trivex-clear","title":"3. TRIVEX CLEAR","badge":"INDEX 1.53 HD ABBE 45","note":"","items":[{"id":"tri-1","name":"SINGLE VISION","price":150,"highlighted":false},{"id":"tri-2","name":"EYEZEN (+0-+4)","price":195,"highlighted":false},{"id":"tri-3","name":"FT-28 LINED BF","price":205,"highlighted":false},{"id":"tri-4","name":"FT-7X28 LINED TF","price":245,"highlighted":false},{"id":"tri-5","name":"YOUNGER IMAGE","price":315,"highlighted":true,"star":true},{"id":"tri-6","name":"ESSILOR OVATION","price":315,"highlighted":false},{"id":"tri-7","name":"VARILUX COMFORT","price":415,"highlighted":false},{"id":"tri-8","name":"VARILUX X","price":630,"highlighted":false}]},{"id":"hi-index-clear","title":"4. HIGH-INDEX CLEAR","badge":"1.60 / 1.67 / 1.74","noticeBanner":"DON'T FORGET TO ADD ANTI-REFLECTIVE COATING TO THESE","items":[{"id":"hi-1","name":"SINGLE VISION 1.67","price":365,"highlighted":false},{"id":"hi-2","name":"SINGLE VISION 1.74","price":400,"highlighted":false},{"id":"hi-3","name":"EYEZEN 1.67 (+0-+4)","price":415,"highlighted":false},{"id":"hi-4","name":"FT-28 1.67 LINED BF","price":420,"highlighted":false},{"id":"hi-5","name":"FT-35 1.67 LINED BF","price":450,"highlighted":false},{"id":"hi-6","name":"RD-22 1.67","price":550,"highlighted":false},{"id":"hi-7","name":"FRANKLIN SEG 1.67","price":1050,"highlighted":false},{"id":"hi-8","name":"NATURAL DIGITAL 1.67","price":500,"highlighted":false},{"id":"hi-9","name":"OVATION DIGITAL 1.67","price":500,"highlighted":false},{"id":"hi-10","name":"VARILUX PHYSIO 1.67","price":625,"highlighted":false},{"id":"hi-11","name":"VARILUX X 1.67","price":825,"highlighted":false},{"id":"hi-12","name":"SHAMIR AUTOGRAPH III 1.67","price":625,"highlighted":false},{"id":"hi-13","name":"VSP UNITY V3 1.67","price":525,"highlighted":false},{"id":"hi-14","name":"VSP UNITY ELITE 1.67","price":695,"highlighted":false},{"id":"hi-15","name":"YOUNGER IMAGE 1.67","price":520,"highlighted":true,"star":true}]},{"id":"glass-clear","title":"5. GLASS CLEAR (CROWN GLASS)","badge":"INDEX 1.52 / HI-INDEX","warningBanner":"GLASS JOBS ALL TAKE ROUGHLY 3-4 WEEKS","items":[{"id":"gl-1","name":"SINGLE VISION","price":175,"highlighted":false},{"id":"gl-2","name":"FT-28 LINED BF","price":285,"highlighted":false},{"id":"gl-3","name":"FT-7X28 LINED TF","price":345,"highlighted":false},{"id":"gl-4","name":"FREEFOCUS HD","price":500,"highlighted":false},{"id":"gl-5","name":"X-RAY GLASS SINGLE VISION","price":400,"highlighted":false},{"id":"gl-6","name":"X-RAY GLASS FT-28","price":345,"highlighted":false},{"id":"gl-7","name":"X-RAY GLASS PROGRESSIVE","price":575,"highlighted":false}]},{"id":"office-progressives","title":"6. OFFICE / COMPUTER PROGRESSIVES","badge":"INTERMEDIATE & NEAR","items":[{"id":"off-1","name":"FREEFOCUS PC13/20","price":205,"highlighted":false},{"id":"off-2","name":"SHAMIR WORKSPACE","price":245,"highlighted":false},{"id":"off-3","name":"ZEISS OFFICELENS (BOOK, DESK, ROOM)","price":225,"highlighted":false}]},{"id":"stellest-section","title":"STELLEST","badge":"MYOPIA MANAGEMENT","warningBanner":"IF CHILD UNDER 12 HAS A MINUS ABOVE -2.00D ASK DR. ROBBINS IF WE CAN USE THIS. NEEDS DR. APPROVAL.","items":[{"id":"st-1","name":"STELLEST SINGLE VISION POLY W/ CRIZAL EASY A/R","price":450,"highlighted":true}]}],"diagram":{"id":"diagram-p1","title":"Clear Lens Cross-Section & Bevel Profile Guide","type":"preset","presetName":"thickness-bevel","customImageUrl":"","caption":"Index of Refraction vs. Edge Thickness (CR-39 1.50 • Trivex 1.53 • Poly 1.59 • Hi-Index 1.67 / 1.74)"}},"page2":{"sections":[{"id":"transitions-plastic","title":"1. TRANSITIONS® PLASTIC (CR-39)","badge":"SIGNATURE / GEN S / 8","note":"","items":[{"id":"tp-1","name":"SINGLE VISION","price":235,"highlighted":false},{"id":"tp-2","name":"FT-28 LINED BF","price":250,"highlighted":false},{"id":"tp-3","name":"RD-22","price":360,"highlighted":false},{"id":"tp-4","name":"FT-7X28 LINED TF","price":275,"highlighted":false},{"id":"tp-5","name":"ESSILOR NATURAL DIGITAL","price":415,"highlighted":false},{"id":"tp-6","name":"VARILUX COMFORT DRX","price":475,"highlighted":false},{"id":"tp-7","name":"VARILUX PHYSIO DRX","price":510,"highlighted":false},{"id":"tp-8","name":"VARILUX X","price":640,"highlighted":false},{"id":"tp-9","name":"SHAMIR AUTOGRAPH III","price":575,"highlighted":false},{"id":"tp-10","name":"VSP UNITY V3","price":435,"highlighted":false},{"id":"tp-11","name":"VSP UNITY ELITE","price":535,"highlighted":false},{"id":"tp-12","name":"YOUNGER IMAGE","price":365,"highlighted":true,"star":true},{"id":"tp-13","name":"OKNO BASIC","price":385,"highlighted":false},{"id":"tp-14","name":"OKNO ENHANCED","price":405,"highlighted":false}]},{"id":"transitions-poly","title":"2. TRANSITIONS® POLYCARBONATE","badge":"IMPACT PHOTOCHROMIC","note":"","items":[{"id":"tpoly-1","name":"SINGLE VISION","price":275,"highlighted":false},{"id":"tpoly-2","name":"FT-28 LINED BF","price":290,"highlighted":false},{"id":"tpoly-3","name":"RD-22","price":395,"highlighted":false},{"id":"tpoly-4","name":"FT-7X28 LINED TF","price":315,"highlighted":false},{"id":"tpoly-5","name":"ESSILOR NATURAL DIGITAL","price":455,"highlighted":false},{"id":"tpoly-6","name":"VARILUX COMFORT DRX","price":505,"highlighted":false},{"id":"tpoly-7","name":"VARILUX PHYSIO DRX","price":550,"highlighted":false},{"id":"tpoly-8","name":"VARILUX X","price":690,"highlighted":false},{"id":"tpoly-9","name":"SHAMIR AUTOGRAPH III","price":615,"highlighted":false},{"id":"tpoly-10","name":"VSP UNITY V3","price":475,"highlighted":false},{"id":"tpoly-11","name":"VSP UNITY ELITE","price":575,"highlighted":false},{"id":"tpoly-12","name":"YOUNGER IMAGE","price":405,"highlighted":true,"star":true},{"id":"tpoly-13","name":"SINGLE VISION XTRA-ACTIVE POLARIZED","price":375,"highlighted":false},{"id":"tpoly-14","name":"ESSILOR OVATION DIGITAL XTRA-ACTIVE POLARIZED","price":575,"highlighted":false},{"id":"tpoly-15","name":"VARILUX COMFORT DRX XTRA-ACTIVE POLARIZED","price":650,"highlighted":false},{"id":"tpoly-16","name":"YOUNGER IMAGE XTRA-ACTIVE POLARIZED","price":525,"highlighted":false},{"id":"tpoly-17","name":"SINGLE VISION DRIVEWEAR","price":360,"highlighted":false},{"id":"tpoly-18","name":"YOUNGER IMAGE DRIVEWEAR","price":500,"highlighted":false}]},{"id":"transitions-trivex","title":"3. TRANSITIONS® TRIVEX","badge":"HD RIMLESS PHOTOCHROMIC","note":"","items":[{"id":"ttri-1","name":"SINGLE VISION","price":275,"highlighted":false},{"id":"ttri-2","name":"FT-28 LINED BF","price":300,"highlighted":false},{"id":"ttri-3","name":"FT-7X28 LINED TF","price":350,"highlighted":false},{"id":"ttri-4","name":"YOUNGER IMAGE","price":455,"highlighted":true,"star":true},{"id":"ttri-5","name":"ESSILOR OVATION DIGITAL","price":570,"highlighted":false},{"id":"ttri-6","name":"VARILUX COMFORT DRX","price":650,"highlighted":false},{"id":"ttri-7","name":"VARILUX X","price":790,"highlighted":false},{"id":"ttri-8","name":"FREEFOCUS HD","price":405,"highlighted":false},{"id":"ttri-9","name":"VSP UNITY V3","price":590,"highlighted":false},{"id":"ttri-10","name":"OKNO BASIC","price":405,"highlighted":false}]},{"id":"transitions-hi-index","title":"4. TRANSITIONS® HIGH-INDEX","badge":"1.60 / 1.67 / 1.74 SLIM","note":"","items":[{"id":"thi-1","name":"SINGLE VISION 1.67","price":465,"highlighted":false},{"id":"thi-2","name":"SINGLE VISION 1.74","price":650,"highlighted":false},{"id":"thi-3","name":"FT-28 1.67 (VISION DYNAMICS)","price":470,"highlighted":false},{"id":"thi-4","name":"RD-22 1.67","price":600,"highlighted":false},{"id":"thi-5","name":"ESSILOR NATURAL DIGITAL 1.67","price":650,"highlighted":false},{"id":"thi-6","name":"VARILUX COMFORT DRX 1.67","price":720,"highlighted":false},{"id":"thi-7","name":"VARILUX PHYSIO DRX 1.67","price":750,"highlighted":false},{"id":"thi-8","name":"VARILUX X 1.67","price":900,"highlighted":false},{"id":"thi-9","name":"SHAMIR AUTOGRAPH III 1.67","price":720,"highlighted":false},{"id":"thi-10","name":"VSP UNITY V3 1.67","price":650,"highlighted":false},{"id":"thi-11","name":"VSP UNITY ELITE","price":800,"highlighted":false}]},{"id":"glass-pgx-pbx","title":"5. GLASS PGX / PBX","badge":"PHOTOGRAY & PHOTOBROWN","note":"","items":[{"id":"gpgx-1","name":"SINGLE VISION","price":300,"highlighted":false},{"id":"gpgx-2","name":"FT-28 LINED BF","price":410,"highlighted":false},{"id":"gpgx-3","name":"FREEFOCUS HD PROGRESSIVE","price":590,"highlighted":false}]}],"diagram":{"id":"diagram-p2","title":"Transitions® Color Palette & Activation Chart","type":"preset","presetName":"transitions-comparison","customImageUrl":"","caption":"Gen S 8 Vivid Colors & Technology Comparison: Gen S, XTRActive, XTRActive Polarized, Drivewear"}},"page3":{"sections":[{"id":"polarized-plastic","title":"1. POLARIZED PLASTIC (CR-39)","badge":"99.9% GLARE BLOCK","items":[{"id":"polp-1","name":"SINGLE VISION","price":175,"highlighted":false},{"id":"polp-2","name":"KBCO SINGLE VISION","price":250,"highlighted":false},{"id":"polp-3","name":"FT-28 LINED BF","price":255,"highlighted":false},{"id":"polp-4","name":"KBCO FT-28 LINED BF","price":300,"highlighted":false},{"id":"polp-5","name":"FT-7X28 LINED TF","price":350,"highlighted":false},{"id":"polp-6","name":"ESSILOR NATURAL","price":450,"highlighted":false},{"id":"polp-7","name":"IRX PRO (KBCO)","price":475,"highlighted":false},{"id":"polp-8","name":"YOUNGER IMAGE","price":400,"highlighted":true,"star":true}]},{"id":"polarized-poly","title":"2. POLARIZED POLYCARBONATE","badge":"IMPACT SUN PROTECTION","items":[{"id":"polpoly-1","name":"SINGLE VISION","price":220,"highlighted":false},{"id":"polpoly-2","name":"KBCO SINGLE VISION","price":290,"highlighted":false},{"id":"polpoly-3","name":"FT-28 LINED BF","price":255,"highlighted":false},{"id":"polpoly-4","name":"KBCO FT-28 LINED BF","price":300,"highlighted":false},{"id":"polpoly-5","name":"ESSILOR NATURAL","price":515,"highlighted":false},{"id":"polpoly-6","name":"VARILUX COMFORT DRX","price":575,"highlighted":false},{"id":"polpoly-7","name":"IRX PRO (KBCO)","price":535,"highlighted":false},{"id":"polpoly-8","name":"YOUNGER IMAGE","price":495,"highlighted":true,"star":true}]},{"id":"polarized-hi-index","title":"3. POLARIZED HIGH-INDEX","badge":"1.60 / 1.67 / TRIVEX POLAR","items":[{"id":"polhi-1","name":"SINGLE VISION 1.67 POLARIZED","price":465,"highlighted":false},{"id":"polhi-2","name":"ESSILOR OVATION 1.67 POLARIZED","price":650,"highlighted":false},{"id":"polhi-3","name":"SHAMIR AUTOGRAPH III 1.67 POLARIZED","price":720,"highlighted":false}]},{"id":"coatings-treatments","title":"4. COATINGS & TREATMENTS","badge":"HARD COAT, AR & BLUE LIGHT","items":[{"id":"coat-1","name":"TINT","price":20,"highlighted":false},{"id":"coat-2","name":"SPECIALTY TINT (MIGRAINES, ETC)","price":70,"highlighted":false},{"id":"coat-3","name":"SCRATCH COATING","price":20,"highlighted":false},{"id":"coat-4","name":"U/V COATING","price":20,"highlighted":false},{"id":"coat-5","name":"SEIKO/ HOUSE ANTI-REFLECTIVE COATING (1YR)","price":85,"highlighted":false},{"id":"coat-6","name":"STRIP SEIKO/HOUSE ANTI-REFLECTIVE COATING","price":25,"highlighted":false},{"id":"coat-7","name":"CRIZAL ROCK ANTI-REFLECTIVE COATING (2YR)","price":215,"highlighted":true},{"id":"coat-8","name":"VSP UNITY ANTI-REFLECTIVE COATING (2YR)","price":185,"highlighted":false},{"id":"coat-9","name":"MIRROR COATING (2YR)","price":160,"highlighted":false},{"id":"coat-10","name":"BLUE LIGHT COATING","price":40,"highlighted":false}]},{"id":"rayban-authentic","title":"5. Ray-Ban AUTHENTIC LENSES","badge":"(PRICE INCLUDES A/R)","items":[{"id":"rb-1","name":"PLASTIC SINGLE VISION","price":150,"highlighted":false},{"id":"rb-2","name":"PLASTIC SINGLE VISION W/ BLUE LIGHT","price":180,"highlighted":false},{"id":"rb-3","name":"PLASTIC SINGLE VISION TRANSITIONS","price":260,"highlighted":false},{"id":"rb-4","name":"POLYCARBONATE SINGLE VISION","price":190,"highlighted":false},{"id":"rb-5","name":"POLYCARBONATE SINGLE VISION W/ BLUE LIGHT","price":220,"highlighted":false},{"id":"rb-6","name":"POLYCARBONATE SINGLE VISION TRANSITIONS","price":300,"highlighted":false},{"id":"rb-7","name":"1.67 HIGH-INDEX SINGLE VISION","price":375,"highlighted":false},{"id":"rb-8","name":"1.67 HIGH-INDEX SINGLE VISION W/ BLUE LIGHT","price":405,"highlighted":false},{"id":"rb-9","name":"1.67 HIGH-INDEX SINGLE VISION TRANSITIONS","price":485,"highlighted":false},{"id":"rb-10","name":"PLASTIC PROGRESSIVE","price":340,"highlighted":false},{"id":"rb-11","name":"PLASTIC PROGRESSIVE W/ BLUE LIGHT","price":370,"highlighted":false},{"id":"rb-12","name":"PLASTIC PROGRESSIVE TRANSITIONS","price":450,"highlighted":false},{"id":"rb-13","name":"POLYCARBONATE PROGRESSIVE","price":380,"highlighted":false},{"id":"rb-14","name":"POLYCARBONATE PROGRESSIVE W/ BLUE LIGHT","price":410,"highlighted":false},{"id":"rb-15","name":"POLYCARBONATE PROGRESSIVE TRANSITIONS","price":490,"highlighted":false},{"id":"rb-16","name":"1.67 HIGH-INDEX PROGRESSIVE","price":500,"highlighted":false},{"id":"rb-17","name":"1.67 HIGH-INDEX PROGRESSIVE W/ BLUE LIGHT","price":530,"highlighted":false},{"id":"rb-18","name":"1.67 HIGH-INDEX PROGRESSIVE TRANSITIONS","price":610,"highlighted":false},{"id":"rb-19","name":"POLYCARBONATE NON-POLARIZED TINT SINGLE VISION","price":350,"highlighted":false},{"id":"rb-20","name":"POLYCARBONATE POLARIZED SINGLE VISION","price":390,"highlighted":false},{"id":"rb-21","name":"POLYCARBONATE POLARIZED SINGLE VISION W/ BSAR","price":440,"highlighted":false},{"id":"rb-22","name":"POLYCARBONATE POLARIZED GRADIENT SINGLE VISION W/ BSAR","price":450,"highlighted":false},{"id":"rb-23","name":"POLYCARBONATE POLARIZED MIRROR SINGLE VISION W/ BSAR","price":475,"highlighted":false}]},{"id":"lab-charges","title":"6. LAB CHARGES","badge":"SURFACING & EDGING FEES","items":[{"id":"lab-1","name":"SINGLE VISION SPH OVER 4.00D","price":10,"unit":"/EA","highlighted":false},{"id":"lab-2","name":"SINGLE VISION SPH OVER 8.00D","price":20,"unit":"/EA","highlighted":false},{"id":"lab-3","name":"BIFOCAL ADD OVER +3.00","price":15,"unit":"/EA","highlighted":false},{"id":"lab-4","name":"BIFOCAL ADD OVER +4.00","price":30,"unit":"/EA","highlighted":false},{"id":"lab-5","name":"CYLINDER OVER 4.00D","price":20,"unit":"/PR","highlighted":false},{"id":"lab-6","name":"PRISM","price":10,"unit":"/EA","highlighted":false},{"id":"lab-7","name":"EYESIZE OVER 58mm","price":20,"unit":"","highlighted":false},{"id":"lab-8","name":"SEMI RIMLESS GROOVE","price":20,"unit":"","highlighted":false}]},{"id":"misc-fees","title":"7. MISCELLANEOUS","badge":"DISPENSARY SURCHARGES & FEES","items":[{"id":"misc-1","name":"OAKLEY IN-LINE","price":80,"unit":"","highlighted":false},{"id":"misc-2","name":"EDGE DOWN FRAMES NOT PURCHASED HERE","price":35,"unit":"","highlighted":false},{"id":"misc-3","name":"SLAB OFF","price":185,"unit":"","highlighted":false},{"id":"misc-4","name":"TAKE PD FOR NON PATIENT","price":25,"unit":"","highlighted":false},{"id":"misc-5","name":"DRILL MOUNT","price":40,"unit":"","highlighted":false},{"id":"misc-6","name":"PRESS-ON PRISM","price":75,"unit":"/EA","highlighted":false},{"id":"misc-7","name":"ROLL/POLISH","price":45,"unit":"","highlighted":false},{"id":"misc-8","name":"SIDE SHIELDS","price":30,"unit":"","highlighted":false}]}],"diagram":{"id":"diagram-p3","title":"Anti-Glare (AR) Driving Simulator & Ray-Ban Authentic Guide","type":"preset","presetName":"ar-night-driving","customImageUrl":"","caption":"AR Eliminates Distracting Headlight Glare & Halos for Night Driving • 100% Ray-Ban Digital Surfacing"}},"opticianCheatSheet":{"transposition":{"rule1":"1. New Main Power (Sphere): Add the first two numbers together (+ and -).","rule2":"2. Flip Astigmatism Sign: Change (+) to (-) or (-) to (+). Keep number same.","rule3":"3. Turn Axis by 90°: If <= 90°, add 90. If > 90°, subtract 90.","example":{"original":"-2.00 +1.50 x 045","step1":"-2.00 + (+1.50) = -0.50","step2":"+1.50 flips to -1.50","step3":"045 + 90 = 135","transposed":"-0.50 -1.50 x 135"}},"nosePads":[{"name":"Front Angle (Tilted Inward ~20°)","desc":"Tops sit closer together than bottoms to match nose slope."},{"name":"Side Angle (Splay ~25°-30°)","desc":"Front edges sit closer than rear edges as nose widens toward cheeks."},{"name":"Upright Tilt (~10°-15°)","desc":"Tops tilt forward slightly so pad rests flat without digging in."},{"name":"Golden Rule","desc":"Entire flat surface must touch skin—never just an edge or corner."}],"faceShapes":[{"shape":"Round Face","advice":"Angular, rectangular, or square frames with thin bridge to lengthen/slim."},{"shape":"Square Face","advice":"Round or curved oval frames with thin rims to soften boxy jawline."},{"shape":"Heart-Shaped","advice":"Bottom-heavy shapes, rimless glasses, or light pastel colors."},{"shape":"Long / Oblong","advice":"Tall lenses (deep top-to-bottom) or detailed temples to break up length."}],"fittingHeights":[{"type":"No-Line Progressives (PALs)","instructions":"Dot fitting cross in pupil center at eye-level. 14-18mm frame height below pupil. 8-12° pantoscopic tilt."},{"type":"Lined Bifocals","instructions":"Top line at lower eyelid (lower limbus). Drop 1mm if hiker/driver. Raise 1mm if desk reader."},{"type":"Trifocals & Computer","instructions":"Trifocal: upper line at pupil bottom. Office/Workspace: pupil center or +1mm above."}],"benchHabits":["Confirm Bench Flatness: No four-point wobble on flat desk.","Check Temple Tension: Rest lightly without bowing out.","Clean & Re-dot Progressives: Verify yellow pupil alignment before customer departs."],"troubleshooting":[{"category":"A. Progressive & Multifocal Complaints","items":[{"complaint":"\"I have to tilt my chin way up to read my phone or book\"","cause":"Reading sweet spot sitting too low in frame.","fix":"Squeeze nose pads closer, increase cheek tilt (8-12°), bring lenses closer."},{"complaint":"\"I have to tuck my chin down to see street signs or TV\"","cause":"Reading portion sitting too high, invading distance zone.","fix":"Spread nose pads wider to drop frame, reduce cheek tilt slightly."},{"complaint":"\"My reading area feels like looking through a tiny straw\"","cause":"Glasses sit too far away, or frame sits too upright.","fix":"Shorten vertex distance (push closer), increase cheek tilt 10-12°, verify PD."},{"complaint":"\"I have to turn my whole head to read across a single line\"","cause":"Lenses too far from eyes, or pupillary distance was made too wide.","fix":"Bring frame closer to widen viewing funnel. If channel off-center, remake."},{"complaint":"\"The bifocal line gets in the way when I walk downstairs\"","cause":"Bifocal line is set too high for walking gait.","fix":"Widen nose pads to drop frame 1-2mm, bend temple tips so frame sits lower."}]},{"category":"B. Distortion, Swim Effect & High Prescriptions","items":[{"complaint":"\"The room looks like a fishbowl / walls bend when I turn\"","cause":"Frame is completely flat across face or lenses too far.","fix":"Add slight face wrap (panoramic curve) and reduce vertex distance."},{"complaint":"\"The floor feels curved or like I am stepping into a hole\"","cause":"Astigmatism angle or tilt causing vertical spatial distortion.","fix":"Double-check axis on lensometer. Tilt bottom of frame inward toward cheeks."},{"complaint":"\"Everything seems slightly double or pulls my eyes\"","cause":"Optical centers do not line up with eyes (unwanted prism).","fix":"Verify optical center height and PD against prescription; level frame temples."},{"complaint":"\"Objects look smaller / larger than with old glasses\"","cause":"Big power shift or vertex distance changed.","fix":"Adjust nose pads to match vertex distance of comfortable previous glasses."}]},{"category":"C. Frame Slipping, Sore Spots & Physical Fit","items":[{"complaint":"\"My glasses constantly slide down my nose\"","cause":"Bridge too wide, pads not gripping, or ear bend starts too far back.","fix":"Re-bend temple tips right at ear-skull junction. Squeeze pads closer."},{"complaint":"\"Pain or sore red marks behind my ears\"","cause":"Temple tips bend too early and press ear cartilage or mastoid bone.","fix":"Move bend 2-3mm back to hug skull gently; flare very end outward."},{"complaint":"\"Pinching or deep red indentations on nose\"","cause":"Pads too close or resting on sharp corner/edge.","fix":"Spread pads slightly wider; rotate so full pad rests flush. Swap to silicone."},{"complaint":"\"My eyelashes brush against the back of lenses\"","cause":"Glasses sit too close to eyes or lack forward cheek tilt.","fix":"Lengthen pad arms to move lenses forward, or adjust acetate bridge gap."},{"complaint":"\"The frame sits crooked—one eye higher than the other\"","cause":"Ears sit at different heights on the head.","fix":"Golden Rule: Bend temple on the higher side UP (or lower side down)."},{"complaint":"\"Severe reflections, glare, or halos around headlights at night\"","cause":"Missing AR coating, dirty/smeared lenses, or flat tilt catching overhead light.","fix":"Add anti-reflective (AR) coating. Increase cheek tilt slightly."}]}]},"directory":{"surgeons":[{"name":"Commonwealth Eye Surgery","doctor":"Dr. Lance S. Ferguson, M.D.","spec":"Cataract, LASIK, Cornea","addr":"2353 Alexandria Dr, Ste 260 • Lexington","phone":"(859) 224-2655","fax":"(859) 223-7147"},{"name":"Kentucky Eye Institute","doctor":"Drs. Echegaray, Smith, Higgins","spec":"Cataract, Glaucoma, Cornea","addr":"601 Perimeter Dr, Ste 200 • Lexington","phone":"(859) 278-9393","fax":"(859) 278-0923","ref":"(859) 618-6707"},{"name":"Bluegrass Eyecare Center","doctor":"Drs. Ansari, Harbie, Bowers, Good","spec":"Cataract Surgery, Glaucoma & Lasers","addr":"715 Shaker Drive • Lexington (Off Harrodsburg)","phone":"(859) 278-8443","fax":"(859) 278-6325"},{"name":"UK Advanced Eye Care","doctor":"Academic Specialty Care","spec":"Cornea, Retina, Trauma & Oculoplastics","addr":"110 Conn Terrace (Shriners Bldg) • Lexington","phone":"(859) 323-5867","fax":"(859) 257-6718"},{"name":"Huffman & Huffman, P.S.C.","doctor":"Surgical Group","spec":"Cataract Extractions, YAG Laser, Glaucoma & Eyelids","addr":"2704 Old Rosebud Rd, Ste 230 • Lexington","phone":"(859) 263-4631","fax":"(859) 263-5694"},{"name":"Retina Associates of KY","doctor":"Retina Care Specialists","spec":"Vitreoretinal Surgery, Diabetic Retinopathy & Macula","addr":"120 N Eagle Creek Dr, Ste 500 • Lexington","phone":"(859) 263-3900","fax":"(859) 263-3757"}],"doctors":[{"name":"Dr. Kevin Snipes & Associates (The Summit)","type":"LensCrafters Summit","addr":"118 Marion Street, Ste 120 • Lexington","phone":"(859) 271-6194","fax":"(859) 271-4425"},{"name":"Dr. Kevin Snipes & Associates (Hamburg)","type":"LensCrafters Hamburg","addr":"2160 Sir Barton Way, Ste 143 • Lexington","phone":"(859) 543-0857","fax":"(859) 543-0737"},{"name":"EyeMax (Nicholasville Rd)","doctor":"Dr. Clay Mattson & Dr. Maggard","addr":"4051 Nicholasville Rd, Ste 140 • Lexington","phone":"(859) 272-1422","fax":"(859) 273-4582"},{"name":"EyeMax (North Park)","doctor":"Dr. Clif Gregory & Dr. Shelby Henderson","addr":"500 W New Circle Rd • Lexington","phone":"(859) 225-4657","fax":"(859) 225-8366"},{"name":"Dr. Gregory Marshall, O.D. (Walmart Doctor)","doctor":"Vision Care Providers of KY","addr":"2350 Grey Lag Way (Walmart #3894) • Lexington","phone":"(859) 263-2020","fax":"(859) 263-0837"},{"name":"Visionworks (Nicholasville Rd)","type":"Full Exams & Retinal Screening","addr":"3695 Nicholasville Rd, Ste 150 (Fayette Mall area)","phone":"(859) 273-4443","fax":"(859) 273-5633"},{"name":"Visionworks (Hamburg Pavilion)","type":"Comprehensive Exams & Rx","addr":"2312 Sir Barton Way, Ste 170 • Lexington","phone":"(859) 543-8383","fax":"(859) 264-9734"},{"name":"Eyeglass World (Larkin Rd)","type":"Exams & Contacts","addr":"2558 Larkin Road, Ste 130 • Lexington","phone":"(859) 277-9532","fax":"(859) 277-9532"}],"labs":[{"name":"FAIT Optical Labs","acct":"3815A","phone":"(800) 747-9000","fax":"(888) 437-8415"},{"name":"Classic Optical Laboratories","acct":"IE5033","phone":"(888) 522-2020","fax":"(888) 522-2022"},{"name":"Eagle Safety","acct":"","phone":"(877) 465-3887","fax":"(877) 213-2453"}],"plans":[{"name":"Humana Healthy Horizons","phone":"(800) 444-9137"},{"name":"Premiere / Premier Vision","phone":"(800) 738-1889"},{"name":"Avēsis Vision","phone":"(855) 214-6777"},{"name":"KY Medicaid","phone":"(800) 807-1232"},{"name":"WellCare of KY","phone":"(877) 389-9457"},{"name":"VSP Vision Care","phone":"(800) 877-7195"},{"name":"EyeMed Vision","phone":"(866) 800-5457"},{"name":"Versant Health","phone":"(877) 235-5317"},{"name":"EyeQuest Vision (DentaQuest / Medicaid)","providerPhone":"(844) 870-3978","memberPhone":"(855) 343-7405"}]}};
   const STORAGE_KEY = 'pal_optical_price_list_v1';
   const CALC_STORAGE_KEY = 'pal_optical_quote_cart';
+  const SYNC_URL_STORAGE_KEY = 'pal_optical_sync_endpoint_url';
+  const DEFAULT_SYNC_ENDPOINT = '/api/price-list';
+
+  let syncEndpoint = localStorage.getItem(SYNC_URL_STORAGE_KEY) || DEFAULT_SYNC_ENDPOINT;
+  let lastSyncTimestamp = null;
+  let isSavingToCloud = false;
+  let isFetchingFromCloud = false;
+  let cloudSaveDebounceTimer = null;
+  let syncPollInterval = null;
+  let crossTabChannel = null;
+
+  // Cross-tab broadcast channel for immediate multi-window sync on the same computer
+  try {
+    if ('BroadcastChannel' in window) {
+      crossTabChannel = new BroadcastChannel('pal_optical_price_list_bus');
+      crossTabChannel.onmessage = (e) => {
+        if (e.data && e.data.type === 'DATA_UPDATED' && e.data.payload) {
+          applyRemoteData(e.data.payload, 'Another tab on this computer');
+        }
+      };
+    }
+  } catch(err) {}
 
   let appData = null;
   let quoteItems = [];
@@ -7152,6 +7299,31 @@
   // Drag and drop state
   let draggedRow = null;
 
+  function updateSyncStatusUI(status, label, tooltip) {
+    const dot = document.getElementById('sync-dot');
+    const txt = document.getElementById('sync-text');
+    const btn = document.getElementById('btn-cloud-sync');
+    if (!dot || !txt) return;
+
+    dot.className = 'sync-indicator-dot ' + (
+      status === 'synced' ? 'dot-synced' :
+      status === 'syncing' ? 'dot-syncing' :
+      status === 'error' ? 'dot-error' : 'dot-offline'
+    );
+    txt.textContent = label;
+    if (btn && tooltip) btn.title = tooltip;
+
+    const modalStatus = document.getElementById('sync-modal-status-text');
+    if (modalStatus) {
+      modalStatus.textContent = label;
+      modalStatus.style.color = (status === 'synced') ? '#10b981' : (status === 'syncing') ? '#f59e0b' : '#64748b';
+    }
+    const modalTime = document.getElementById('sync-modal-time-text');
+    if (modalTime && lastSyncTimestamp) {
+      modalTime.textContent = new Date(lastSyncTimestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+  }
+
   function loadAppData() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -7164,11 +7336,159 @@
 
   function saveAppData() {
     try {
+      if (!appData.meta) appData.meta = {};
+      appData.meta.updatedAt = new Date().toISOString();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-      showToast('Changes saved to local storage');
     } catch(e) {
       console.error(e);
     }
+    // Schedule multi-computer cloud save
+    scheduleCloudSave(appData);
+  }
+
+  function scheduleCloudSave(data) {
+    clearTimeout(cloudSaveDebounceTimer);
+    updateSyncStatusUI('syncing', 'Saving...', 'Saving changes across all computers...');
+    cloudSaveDebounceTimer = setTimeout(() => {
+      pushCloudData(data);
+    }, 400);
+  }
+
+  async function pushCloudData(dataToPush) {
+    const data = dataToPush || appData;
+    isSavingToCloud = true;
+    updateSyncStatusUI('syncing', 'Saving...', 'Saving changes across all computers...');
+
+    try {
+      const nowISO = new Date().toISOString();
+      if (!data.meta) data.meta = {};
+      data.meta.lastSyncedAt = nowISO;
+
+      const res = await fetch(syncEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          data: data,
+          updatedAt: nowISO
+        })
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
+      const json = await res.json();
+      lastSyncTimestamp = Date.now();
+      updateSyncStatusUI('synced', 'Synced', `Saved to all computers at ${new Date().toLocaleTimeString()}`);
+      showToast('Saved across all computers!');
+
+      if (crossTabChannel) {
+        try {
+          crossTabChannel.postMessage({ type: 'DATA_UPDATED', payload: data });
+        } catch(e) {}
+      }
+    } catch(err) {
+      console.warn('Cloud sync push warning:', err);
+      updateSyncStatusUI('offline', 'Saved Locally', 'Saved on this computer. Sync server is offline or unreachable.');
+      showToast('Saved locally (will sync across computers when online).');
+    } finally {
+      isSavingToCloud = false;
+    }
+  }
+
+  async function fetchCloudData(isSilent = false) {
+    if (isFetchingFromCloud || isSavingToCloud) return;
+    isFetchingFromCloud = true;
+    if (!isSilent) updateSyncStatusUI('syncing', 'Syncing...', 'Checking for updates from other computers...');
+
+    try {
+      const res = await fetch(syncEndpoint + '?t=' + Date.now(), {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
+      const json = await res.json();
+      if (json && json.success && json.data) {
+        const remoteData = json.data;
+        const remoteStr = JSON.stringify(remoteData);
+        const localStr = JSON.stringify(appData);
+
+        if (remoteStr !== localStr) {
+          applyRemoteData(remoteData, 'Office Cloud');
+          if (!isSilent) showToast('Updated price list with latest changes from other computers.');
+        }
+
+        lastSyncTimestamp = Date.now();
+        updateSyncStatusUI('synced', 'Synced', `Synced across all computers (last checked ${new Date().toLocaleTimeString()})`);
+      } else {
+        lastSyncTimestamp = Date.now();
+        updateSyncStatusUI('synced', 'Synced', 'Connected to sync server (using defaults)');
+      }
+    } catch(err) {
+      console.warn('Cloud sync fetch warning:', err);
+      updateSyncStatusUI('offline', 'Offline Cache', 'Using local computer edits (server offline)');
+    } finally {
+      isFetchingFromCloud = false;
+    }
+  }
+
+  function applyRemoteData(newData, sourceName) {
+    if (!newData) return;
+    appData = newData;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+    } catch(e) {}
+
+    hydrateFromSavedData(appData);
+    updateCalculatorUI();
+  }
+
+  function initCloudSync() {
+    // 1. Initial fetch from cloud
+    fetchCloudData(true);
+
+    // 2. Poll every 25 seconds in background
+    if (syncPollInterval) clearInterval(syncPollInterval);
+    syncPollInterval = setInterval(() => {
+      if (!document.hidden && !isEditing) {
+        fetchCloudData(true);
+      }
+    }, 25000);
+
+    // 3. Re-check when window gains focus or tab becomes visible
+    window.addEventListener('focus', () => {
+      if (!isEditing) fetchCloudData(true);
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && !isEditing) {
+        fetchCloudData(true);
+      }
+    });
+
+    // 4. Storage event from another window
+    window.addEventListener('storage', (e) => {
+      if (e.key === STORAGE_KEY && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          applyRemoteData(parsed, 'Another Window');
+        } catch(err) {}
+      }
+    });
+
+    // 5. Online event
+    window.addEventListener('online', () => {
+      showToast('Internet connected. Syncing price list...');
+      fetchCloudData(false);
+      pushCloudData(appData);
+    });
   }
 
   function showToast(msg) {
@@ -7196,20 +7516,21 @@
     }
 
     // Hydrate DOM from saved appData order/edits if present
-    hydrateFromSavedData();
+    hydrateFromSavedData(appData);
 
     updateViewVisibility();
     bindToolbarEvents();
     bindInteractiveEvents();
     bindDragAndDropEvents();
     updateCalculatorUI();
+
+    // Start multi-computer synchronization
+    initCloudSync();
   }
 
-  function hydrateFromSavedData() {
+  function hydrateFromSavedData(customData) {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (!saved) return;
-      const parsed = JSON.parse(saved);
+      const parsed = customData || appData || JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
       if (!parsed) return;
 
       // Re-order rows in each section if saved order differs
@@ -7226,6 +7547,14 @@
           const existingRowMap = {};
           tbody.querySelectorAll('tr').forEach(r => {
             existingRowMap[r.dataset.itemId] = r;
+          });
+
+          // Remove any deleted items
+          const savedItemIds = new Set(sec.items.map(it => it.id));
+          Object.keys(existingRowMap).forEach(id => {
+            if (!savedItemIds.has(id)) {
+              existingRowMap[id].remove();
+            }
           });
 
           // Re-append in saved order
@@ -7245,6 +7574,19 @@
             }
           });
         });
+      }
+
+      // Restore custom diagrams if present
+      if (parsed.diagrams) {
+        for (let p = 1; p <= 3; p++) {
+          const diag = parsed.diagrams[p];
+          if (diag && diag.imageUrl) {
+            const canvasBox = document.getElementById(`canvas-page-${p}`);
+            if (canvasBox) {
+              canvasBox.innerHTML = `<img src="${diag.imageUrl}" style="max-width: 100%; max-height: 140px; object-fit: contain; border-radius: 4px;">`;
+            }
+          }
+        }
       }
     } catch(e) {
       console.warn('Hydration notice:', e);
@@ -7377,10 +7719,47 @@
       calcCopyBtn.addEventListener('click', () => copyQuote());
     }
 
-    // Backup
-    const btnExport = document.getElementById('btn-export-data');
-    if (btnExport) {
-      btnExport.addEventListener('click', () => {
+    // Multi-Computer Sync Button & Modal
+    const btnCloudSync = document.getElementById('btn-cloud-sync');
+    const syncModal = document.getElementById('sync-modal');
+    if (btnCloudSync && syncModal) {
+      btnCloudSync.addEventListener('click', () => {
+        const endpointInput = document.getElementById('sync-endpoint-input');
+        if (endpointInput) endpointInput.value = syncEndpoint;
+        syncModal.classList.add('active');
+      });
+    }
+
+    const modalSyncClose = document.getElementById('modal-sync-close');
+    const modalSyncDone = document.getElementById('modal-sync-done');
+    if (modalSyncClose && syncModal) {
+      modalSyncClose.addEventListener('click', () => syncModal.classList.remove('active'));
+    }
+    if (modalSyncDone && syncModal) {
+      modalSyncDone.addEventListener('click', () => syncModal.classList.remove('active'));
+    }
+
+    // Sync Now (Pull)
+    const btnSyncPullNow = document.getElementById('btn-sync-pull-now');
+    if (btnSyncPullNow) {
+      btnSyncPullNow.addEventListener('click', () => {
+        fetchCloudData(false);
+      });
+    }
+
+    // Push to All Computers
+    const btnSyncPushNow = document.getElementById('btn-sync-push-now');
+    if (btnSyncPushNow) {
+      btnSyncPushNow.addEventListener('click', () => {
+        syncAllDOMToAppData();
+        pushCloudData(appData);
+      });
+    }
+
+    // Modal Export Backup
+    const btnModalExport = document.getElementById('btn-modal-export');
+    if (btnModalExport) {
+      btnModalExport.addEventListener('click', () => {
         syncAllDOMToAppData();
         const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
         const a = document.createElement('a');
@@ -7389,7 +7768,60 @@
         document.body.appendChild(a);
         a.click();
         a.remove();
-        showToast('Exported price list backup JSON.');
+        showToast('Exported backup JSON file.');
+      });
+    }
+
+    // Modal Import / Restore Backup
+    const btnModalImportTrigger = document.getElementById('btn-modal-import-trigger');
+    const syncFileInput = document.getElementById('sync-file-input');
+    if (btnModalImportTrigger && syncFileInput) {
+      btnModalImportTrigger.addEventListener('click', () => syncFileInput.click());
+      syncFileInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (re) => {
+          try {
+            const parsed = JSON.parse(re.target.result);
+            if (parsed && (parsed.page1 || parsed.page2 || parsed.page3)) {
+              applyRemoteData(parsed, 'Imported Backup');
+              pushCloudData(parsed);
+              showToast('Backup restored & synced to all computers!');
+              if (syncModal) syncModal.classList.remove('active');
+            } else {
+              alert('Invalid Price List JSON backup format.');
+            }
+          } catch(err) {
+            alert('Failed to parse JSON file: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    // Save Sync Endpoint Settings
+    const btnSaveSyncEndpoint = document.getElementById('btn-save-sync-endpoint');
+    if (btnSaveSyncEndpoint) {
+      btnSaveSyncEndpoint.addEventListener('click', () => {
+        const endpointInput = document.getElementById('sync-endpoint-input');
+        if (endpointInput) {
+          const val = endpointInput.value.trim() || DEFAULT_SYNC_ENDPOINT;
+          syncEndpoint = val;
+          localStorage.setItem(SYNC_URL_STORAGE_KEY, val);
+          showToast('Updated sync endpoint to: ' + val);
+          fetchCloudData(false);
+        }
+      });
+    }
+
+    // Backup button in main toolbar opens the Sync & Backup Modal
+    const btnExport = document.getElementById('btn-export-data');
+    if (btnExport && syncModal) {
+      btnExport.addEventListener('click', () => {
+        const endpointInput = document.getElementById('sync-endpoint-input');
+        if (endpointInput) endpointInput.value = syncEndpoint;
+        syncModal.classList.add('active');
       });
     }
 
@@ -7764,12 +8196,19 @@
             const reader = new FileReader();
             reader.onload = (re) => {
               canvasBox.innerHTML = `<img src="${re.target.result}" style="max-width: 100%; max-height: 140px; object-fit: contain; border-radius: 4px;">`;
-              showToast('Custom diagram image uploaded.');
+              if (!appData.diagrams) appData.diagrams = {};
+              appData.diagrams[activeDiagramTarget] = { imageUrl: re.target.result };
+              saveAppData();
+              showToast('Custom diagram uploaded & synced.');
             };
             reader.readAsDataURL(fileInput.files[0]);
           } else if (urlInput && urlInput.value.trim() && canvasBox) {
-            canvasBox.innerHTML = `<img src="${urlInput.value.trim()}" style="max-width: 100%; max-height: 140px; object-fit: contain; border-radius: 4px;">`;
-            showToast('Applied online diagram.');
+            const url = urlInput.value.trim();
+            canvasBox.innerHTML = `<img src="${url}" style="max-width: 100%; max-height: 140px; object-fit: contain; border-radius: 4px;">`;
+            if (!appData.diagrams) appData.diagrams = {};
+            appData.diagrams[activeDiagramTarget] = { imageUrl: url };
+            saveAppData();
+            showToast('Applied online diagram & synced.');
           }
           closeModal();
         });
