@@ -149,7 +149,7 @@ export class SchoolExcuseForm {
             <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 60px; gap: 20px; flex-wrap: wrap;">
               <div style="flex: 1; min-width: 250px;">
                 <div style="position: relative; height: 70px; display: flex; align-items: center; justify-content: center;">
-                  <img src="${this.signatureFile}" alt="${this.doctorName} Signature" style="max-height: 70px; object-fit: contain;">
+                  <img src="${this.signatureFile}" alt="${this.doctorName} Signature" style="max-height: 70px; max-width: 100%; object-fit: contain;" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='${this.signatureFile.replace(/^\\//, '')}';}">
                 </div>
                 <div style="border-top: 1.5px solid #000; text-align: center; font-size: 0.95rem; font-weight: 700; padding-top: 5px;">
                   Authorized Signature: ${this.doctorName}
