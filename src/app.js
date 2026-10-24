@@ -312,10 +312,10 @@ class App {
         this.currentFormInstance = new SafetyOrderForm(renderTarget, formState, callback);
         break;
       case 'contact-lens-order':
-        name = 'Contact Lens Orders';
+        this.currentFormInstance = new ContactLensOrderForm(renderTarget, formState, callback, { initialTab: 'pad' });
         break;
       case 'contact-lens-pickup':
-        name = 'CL Waiting to Pick Up';
+        this.currentFormInstance = new ContactLensOrderForm(renderTarget, formState, callback, { initialTab: 'pickup' });
         break;
       case 'pd-record':
         this.currentFormInstance = new PDForm(renderTarget, formState, callback);
@@ -507,10 +507,10 @@ class App {
         name = state.Text_4;
         break;
       case 'contact-lens-order':
-        this.currentFormInstance = new ContactLensOrderForm(renderTarget, formState, callback, { initialTab: 'pad' });
+        name = 'Contact Lens Orders';
         break;
       case 'contact-lens-pickup':
-        this.currentFormInstance = new ContactLensOrderForm(renderTarget, formState, callback, { initialTab: 'pickup' });
+        name = 'CL Waiting to Pick Up';
         break;
       case 'pd-record':
       case 'eyeglass-job-note':
