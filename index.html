@@ -25,6 +25,22 @@
 
   <!-- Vite entry point with Tailwind CSS -->
   <link rel="stylesheet" href="/src/index.css" />
+  <script>
+    // Instant auth check to prevent login overlay flicker on refresh
+    try {
+      if (sessionStorage.getItem('pal-auth') === 'true' || localStorage.getItem('pal-auth') === 'true') {
+        document.documentElement.classList.add('is-authenticated');
+      }
+    } catch(e) {}
+  </script>
+  <style>
+    html.is-authenticated #login-overlay {
+      display: none !important;
+    }
+    html.is-authenticated #app {
+      display: flex !important;
+    }
+  </style>
 </head>
 
 <body>

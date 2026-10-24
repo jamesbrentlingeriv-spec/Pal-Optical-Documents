@@ -247,6 +247,24 @@ export class Sidebar {
     const overlay = document.getElementById('sidebar-overlay');
     if (overlay) overlay.classList.remove('active');
   }
+
+  setActiveForm(formId) {
+    this.activeFormId = formId;
+    const items = this.container.querySelectorAll('.menu-item');
+    items.forEach(el => {
+      if (el.getAttribute('data-form-id') === formId) {
+        el.classList.add('active');
+        const parentFolder = el.closest('.menu-folder');
+        if (parentFolder) {
+          parentFolder.classList.add('open');
+          const header = parentFolder.querySelector('.menu-folder-header');
+          if (header) header.setAttribute('aria-expanded', 'true');
+        }
+      } else {
+        el.classList.remove('active');
+      }
+    });
+  }
   
   getIcon(iconName, customClass = '') {
     const classAttr = customClass ? `class="${customClass}"` : '';
