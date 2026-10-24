@@ -15,6 +15,7 @@ import { DrSideNewPatientForm } from './forms/DrSideNewPatientForm.js';
 import { PDForm } from './forms/PDForm.js';
 import { EyeglassJobNoteForm } from './forms/EyeglassJobNoteForm.js';
 import { WriteUpForm } from './forms/WriteUpForm.js';
+import { ContactLensOrderForm } from './forms/ContactLensOrderForm.js';
 
 // Waivers
 import { BilingualLensWaiverForm } from './forms/BilingualLensWaiverForm.js';
@@ -200,6 +201,7 @@ class App {
       case 'safety-order': return 'Eagle Safety Order Form';
       case 'pd-record': return 'Pupillary Distance (PD) Record';
       case 'writeup': return 'Lab Write-Up Slip (5.5" x 8.5")';
+      case 'contact-lens-order': return 'Contact Lens Orders';
       case 'eyeglass-job-note': return 'Eyeglass Job Note';
       case 'cms1500': return 'CMS-1500 Claim Worksheet';
       case 'fee-slip': return 'Office Fee Slip / Superbill';
@@ -291,6 +293,9 @@ class App {
         break;
       case 'safety-order':
         this.currentFormInstance = new SafetyOrderForm(renderTarget, formState, callback);
+        break;
+      case 'contact-lens-order':
+        name = state.rows?.find(r => r.name?.trim())?.name || 'Contact Lens Orders';
         break;
       case 'pd-record':
         this.currentFormInstance = new PDForm(renderTarget, formState, callback);
@@ -404,6 +409,10 @@ class App {
       this.formActions.updateDescription('Routing request for file clerk Tracy with mandatory attachments disclaimer');
       this.formActions.setControlsVisibility(true, true);
       this.formActions.setOpenTabUrl('/Itemized%20Statement%20Request.html');
+    } else if (this.activeFormId === 'contact-lens-order') {
+      this.formActions.updateDescription('Daily contact lens order sheet • Accumulate orders throughout the day & print at end of day');
+      this.formActions.setControlsVisibility(true, true);
+      this.formActions.setOpenTabUrl(null);
     } else if (this.activeFormId === 'bilingual-lens-waiver') {
       this.formActions.updateDescription('Polycarbonate balance lens refusal & assumption of risk waiver (bilingual)');
       this.formActions.setControlsVisibility(true, true);
@@ -472,6 +481,9 @@ class App {
         break;
       case 'safety-order':
         name = state.Text_4;
+        break;
+      case 'contact-lens-order':
+        name = state.rows?.find(r => r.name?.trim())?.name || 'Contact Lens Orders';
         break;
       case 'pd-record':
       case 'eyeglass-job-note':

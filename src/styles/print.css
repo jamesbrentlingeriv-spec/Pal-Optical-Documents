@@ -2047,3 +2047,164 @@
   }
 }
 
+
+
+/* ==========================================================================
+   CONTACT LENS ORDER SHEET - PRINT REPLICA (EXACT MATCH TO PHYSICAL FORM)
+   ========================================================================== */
+
+@page contact-lens-sheet {
+  size: letter landscape !important;
+  margin: 0.35in !important;
+}
+
+body.active-form-contact-lens-order {
+  page: contact-lens-sheet !important;
+}
+
+@media print {
+  body.active-form-contact-lens-order {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  body.active-form-contact-lens-order .bento-interactive-screen,
+  body.active-form-contact-lens-order aside.sidebar,
+  body.active-form-contact-lens-order header.actions-header,
+  body.active-form-contact-lens-order .mobile-menu-btn,
+  body.active-form-contact-lens-order .no-print {
+    display: none !important;
+  }
+
+  body.active-form-contact-lens-order .form-viewport,
+  body.active-form-contact-lens-order .main-panel,
+  body.active-form-contact-lens-order .app-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: auto !important;
+    width: 100% !important;
+    background: transparent !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  body.active-form-contact-lens-order .clo-printout-wrapper {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
+  }
+
+  body.active-form-contact-lens-order .clo-print-page {
+    width: 100% !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.active-form-contact-lens-order .clo-page-break {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+
+  body.active-form-contact-lens-order .clo-print-title {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 26pt !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.04em !important;
+    text-align: center !important;
+    color: #000000 !important;
+    margin: 0 0 14pt 0 !important;
+    padding: 0 !important;
+    text-transform: uppercase !important;
+    line-height: 1 !important;
+  }
+
+  body.active-form-contact-lens-order .clo-print-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border: 2px solid #000000 !important;
+    table-layout: fixed !important;
+    background: #ffffff !important;
+    margin: 0 auto !important;
+    page-break-inside: avoid !important;
+  }
+
+  body.active-form-contact-lens-order .clo-print-table th {
+    border: 1px solid #000000 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 11pt !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 6px 4px !important;
+    line-height: 1.25 !important;
+    color: #000000 !important;
+    background: #ffffff !important;
+    text-transform: uppercase !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.active-form-contact-lens-order .clo-print-table td {
+    border: 1px solid #000000 !important;
+    height: 33px !important;
+    min-height: 33px !important;
+    padding: 2px 6px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 10.5pt !important;
+    font-weight: 500 !important;
+    color: #000000 !important;
+    background: #ffffff !important;
+    vertical-align: middle !important;
+    box-sizing: border-box !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.active-form-contact-lens-order .clo-print-table th.col-name,
+  body.active-form-contact-lens-order .clo-print-table td.col-name {
+    width: 22.5% !important;
+    text-align: left !important;
+    padding-left: 8px !important;
+  }
+
+  body.active-form-contact-lens-order .clo-print-table th.col-dob,
+  body.active-form-contact-lens-order .clo-print-table td.col-dob {
+    width: 15.5% !important;
+    text-align: center !important;
+  }
+
+  body.active-form-contact-lens-order .clo-print-table th.col-phone,
+  body.active-form-contact-lens-order .clo-print-table td.col-phone {
+    width: 23.5% !important;
+    text-align: center !important;
+  }
+
+  body.active-form-contact-lens-order .clo-print-table th.col-boxes,
+  body.active-form-contact-lens-order .clo-print-table td.col-boxes {
+    width: 16.5% !important;
+    text-align: center !important;
+  }
+
+  body.active-form-contact-lens-order .clo-print-table th.col-ins,
+  body.active-form-contact-lens-order .clo-print-table td.col-ins {
+    width: 22.0% !important;
+    text-align: left !important;
+    padding-left: 6px !important;
+  }
+
+  /* When printing blank: completely hide any written text */
+  body.active-form-contact-lens-order.print-blank-active .clo-cell-value,
+  body.active-form-contact-lens-order.mode-print-blank .clo-cell-value,
+  body.active-form-contact-lens-order .clo-force-blank .clo-cell-value {
+    display: none !important;
+  }
+}
