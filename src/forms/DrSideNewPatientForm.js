@@ -76,7 +76,7 @@ export class DrSideNewPatientForm {
     });
     
     this.container.innerHTML = `
-      <div class="form-card" id="dr-side-patient-card" style="max-width: 900px; padding: 36px;">
+      <div class="form-card" id="dr-side-patient-card" style="width: 100%; max-width: 100%; padding: 36px;">
         <!-- Header -->
         <div class="form-header-block" style="border-bottom: 2px solid var(--primary); padding-bottom: 12px; margin-bottom: 24px;">
           <h2>New Patient Registration</h2>

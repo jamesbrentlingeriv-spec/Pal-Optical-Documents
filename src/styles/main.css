@@ -428,14 +428,16 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
-/* Form Viewport */
+/* Form Viewport - Stretches to fill whatever screen it is on */
 .form-viewport {
   flex: 1;
   overflow-y: auto;
-  padding: 40px 24px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Mobile Hamburger Button */
