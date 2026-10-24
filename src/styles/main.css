@@ -24,7 +24,7 @@
   --success: #222222;
 
   /* Layout */
-  --sidebar-width: 300px;
+  --sidebar-width: 380px;
   --header-height: 70px;
   --border-radius: 10px;
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.12), 0 1px 2px -1px rgb(0 0 0 / 0.1);
@@ -78,8 +78,28 @@ body {
   border-right: 1px solid #222;
   height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 200;
   transition: transform var(--transition-fast);
+  scrollbar-width: thin;
+  scrollbar-color: #333333 #000000;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #555555;
 }
 
 .sidebar-header {
@@ -116,7 +136,7 @@ body {
 /* Sidebar Navigation */
 .sidebar-menu {
   flex: 1;
-  padding: 20px 12px;
+  padding: 20px 14px 60px 14px;
   list-style: none;
 }
 
