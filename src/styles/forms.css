@@ -4089,6 +4089,23 @@
    FULL-WIDTH SCREEN EXPANSION - Stretch all forms to fill whatever screen they are on
    ========================================================================== */
 @media screen {
+  /* Fee Slip Screen Scrolling & Sizing */
+  body.active-form-fee-slip .form-viewport {
+    overflow-y: auto !important;
+    padding-bottom: 100px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow: visible !important;
+    padding-bottom: 80px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container #fee-slip-form {
+    height: auto !important;
+    min-height: 100% !important;
+  }
   .form-viewport {
     align-items: stretch !important;
     padding: 16px 24px 40px 24px !important;

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pal-optical-v21';
+const CACHE_NAME = 'pal-optical-v22';
 const ASSETS = [
   '/',
   '/index.html',
