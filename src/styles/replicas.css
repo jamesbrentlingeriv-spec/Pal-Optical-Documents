@@ -898,8 +898,11 @@
   }
   body.active-form-fee-slip,
   html:has(body.active-form-fee-slip) {
-    overflow: visible !important;
     height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
   }
   body.active-form-fee-slip * {
     visibility: hidden !important;
@@ -911,13 +914,17 @@
   .fee-slip-container {
     zoom: 1.0 !important;
     width: 100% !important;
+    max-width: 100% !important;
     height: 100% !important;
+    max-height: 100% !important;
     box-shadow: none !important;
     break-after: avoid !important;
     page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
     border: none !important;
     margin: 0 !important;
-    padding: 0.05in 0.2in 0.1in 0.2in !important;
+    padding: 0 !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
@@ -925,53 +932,64 @@
     top: 0 !important;
     left: 0 !important;
     box-sizing: border-box !important;
-    overflow: visible !important;
+    overflow: hidden !important;
   }
   .fee-slip-container .section-title {
     margin-top: 1px !important;
     margin-bottom: 1px !important;
-    font-size: 8px !important;
+    font-size: 6.8pt !important;
     padding: 0px 1px !important;
-    border-bottom: 1.5px solid #000 !important;
-  }
-  .fee-slip-container .label-text {
-    font-size: 6.8px !important;
+    border-bottom: 1px solid #000 !important;
     line-height: 1.05 !important;
   }
+  .fee-slip-container .label-text {
+    font-size: 6.2pt !important;
+    line-height: 0.95 !important;
+  }
   .fee-slip-container .code-text {
-    font-size: 5.5px !important;
+    font-size: 5pt !important;
+    line-height: 0.95 !important;
   }
   .fee-slip-container .form-input-line {
     height: auto !important;
     font-size: 20pt !important;
   }
+  .fee-slip-container .flex.items-start.gap-1.py-0,
+  .fee-slip-container .flex.items-center.justify-between.gap-1.py-0 {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    margin: 0 !important;
+    line-height: 0.95 !important;
+    height: 9.8px !important;
+    min-height: 9.8px !important;
+  }
   .fee-slip-container .gap-1 {
     gap: 1px !important;
   }
   .fee-slip-container .gap-2 {
-    gap: 2px !important;
+    gap: 1.5px !important;
   }
   .fee-slip-container .mb-4 {
-    margin-bottom: 4px !important;
+    margin-bottom: 2px !important;
   }
   .fee-slip-container .mt-4 {
     margin-top: 1px !important;
   }
   .fee-slip-container .checkbox-custom,
   .fee-slip-container .radio-custom {
-    height: 7.5px !important;
-    width: 7.5px !important;
-    min-height: 7.5px !important;
-    min-width: 7.5px !important;
-    margin: 0 !important;
+    height: 7px !important;
+    width: 7px !important;
+    min-height: 7px !important;
+    min-width: 7px !important;
+    margin: 0 1px 0 0 !important;
     transform: none !important;
   }
   .fee-slip-container .summary-input {
     margin-top: auto !important;
-    padding-top: 3px !important;
+    padding-top: 2px !important;
     padding-bottom: 1px !important;
-    gap: 2px !important;
-    border-top: 3px solid #000 !important;
+    gap: 1.5px !important;
+    border-top: 2.5px solid #000000 !important;
     display: flex !important;
     flex-direction: column !important;
     visibility: visible !important;
@@ -980,7 +998,9 @@
     display: flex !important;
     align-items: flex-end !important;
     justify-content: space-between !important;
-    gap: 4px !important;
+    gap: 3px !important;
+    min-height: 21px !important;
+    height: 21px !important;
     visibility: visible !important;
   }
   .fee-slip-container .summary-input input {
@@ -988,44 +1008,44 @@
     font-weight: 900 !important;
     color: #000000 !important;
     -webkit-text-fill-color: #000000 !important;
-    height: 25px !important;
-    min-height: 25px !important;
-    padding: 0 4px !important;
+    height: 21px !important;
+    min-height: 21px !important;
+    padding: 0 3px !important;
     margin: 0 !important;
     border: none !important;
     border-bottom: 1.5px solid #000000 !important;
     visibility: visible !important;
   }
   .fee-slip-container .summary-input span {
-    font-size: 8.5pt !important;
+    font-size: 8pt !important;
     font-weight: 900 !important;
-    line-height: 1.1 !important;
+    line-height: 1.0 !important;
     color: #000000 !important;
     visibility: visible !important;
   }
   .fee-slip-container input:not([type=checkbox]):not([type=radio]) {
     font-size: 20pt !important;
     font-weight: 900 !important;
-    height: auto !important;
-    min-height: 25px !important;
+    height: 21px !important;
+    min-height: 21px !important;
     color: #000000 !important;
     -webkit-text-fill-color: #000000 !important;
   }
   .fee-slip-container .header-input input {
     font-size: 20pt !important;
     font-weight: 900 !important;
-    height: auto !important;
-    min-height: 30px !important;
+    height: 26px !important;
+    min-height: 26px !important;
     color: #000000 !important;
     -webkit-text-fill-color: #000000 !important;
   }
   .fee-slip-container .proc-val {
     font-size: 20pt !important;
     font-weight: 900 !important;
-    height: auto !important;
-    min-height: 24px !important;
-    width: 65px !important;
-    border-bottom: 1.5px solid #000000 !important;
+    height: 18px !important;
+    min-height: 18px !important;
+    width: 55px !important;
+    border-bottom: 1px solid #000000 !important;
     color: #000000 !important;
     -webkit-text-fill-color: #000000 !important;
   }
