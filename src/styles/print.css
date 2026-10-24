@@ -2072,7 +2072,7 @@ body.active-form-contact-lens-order {
     height: 100% !important;
   }
 
-  body.active-form-contact-lens-order .bento-interactive-screen,
+  body.active-form-contact-lens-order .bento-dock,
   body.active-form-contact-lens-order aside.sidebar,
   body.active-form-contact-lens-order header.actions-header,
   body.active-form-contact-lens-order .mobile-menu-btn,
@@ -2092,29 +2092,33 @@ body.active-form-contact-lens-order {
     display: block !important;
   }
 
-  body.active-form-contact-lens-order .clo-printout-wrapper {
-    display: block !important;
+  body.active-form-contact-lens-order .clo-main-container {
+    margin: 0 !important;
+    padding: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-    background: #ffffff !important;
-    box-sizing: border-box !important;
   }
 
-  body.active-form-contact-lens-order .clo-print-page {
+  body.active-form-contact-lens-order .clo-sheet-canvas-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
     width: 100% !important;
+    display: block !important;
+  }
+
+  body.active-form-contact-lens-order .clo-sheet-canvas {
+    width: 100% !important;
+    max-width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    margin-bottom: 0 !important;
   }
 
-  body.active-form-contact-lens-order .clo-page-break {
-    page-break-before: always !important;
-    break-before: page !important;
-  }
-
-  body.active-form-contact-lens-order .clo-print-title {
+  body.active-form-contact-lens-order .clo-title-header {
     font-family: Arial, Helvetica, sans-serif !important;
     font-size: 26pt !important;
     font-weight: 800 !important;
@@ -2127,7 +2131,7 @@ body.active-form-contact-lens-order {
     line-height: 1 !important;
   }
 
-  body.active-form-contact-lens-order .clo-print-table {
+  body.active-form-contact-lens-order .clo-table {
     width: 100% !important;
     border-collapse: collapse !important;
     border: 2px solid #000000 !important;
@@ -2137,7 +2141,7 @@ body.active-form-contact-lens-order {
     page-break-inside: avoid !important;
   }
 
-  body.active-form-contact-lens-order .clo-print-table th {
+  body.active-form-contact-lens-order .clo-table th {
     border: 1px solid #000000 !important;
     font-family: Arial, Helvetica, sans-serif !important;
     font-size: 11pt !important;
@@ -2153,58 +2157,79 @@ body.active-form-contact-lens-order {
     print-color-adjust: exact !important;
   }
 
-  body.active-form-contact-lens-order .clo-print-table td {
+  body.active-form-contact-lens-order .clo-table td {
     border: 1px solid #000000 !important;
     height: 33px !important;
     min-height: 33px !important;
-    padding: 2px 6px !important;
-    font-family: Arial, Helvetica, sans-serif !important;
-    font-size: 10.5pt !important;
-    font-weight: 500 !important;
-    color: #000000 !important;
-    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
     vertical-align: middle !important;
-    box-sizing: border-box !important;
+    background: #ffffff !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
-  body.active-form-contact-lens-order .clo-print-table th.col-name,
-  body.active-form-contact-lens-order .clo-print-table td.col-name {
+  body.active-form-contact-lens-order .clo-th-name,
+  body.active-form-contact-lens-order .clo-td-name {
     width: 22.5% !important;
+  }
+
+  body.active-form-contact-lens-order .clo-th-dob,
+  body.active-form-contact-lens-order .clo-td-dob {
+    width: 15.5% !important;
+  }
+
+  body.active-form-contact-lens-order .clo-th-phone,
+  body.active-form-contact-lens-order .clo-td-phone {
+    width: 23.5% !important;
+  }
+
+  body.active-form-contact-lens-order .clo-th-boxes,
+  body.active-form-contact-lens-order .clo-td-boxes {
+    width: 16.5% !important;
+  }
+
+  body.active-form-contact-lens-order .clo-th-instructions,
+  body.active-form-contact-lens-order .clo-td-instructions {
+    width: 22.0% !important;
+  }
+
+  body.active-form-contact-lens-order .clo-input {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 10.5pt !important;
+    font-weight: 500 !important;
+    color: #000000 !important;
+    padding: 2px 6px !important;
+    height: 100% !important;
+  }
+
+  body.active-form-contact-lens-order .clo-input-name {
     text-align: left !important;
     padding-left: 8px !important;
   }
 
-  body.active-form-contact-lens-order .clo-print-table th.col-dob,
-  body.active-form-contact-lens-order .clo-print-table td.col-dob {
-    width: 15.5% !important;
+  body.active-form-contact-lens-order .clo-input-dob,
+  body.active-form-contact-lens-order .clo-input-phone,
+  body.active-form-contact-lens-order .clo-input-boxes {
     text-align: center !important;
   }
 
-  body.active-form-contact-lens-order .clo-print-table th.col-phone,
-  body.active-form-contact-lens-order .clo-print-table td.col-phone {
-    width: 23.5% !important;
-    text-align: center !important;
-  }
-
-  body.active-form-contact-lens-order .clo-print-table th.col-boxes,
-  body.active-form-contact-lens-order .clo-print-table td.col-boxes {
-    width: 16.5% !important;
-    text-align: center !important;
-  }
-
-  body.active-form-contact-lens-order .clo-print-table th.col-ins,
-  body.active-form-contact-lens-order .clo-print-table td.col-ins {
-    width: 22.0% !important;
+  body.active-form-contact-lens-order .clo-input-instructions {
     text-align: left !important;
     padding-left: 6px !important;
   }
 
-  /* When printing blank: completely hide any written text */
-  body.active-form-contact-lens-order.print-blank-active .clo-cell-value,
-  body.active-form-contact-lens-order.mode-print-blank .clo-cell-value,
-  body.active-form-contact-lens-order .clo-force-blank .clo-cell-value {
-    display: none !important;
+  /* When printing blank: completely hide any input text & placeholder */
+  body.active-form-contact-lens-order.print-blank-active .clo-input,
+  body.active-form-contact-lens-order.mode-print-blank .clo-input,
+  body.active-form-contact-lens-order .clo-force-blank .clo-input {
+    color: transparent !important;
+  }
+
+  body.active-form-contact-lens-order .clo-input::placeholder {
+    color: transparent !important;
   }
 }
