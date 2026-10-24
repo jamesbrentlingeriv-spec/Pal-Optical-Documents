@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pal-optical-v11';
+const CACHE_NAME = 'pal-optical-v12';
 const ASSETS = [
   '/',
   '/index.html',
@@ -21,6 +21,7 @@ const ASSETS = [
   '/jamessig.jpg',
   '/jamessig.png',
   '/CARRIBYAN%20SIG.jpg',
+  '/src/forms/ContactLensOrderForm.js',
   '/src/forms/CMS1500Form.js',
   '/src/forms/ChildNoPolyForm.js',
   '/src/forms/DrSideNewPatientForm.js',

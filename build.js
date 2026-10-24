@@ -123,6 +123,17 @@ if (fs.existsSync(insuranceSrc)) {
   console.log("  ✓ insurance info folder copied to dist");
 }
 
+// Step 7: Copy PWA service worker and manifest to dist
+console.log("\n📱 Copying PWA assets...");
+["sw.js", "manifest.json", "site.webmanifest", "icon.svg", "favicon.ico"].forEach((file) => {
+  const src = path.join(__dirname, file);
+  const dst = path.join(__dirname, "dist", file);
+  if (fs.existsSync(src)) {
+    fs.copyFileSync(src, dst);
+    console.log(`  ✓ ${file}`);
+  }
+});
+
 console.log("\n✅ Build complete! Ready for Vercel deployment.\n");
 console.log("📂 Dist folder structure:");
 console.log("   - index.html");
