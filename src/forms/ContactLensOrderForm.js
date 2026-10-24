@@ -372,7 +372,7 @@ export class ContactLensOrderForm {
                   <th class="clo-th-phone">PHONE NUMBER</th>
                   <th class="clo-th-boxes">NUMBER OF BOXES</th>
                   <th class="clo-th-instructions">
-                    INSURANCE USED?<br>SPECIAL INSTRUCTIONS?
+                    INSURANCE USED?<br>SPECIAL INSTRUCTIONS
                   </th>
                 </tr>
               </thead>
