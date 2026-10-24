@@ -2234,3 +2234,157 @@ body.active-form-contact-lens-order {
     color: transparent !important;
   }
 }
+
+
+/* ==========================================================================
+   WAITING TO BE PICKED UP SHEET (50 ROWS) - EXACT PRINT REPLICA
+   ========================================================================== */
+
+@page contact-lens-pickup-sheet {
+  size: letter landscape !important;
+  margin: 0.25in !important;
+}
+
+body.active-form-contact-lens-pickup,
+body.printing-pickup-sheet {
+  page: contact-lens-pickup-sheet !important;
+}
+
+@media print {
+  body.active-form-contact-lens-pickup .clo-top-nav,
+  body.active-form-contact-lens-pickup .bento-dock,
+  body.active-form-contact-lens-pickup aside.sidebar,
+  body.active-form-contact-lens-pickup header.actions-header,
+  body.active-form-contact-lens-pickup .no-print,
+  body.printing-pickup-sheet .clo-top-nav,
+  body.printing-pickup-sheet .bento-dock,
+  body.printing-pickup-sheet aside.sidebar,
+  body.printing-pickup-sheet header.actions-header,
+  body.printing-pickup-sheet .no-print,
+  body.printing-pickup-sheet .non-printable-tab {
+    display: none !important;
+  }
+
+  body.printing-daily-pad .clo-pickup-sheet-wrapper,
+  body.printing-daily-pad .non-printable-tab {
+    display: none !important;
+  }
+
+  body.active-form-contact-lens-pickup .clo-pickup-sheet-wrapper,
+  body.printing-pickup-sheet .clo-pickup-sheet-wrapper {
+    display: block !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    overflow: visible !important;
+  }
+
+  body.active-form-contact-lens-pickup .clo-pickup-sheet-canvas,
+  body.printing-pickup-sheet .clo-pickup-sheet-canvas {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  .cl-pickup-sheet-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border: 1px solid #000000 !important;
+    table-layout: fixed !important;
+    background: #ffffff !important;
+    font-family: Arial, "ArialMT", Helvetica, sans-serif !important;
+    font-size: 8pt !important;
+    page-break-inside: auto !important;
+  }
+
+  .cl-pickup-sheet-table thead {
+    display: table-header-group !important;
+  }
+
+  .cl-pickup-sheet-table tr {
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
+  }
+
+  .cl-pickup-sheet-table th {
+    border: 1px solid #000000 !important;
+    font-family: Arial, "Arial-BoldMT", Helvetica, sans-serif !important;
+    font-size: 8.5pt !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 3px 2px !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    line-height: 1.15 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cl-pickup-sheet-table td {
+    border: 1px solid #000000 !important;
+    padding: 2px 3px !important;
+    vertical-align: middle !important;
+    height: 20pt !important;
+    line-height: 1.15 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 8pt !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cl-pickup-sheet-table .col-date-ordered { width: 7.5% !important; text-align: center !important; }
+  .cl-pickup-sheet-table .col-patient { width: 16.5% !important; text-align: left !important; }
+  .cl-pickup-sheet-table .col-phone { width: 11.5% !important; text-align: center !important; }
+  .cl-pickup-sheet-table .col-brand { width: 15.5% !important; text-align: left !important; }
+  .cl-pickup-sheet-table .col-rx-r { width: 8.5% !important; text-align: center !important; }
+  .cl-pickup-sheet-table .col-qty-r { width: 2.5% !important; text-align: center !important; }
+  .cl-pickup-sheet-table .col-rx-l { width: 8.5% !important; text-align: center !important; }
+  .cl-pickup-sheet-table .col-qty-l { width: 2.5% !important; text-align: center !important; }
+  .cl-pickup-sheet-table .col-amt { width: 6.5% !important; text-align: center !important; }
+  .cl-pickup-sheet-table .col-pd { width: 3.5% !important; text-align: center !important; }
+  .cl-pickup-sheet-table .col-received { width: 8.0% !important; text-align: center !important; }
+  .cl-pickup-sheet-table .col-drawer { width: 4.5% !important; text-align: center !important; font-weight: bold !important; }
+  .cl-pickup-sheet-table .col-called { width: 8.5% !important; text-align: center !important; }
+
+  .patient-name {
+    font-weight: bold !important;
+    color: #000000 !important;
+  }
+
+  .patient-note {
+    font-size: 7.5pt !important;
+    color: #000000 !important;
+    font-weight: normal !important;
+    display: block !important;
+  }
+
+  .pickup-cell-input {
+    border: none !important;
+    background: transparent !important;
+    font-family: Arial, "ArialMT", Helvetica, sans-serif !important;
+    font-size: 8pt !important;
+    text-align: center !important;
+    padding: 0 !important;
+    color: #000000 !important;
+  }
+
+  /* Blank printing for pickup sheet */
+  body.print-blank-active .cl-pickup-sheet-table td,
+  body.active-form-contact-lens-pickup.print-blank-active .pickup-cell-input,
+  .clo-force-blank .pickup-cell-input,
+  .clo-force-blank .patient-name,
+  .clo-force-blank .patient-note,
+  .clo-force-blank .phone-cell-content,
+  .clo-force-blank .brand-cell-content,
+  .clo-force-blank td {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+}

@@ -28,6 +28,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 const rootDir = process.env.NODE_ENV === "production" ? path.join(__dirname, "..") : __dirname;
 const dataDir = path.join(rootDir, "data");
 const priceListFile = path.join(dataDir, "price-list-data.json");
+const clOrdersFile = path.join(dataDir, "contact-lens-orders.json");
 
 app.get("/api/price-list", (req: Request, res: Response) => {
   try {
@@ -58,6 +59,40 @@ app.post("/api/price-list", (req: Request, res: Response) => {
     return res.json({ success: true, updatedAt, cloudPersisted: true });
   } catch (err: any) {
     console.error("Error saving price list file:", err);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Contact Lens Orders multi-computer sync endpoints
+app.get(["/api/contact-lens-orders", "/api/contact-lens-sync"], (req: Request, res: Response) => {
+  try {
+    if (fs.existsSync(clOrdersFile)) {
+      const content = fs.readFileSync(clOrdersFile, "utf-8");
+      return res.json({ success: true, data: JSON.parse(content) });
+    }
+    return res.json({ success: true, data: null });
+  } catch (err: any) {
+    console.error("Error reading CL orders file:", err);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post(["/api/contact-lens-orders", "/api/contact-lens-sync"], (req: Request, res: Response) => {
+  try {
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    let payload = req.body;
+    if (payload && payload.data) payload = payload.data;
+    const updatedAt = new Date().toISOString();
+    if (payload && typeof payload === "object") {
+      if (!payload.meta) payload.meta = {};
+      payload.meta.lastSyncedAt = updatedAt;
+    }
+    fs.writeFileSync(clOrdersFile, JSON.stringify(payload, null, 2), "utf-8");
+    return res.json({ success: true, updatedAt, cloudPersisted: true });
+  } catch (err: any) {
+    console.error("Error saving CL orders file:", err);
     return res.status(500).json({ success: false, error: err.message });
   }
 });
