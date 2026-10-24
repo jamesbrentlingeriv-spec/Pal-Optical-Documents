@@ -822,29 +822,44 @@
 
 @media print {
 
-  /* Scoped print overrides for active-form-fee-slip to extend down to the bottom and ensure 20pt inputs */
+  /* Scoped print overrides for active-form-fee-slip ensuring ledger (paid & insurance) is 100% visible */
+  @page fee-slip-page {
+    size: letter portrait;
+    margin: 0.2in 0.25in 0.25in 0.25in !important;
+  }
+
+  body.active-form-fee-slip {
+    page: fee-slip-page !important;
+  }
+
   body.active-form-fee-slip,
   body.active-form-fee-slip .app-container,
   body.active-form-fee-slip .main-panel,
   body.active-form-fee-slip .form-viewport {
     height: 100% !important;
     max-height: 100% !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     padding: 0 !important;
     margin: 0 !important;
   }
 
   body.active-form-fee-slip .fee-slip-container {
-    padding: 0.15in 0.2in !important;
+    padding: 0 !important;
+    margin: 0 !important;
     border: none !important;
     box-shadow: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
     height: 100% !important;
-    min-height: 10.4in !important;
-    max-height: 10.5in !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     box-sizing: border-box !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    overflow: visible !important;
   }
 
   body.active-form-fee-slip .fee-slip-container #fee-slip-form {
@@ -853,6 +868,7 @@
     flex: 1 1 auto !important;
     height: 100% !important;
     justify-content: space-between !important;
+    overflow: visible !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .flex-1.grid.grid-cols-12 {
@@ -862,6 +878,7 @@
     gap-x: 6px !important;
     height: 100% !important;
     align-items: stretch !important;
+    overflow: visible !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .col-span-4 {
@@ -869,79 +886,147 @@
     flex-direction: column !important;
     height: 100% !important;
     justify-content: space-between !important;
+    overflow: visible !important;
+  }
+
+  /* Compact diagnosis & procedure rows in print */
+  body.active-form-fee-slip .fee-slip-container .label-text {
+    font-size: 6.5px !important;
+    line-height: 1.05 !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .code-text {
+    font-size: 5.5px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .section-title {
+    font-size: 8px !important;
+    padding: 0px 1px !important;
+    margin-top: 1px !important;
+    margin-bottom: 1px !important;
+    border-bottom: 1.5px solid #000 !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .checkbox-custom,
+  body.active-form-fee-slip .fee-slip-container .radio-custom {
+    height: 7.5px !important;
+    width: 7.5px !important;
+    min-height: 7.5px !important;
+    min-width: 7.5px !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .scale-75 {
+    transform: none !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .gap-1 {
+    gap: 1px !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .py-0 {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
   }
 
   body.active-form-fee-slip .fee-slip-container input:not([type=checkbox]):not([type=radio]) {
     font-size: 20pt !important;
     font-weight: 900 !important;
     height: auto !important;
-    min-height: 28px !important;
-    line-height: 1.1 !important;
+    min-height: 25px !important;
+    line-height: 1.0 !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .header-input input {
     font-size: 20pt !important;
     font-weight: 900 !important;
     height: auto !important;
-    min-height: 32px !important;
+    min-height: 30px !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .header-input span {
     font-size: 11px !important;
   }
 
+  /* Procedure value input in columns */
+  body.active-form-fee-slip .fee-slip-container .proc-val {
+    font-size: 20pt !important;
+    font-weight: 900 !important;
+    height: 22px !important;
+    min-height: 22px !important;
+    width: 65px !important;
+    border-bottom: 1.5px solid #000 !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    line-height: 1.0 !important;
+  }
+
+  /* Summary Box (Ledger) - how much they paid (Received) and what insurance (Payment Type / Ins Used) */
   body.active-form-fee-slip .fee-slip-container .summary-input {
     margin-top: auto !important;
-    padding-top: 4px !important;
-    border-top: 4px solid #000 !important;
+    padding-top: 3px !important;
+    padding-bottom: 1px !important;
+    border-top: 3px solid #000 !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 3px !important;
+    gap: 2px !important;
+    visibility: visible !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .summary-input > div {
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+    gap: 4px !important;
+    visibility: visible !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .summary-input span {
+    font-size: 8.5pt !important;
+    font-weight: 900 !important;
+    line-height: 1.1 !important;
+    color: #000000 !important;
+    visibility: visible !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .summary-input input {
     font-size: 20pt !important;
     font-weight: 900 !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
     text-align: left !important;
-    height: auto !important;
-    min-height: 28px !important;
-    border-bottom: 1px solid #000 !important;
+    height: 25px !important;
+    min-height: 25px !important;
+    line-height: 1.0 !important;
+    border: none !important;
+    border-bottom: 1.5px solid #000000 !important;
+    padding: 0 4px !important;
+    background: transparent !important;
+    visibility: visible !important;
   }
 
-  body.active-form-fee-slip .fee-slip-container .summary-input span {
-    font-size: 10px !important;
-    line-height: 1.1 !important;
+  body.active-form-fee-slip .fee-slip-container .summary-input .border-b {
+    border-bottom: 1.5px solid #000000 !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    visibility: visible !important;
   }
 
-  body.active-form-fee-slip .fee-slip-container .label-text {
-    font-size: 7.2px !important;
-    line-height: 1.05 !important;
-  }
-
-  body.active-form-fee-slip .fee-slip-container .code-text {
-    font-size: 6px !important;
-  }
-
-  body.active-form-fee-slip .fee-slip-container .section-title {
-    font-size: 8.5px !important;
-    padding: 1px 2px !important;
-    margin-bottom: 2px !important;
-    border-bottom: 2px solid #000 !important;
-  }
-
-  body.active-form-fee-slip .fee-slip-container .checkbox-custom,
-  body.active-form-fee-slip .fee-slip-container .radio-custom {
-    height: 9px !important;
-    width: 9px !important;
-  }
-
-  body.active-form-fee-slip .fee-slip-container .proc-val {
-    font-size: 20pt !important;
+  body.active-form-fee-slip .fee-slip-container .summary-input span.text-sm {
+    font-size: 14pt !important;
     font-weight: 900 !important;
-    height: auto !important;
-    min-height: 26px !important;
-    width: 65px !important;
-    border-bottom: 1px solid #000 !important;
+    line-height: 1.0 !important;
+    color: #000000 !important;
+    visibility: visible !important;
+  }
+
+  body.active-form-fee-slip .fee-slip-container .summary-input .mt-2 {
+    margin-top: 1px !important;
   }
 
   body.active-form-fee-slip .fee-slip-container div[class*="mt-auto pt-4 border-t-2"] div {
@@ -950,15 +1035,15 @@
   }
 
   body.active-form-fee-slip .fee-slip-container div[class*="min-h-[50px]"] {
-    min-height: 15px !important;
+    min-height: 35px !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .mb-4 {
-    margin-bottom: 6px !important;
+    margin-bottom: 4px !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .mt-2 {
-    margin-top: 2px !important;
+    margin-top: 1px !important;
   }
 
   body.active-form-fee-slip .fee-slip-container .mt-auto {

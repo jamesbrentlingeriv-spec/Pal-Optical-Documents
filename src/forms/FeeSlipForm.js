@@ -485,11 +485,10 @@ export class FeeSlipForm {
             </div>
           </div>
           
-          <!-- Bottom Row: Watermark only or empty spacer -->
-          <div class="flex justify-between items-end gap-8 mt-4 relative min-h-[50px]">
-            <!-- BOTH Watermark/Indicator -->
+          <!-- Both Overlay Watermark (zero height when inactive so nothing is pushed off print) -->
+          <div id="fs-both-watermark" class="relative print:m-0">
             ${isBothActive ? `
-              <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-12 text-[32pt] font-black uppercase border-4 border-black px-12 py-2 bg-white">
+              <div class="absolute left-1/2 -translate-x-1/2 bottom-2 text-[28pt] font-black uppercase border-4 border-black px-10 py-1 bg-white pointer-events-none z-10">
                 BOTH
               </div>
             ` : ''}
@@ -612,10 +611,10 @@ export class FeeSlipForm {
   
   updateBothOverlay() {
     const isBothActive = this.state.contactsOther && this.state.contactsOther !== '0' && this.state.contactsOther !== '';
-    const watermarkContainer = this.container.querySelector('.relative.min-h-\\[50px\\]');
+    const watermarkContainer = this.container.querySelector('#fs-both-watermark');
     if (watermarkContainer) {
       if (isBothActive) {
-        watermarkContainer.innerHTML = `<div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-12 text-[32pt] font-black uppercase border-4 border-black px-12 py-2 bg-white">BOTH</div>`;
+        watermarkContainer.innerHTML = `<div class="absolute left-1/2 -translate-x-1/2 bottom-2 text-[28pt] font-black uppercase border-4 border-black px-10 py-1 bg-white pointer-events-none z-10">BOTH</div>`;
       } else {
         watermarkContainer.innerHTML = '';
       }
