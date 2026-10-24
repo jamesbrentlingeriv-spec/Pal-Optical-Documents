@@ -295,7 +295,7 @@ class App {
         this.currentFormInstance = new SafetyOrderForm(renderTarget, formState, callback);
         break;
       case 'contact-lens-order':
-        name = state.rows?.find(r => r.name?.trim())?.name || 'Contact Lens Orders';
+        this.currentFormInstance = new ContactLensOrderForm(renderTarget, formState, callback);
         break;
       case 'pd-record':
         this.currentFormInstance = new PDForm(renderTarget, formState, callback);
@@ -483,7 +483,7 @@ class App {
         name = state.Text_4;
         break;
       case 'contact-lens-order':
-        name = state.rows?.find(r => r.name?.trim())?.name || 'Contact Lens Orders';
+        this.currentFormInstance = new ContactLensOrderForm(renderTarget, formState, callback);
         break;
       case 'pd-record':
       case 'eyeglass-job-note':
