@@ -211,6 +211,8 @@ class App {
     }
     switch (formId) {
       case 'patient-info': return 'Patient Information Sheet';
+      case 'patient-info-es': return 'Patient Information Sheet (Spanish)';
+      case 'patient-info-fr': return 'Patient Information Sheet (French)';
       case 'dr-side-patient': return 'Dr. Side New Patient Form';
       case 'prior-auth': return 'Medicaid / Avesis Prior Auth';
       case 'price-quote': return 'Eyewear Price Quote';
@@ -279,6 +281,9 @@ class App {
     
     // Add current active form class to body
     document.body.classList.add(`active-form-${this.activeFormId}`);
+    if (this.activeFormId.startsWith('patient-info')) {
+      document.body.classList.add('active-form-patient-info');
+    }
     
     // Fetch saved state for this form
     const formState = this.formData[this.activeFormId] || {};
@@ -297,7 +302,13 @@ class App {
 
     switch (this.activeFormId) {
       case 'patient-info':
-        this.currentFormInstance = new PatientInfoForm(renderTarget, formState, callback);
+        this.currentFormInstance = new PatientInfoForm(renderTarget, this.getPatientInfoState(), callback, 'en', (lang) => this.switchPatientInfoLanguage(lang));
+        break;
+      case 'patient-info-es':
+        this.currentFormInstance = new PatientInfoForm(renderTarget, this.getPatientInfoState(), callback, 'es', (lang) => this.switchPatientInfoLanguage(lang));
+        break;
+      case 'patient-info-fr':
+        this.currentFormInstance = new PatientInfoForm(renderTarget, this.getPatientInfoState(), callback, 'fr', (lang) => this.switchPatientInfoLanguage(lang));
         break;
       case 'dr-side-patient':
         this.currentFormInstance = new DrSideNewPatientForm(renderTarget, formState, callback);
@@ -441,6 +452,14 @@ class App {
       this.formActions.updateDescription('Polycarbonate balance lens refusal & assumption of risk waiver (bilingual)');
       this.formActions.setControlsVisibility(true, true);
       this.formActions.setOpenTabUrl(null);
+    } else if (this.activeFormId === 'patient-info-es') {
+      this.formActions.updateDescription('Hoja de Información del Paciente • Llenar digitalmente o imprimir en blanco');
+      this.formActions.setControlsVisibility(true, true);
+      this.formActions.setOpenTabUrl(null);
+    } else if (this.activeFormId === 'patient-info-fr') {
+      this.formActions.updateDescription('Fiche de Renseignements du Patient • Remplir ou imprimer formulaire vierge');
+      this.formActions.setControlsVisibility(true, true);
+      this.formActions.setOpenTabUrl(null);
     } else {
       this.formActions.updateDescription('Choose fill option or print directly');
       this.formActions.setControlsVisibility(true, true);
@@ -449,8 +468,28 @@ class App {
     this.updateDocumentTitle();
   }
   
+  getPatientInfoState() {
+    return this.formData['patient-info'] || this.formData['patient-info-es'] || this.formData['patient-info-fr'] || {};
+  }
+
+  switchPatientInfoLanguage(lang) {
+    const targetId = lang === 'es' ? 'patient-info-es' : lang === 'fr' ? 'patient-info-fr' : 'patient-info';
+    if (this.activeFormId !== targetId) {
+      this.activeFormId = targetId;
+      if (this.sidebar) {
+        this.sidebar.setActive(targetId);
+      }
+      this.updateHeader();
+    }
+  }
+
   saveFormState(formId, state) {
     this.formData[formId] = state;
+    if (formId.startsWith('patient-info')) {
+      this.formData['patient-info'] = state;
+      this.formData['patient-info-es'] = state;
+      this.formData['patient-info-fr'] = state;
+    }
     this.saveState();
     this.updateDocumentTitle();
   }
@@ -490,6 +529,8 @@ class App {
     // 2. Try form-specific logic based on formId
     switch (formId) {
       case 'patient-info':
+      case 'patient-info-es':
+      case 'patient-info-fr':
         name = state.name;
         break;
       case 'dr-side-patient':

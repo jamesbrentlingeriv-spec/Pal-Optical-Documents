@@ -11,6 +11,8 @@ export class Sidebar {
         title: 'Patient Administration',
         items: [
           { id: 'patient-info', label: 'Patient Information Sheet', icon: 'user' },
+          { id: 'patient-info-es', label: 'Patient Info (Spanish / Español)', icon: 'user' },
+          { id: 'patient-info-fr', label: 'Patient Info (French / Français)', icon: 'user' },
           { id: 'dr-side-patient', label: 'Dr. Side New Patient Form', icon: 'user' }
         ]
       },
@@ -240,6 +242,24 @@ export class Sidebar {
     if (closeBtn) {
       closeBtn.addEventListener('click', () => this.closeMobileDrawer());
     }
+  }
+
+  setActive(formId) {
+    this.activeFormId = formId;
+    const items = this.container.querySelectorAll('.menu-item');
+    items.forEach(item => {
+      if (item.getAttribute('data-form-id') === formId) {
+        item.classList.add('active');
+        const parentFolder = item.closest('.menu-folder');
+        if (parentFolder) {
+          parentFolder.classList.add('open');
+          const header = parentFolder.querySelector('.menu-folder-header');
+          if (header) header.setAttribute('aria-expanded', 'true');
+        }
+      } else {
+        item.classList.remove('active');
+      }
+    });
   }
   
   closeMobileDrawer() {
